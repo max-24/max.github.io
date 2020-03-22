@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="collection,">
+  <meta name="keywords" content="netty,">
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="集合继承关系 1、Iterator​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。 ​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的 123456789101112131415161718192021  default void forEachRemaining(Co">
-<meta name="keywords" content="collection">
+<meta name="description" content="客户端请求在pipeline中handler处理器的执行过程分析1、回顾下服务器接收请求的过程 NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在 processSelectedKeys()方法中处理。  这个方法内部判断，如果是Accept事件，调用 unsafe.read()方法。其中， doReadMessages(L">
+<meta name="keywords" content="netty">
 <meta property="og:type" content="article">
-<meta property="og:title" content="collection的一些底层方法">
-<meta property="og:url" content="http://yoursite.com/2019/06/20/collection的一些底层方法/index.html">
+<meta property="og:title" content="&#39;自定义channelhandler处理器执行客户端请求的过程分析&#39;">
+<meta property="og:url" content="http://yoursite.com/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="集合继承关系 1、Iterator​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。 ​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的 123456789101112131415161718192021  default void forEachRemaining(Co">
+<meta property="og:description" content="客户端请求在pipeline中handler处理器的执行过程分析1、回顾下服务器接收请求的过程 NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在 processSelectedKeys()方法中处理。  这个方法内部判断，如果是Accept事件，调用 unsafe.read()方法。其中， doReadMessages(L">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png">
-<meta property="og:updated_time" content="2019-06-20T02:42:04.700Z">
+<meta property="og:updated_time" content="2020-03-22T13:29:17.880Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="collection的一些底层方法">
-<meta name="twitter:description" content="集合继承关系 1、Iterator​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。 ​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的 123456789101112131415161718192021  default void forEachRemaining(Co">
-<meta name="twitter:image" content="http://yoursite.com/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png">
+<meta name="twitter:title" content="&#39;自定义channelhandler处理器执行客户端请求的过程分析&#39;">
+<meta name="twitter:description" content="客户端请求在pipeline中handler处理器的执行过程分析1、回顾下服务器接收请求的过程 NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在 processSelectedKeys()方法中处理。  这个方法内部判断，如果是Accept事件，调用 unsafe.read()方法。其中， doReadMessages(L">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/06/20/collection的一些底层方法/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/">
 
 
 
 
 
-  <title>collection的一些底层方法 | Hexo</title>
+  <title>'自定义channelhandler处理器执行客户端请求的过程分析' | Hexo</title>
   
 
 
@@ -266,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/collection的一些底层方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Max">
@@ -283,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">collection的一些底层方法</h1>
+          <h1 class="post-title" itemprop="name headline">'自定义channelhandler处理器执行客户端请求的过程分析'</h1>
         
 
         <div class="post-meta">
@@ -295,8 +293,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:30:44+08:00">
-                2019-06-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-22T21:27:28+08:00">
+                2020-03-22
               </time>
             
 
@@ -318,8 +316,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
-                    <span itemprop="name">集合容器</span>
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
                   </a>
                 </span>
 
@@ -360,13 +358,35 @@
       
 
       
-        <h6 id="集合继承关系"><a href="#集合继承关系" class="headerlink" title="集合继承关系"></a>集合继承关系</h6><p><img src="/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png" alt="集合"></p>
-<h6 id="1、Iterator"><a href="#1、Iterator" class="headerlink" title="1、Iterator"></a>1、Iterator</h6><p>​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。</p>
-<p>​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  default void forEachRemaining(Consumer&lt;? super E&gt; action) &#123;</span><br><span class="line">      Objects.requireNonNull(action);</span><br><span class="line">      while (hasNext())</span><br><span class="line">          action.accept(next());</span><br><span class="line">  &#125;</span><br><span class="line">  //使用时需要重写accept方法（）,集合类会覆盖这个方法</span><br><span class="line">  forEach(new Consumer&lt;E&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void accept(E e) &#123;</span><br><span class="line">      //TODO</span><br><span class="line">  &#125;</span><br><span class="line">  比如：</span><br><span class="line">  list.add(&quot;1&quot;);</span><br><span class="line">  list.add(&quot;2&quot;);</span><br><span class="line">  list.forEach(new Consumer&lt;String&gt;()&#123;</span><br><span class="line">      @Override</span><br><span class="line">      public void accept(String s)&#123;</span><br><span class="line">System.out.println(s);&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  //也可以使用Lambda表达式</span><br><span class="line">  list.forEach(str-&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
+        <h5 id="客户端请求在pipeline中handler处理器的执行过程分析"><a href="#客户端请求在pipeline中handler处理器的执行过程分析" class="headerlink" title="客户端请求在pipeline中handler处理器的执行过程分析"></a>客户端请求在pipeline中handler处理器的执行过程分析</h5><h6 id="1、回顾下服务器接收请求的过程"><a href="#1、回顾下服务器接收请求的过程" class="headerlink" title="1、回顾下服务器接收请求的过程"></a>1、回顾下服务器接收请求的过程</h6><ul>
+<li><p>NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在</p>
+<p><code>processSelectedKeys()</code>方法中处理。</p>
+</li>
+<li><p>这个方法内部判断，如果是Accept事件，调用 <code>unsafe.read()</code>方法。其中， <code>doReadMessages(List&lt;Object&gt; buf)</code> 方法使用<code>SocketUtils.accept()</code>生成客户端连接通道对象SoketChannel，添加到buf集合中。</p>
+</li>
+<li><p><code>unfase.read()</code>接着遍历buf集合， 将每个客户端连接通道对象传入NioServerSocketChannel的pipeline对象中，执行方法<code>pipeline.fireChannelRead(this.readBuf.get(i))</code>。</p>
+</li>
+<li><p><code>fireChannelRead()</code>方法中。之前在netty启动过程已经将NioServerSocketChannel的pipeline，设置ChannelHandlerContext双向链表，包含的节点是：head内部类头节点——&gt;LoggingHandler处理器构成的一个节点——&gt;ServerBootstrap.ServerBootstrapAcceptor处理器构成的一个节点——&gt;tail内部类尾节点。</p>
+<p><code>fireChannelRead()</code>方法内部调用<code>invokeChannelRead(this.findContextInbound(32), msg)</code>方法，会不断执行所有的节点<code>channelRead()</code>方法。当执行到ServerBootstrapAcceptor处理器所在的节点，先得到SocketChannel的pipeline对象，将在服务端代码自定义的handler对象通过addLast()方法加到pipeline对象中。这样生成的客户端连接通道对象，pipeline中就构建了channelhandler处理器链。最后还要将SocketChannel对象注册到childgroup中一个NioEventLoop线程，并添加监视器。<code>this.childGroup.register(child).addListener()</code> 。</p>
+</li>
+<li><p>这节分析的就是客户端连接通道对象，在pipeline中怎么执行我们自定义的channelhandler。</p>
+</li>
+</ul>
+<h6 id="2、NioSocketChannel通道处理事件的过程"><a href="#2、NioSocketChannel通道处理事件的过程" class="headerlink" title="2、NioSocketChannel通道处理事件的过程"></a>2、NioSocketChannel通道处理事件的过程</h6><p>​    当把NioSocketChannel通道注册到workgroup的eventloop线程，其实和NioServerSocketChannel通道处理</p>
+<pre><code>客户端事件一样。也会在eventloop线程中监听客户端的事件。</code></pre><ul>
+<li><p>NioEventLoop中run()方法的<code>this.processSelectedKeys()</code>方法，其内部调用<code>this.processSelectedKeysOptimized()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processSelectedKeysOptimized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//这里selectedKeys大小为一，即一个客户端连接事件</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.selectedKeys.size; ++i) &#123;</span><br><span class="line">        SelectionKey k = <span class="keyword">this</span>.selectedKeys.keys[i];</span><br><span class="line">        <span class="keyword">this</span>.selectedKeys.keys[i] = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//attachment()返回的是NioSocketChannel客户端连接通道对象</span></span><br><span class="line">        Object a = k.attachment();</span><br><span class="line">        <span class="keyword">if</span> (a <span class="keyword">instanceof</span> AbstractNioChannel) &#123;</span><br><span class="line">            <span class="comment">//再调用这个方法</span></span><br><span class="line">            <span class="keyword">this</span>.processSelectedKey(k, (AbstractNioChannel)a);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            NioTask&lt;SelectableChannel&gt; task = (NioTask)a;</span><br><span class="line">            processSelectedKey(k, task);</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.needsToSelectAgain) &#123;</span><br><span class="line">            <span class="keyword">this</span>.selectedKeys.reset(i + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">this</span>.selectAgain();</span><br><span class="line">            i = -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后的逻辑就和NioServerSocketChannel的处理一样，监听到Accept事件，执行unsafe.read()方法，然后依次执行SocketChannel的pipeline中的ChannelHandlerContext的<code>channelRead()</code>方法，比如我们自定义了EchoServerHandler类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EchoServerHandler</span>  <span class="keyword">extends</span> <span class="title">ChannelInboundHandlerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(ChannelHandlerContext ctx, Object msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ctx.write(msg);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelReadComplete</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ctx.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        cause.printStackTrace();</span><br><span class="line">        ctx.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>注意：forEach与当前线程方法是异步执行的，但是当前线程改变原有的集合，并不会影响forEach遍历的对象。可能是使用了ThreadLocal。</p>
-<p>​    Iterator子接口LinkedIterator在它的基础上增加了add(),previous(),hasprevious()。对于无序集合，如HashSet、HashMap等就使用Iterator。对于有序集合比LinkedList、LinkedHashMap等,就使用LinkedIterator，能前后遍历。</p>
+<p>执行完ChannelHandlerContext链的头节点后，就执行EchoServerHandler的节点，channelRead()方法就会执行我们重写的方法。</p>
+<p>当然，后面还可以依次执行每个节点的channelReadComplete方法。包括出现异常时执行exceptionCaught方法。</p>
+</li>
+</ul>
+<h6 id="3、小节"><a href="#3、小节" class="headerlink" title="3、小节"></a>3、小节</h6><p>​    其实把NioSocketChannel注册到NioEventLoop线程后，处理客户端的事件和NioServerSocketChannel处理</p>
+<p>​    连接事件一样。需要注意的是两个通道对象一个是在bossgroup的线程中注册，一个是在workgroup中线程</p>
+<p>​    注册。</p>
 
       
     </div>
@@ -384,7 +404,7 @@
       
         <div class="post-tags">
           
-            <a href="/max.github.io/tags/collection/" rel="tag"># collection</a>
+            <a href="/max.github.io/tags/netty/" rel="tag"># netty</a>
           
         </div>
       
@@ -397,8 +417,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/" rel="next" title="JVM方法区的变更--字符串常量池">
-                <i class="fa fa-chevron-left"></i> JVM方法区的变更--字符串常量池
+              <a href="/max.github.io/2020/03/09/netty接受客户端请求过程分析/" rel="next" title="netty接受客户端请求过程分析">
+                <i class="fa fa-chevron-left"></i> netty接受客户端请求过程分析
               </a>
             
           </div>
@@ -406,10 +426,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/max.github.io/2019/06/20/List相关整理/" rel="prev" title="List相关整理">
-                List相关整理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#集合继承关系"><span class="nav-number">1.</span> <span class="nav-text">集合继承关系</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1、Iterator"><span class="nav-number">2.</span> <span class="nav-text">1、Iterator</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端请求在pipeline中handler处理器的执行过程分析"><span class="nav-number">1.</span> <span class="nav-text">客户端请求在pipeline中handler处理器的执行过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、回顾下服务器接收请求的过程"><span class="nav-number">1.1.</span> <span class="nav-text">1、回顾下服务器接收请求的过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、NioSocketChannel通道处理事件的过程"><span class="nav-number">1.2.</span> <span class="nav-text">2、NioSocketChannel通道处理事件的过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、小节"><span class="nav-number">1.3.</span> <span class="nav-text">3、小节</span></a></li></ol></li></ol></div>
             
 
           </div>
