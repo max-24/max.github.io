@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="客户端请求在pipeline中handler处理器的执行过程分析1、回顾下服务器接收请求的过程 NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在processSelectedKeys()方法中处理。  这个方法内部判断，如果是Accept事件，调用 unsafe.read()方法。其中， doReadMessages(Li">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-22T14:46:40.667Z">
+<meta property="og:updated_time" content="2020-03-22T14:49:18.764Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义channelhandler处理器执行客户端请求的过程分析">
 <meta name="twitter:description" content="客户端请求在pipeline中handler处理器的执行过程分析1、回顾下服务器接收请求的过程 NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在processSelectedKeys()方法中处理。  这个方法内部判断，如果是Accept事件，调用 unsafe.read()方法。其中， doReadMessages(Li">
@@ -382,7 +382,7 @@
 <p>执行完ChannelHandlerContext链的头节点后，就执行EchoServerHandler的节点，channelRead()方法就会执行我们重写的方法。<br>当然，后面还可以依次执行每个节点的channelReadComplete方法。包括出现异常时执行 exceptionCaught    方法。</p>
 </li>
 </ul>
-<h6 id="3、小节"><a href="#3、小节" class="headerlink" title="3、小节"></a>3、小节</h6><p>其实把NioSocketChannel注册到NioEventLoop线程后，处理客户端的事件和 NioServerSocketChannel处理连接                事件一样。需要注意的是：两个通道对象一个是在bossgroup的线程中注册，一个是在workgroup中线程注册。</p>
+<h6 id="3、小节"><a href="#3、小节" class="headerlink" title="3、小节"></a>3、小节</h6><p>​其实把NioSocketChannel注册到NioEventLoop线程后，处理客户端的事件和        NioServerSocketChannel处理连接事件一样。需要注意的是：两个通道对象一个是在    bossgroup的线程中注册，一个是在workgroup中线程注册。</p>
 
       
     </div>
@@ -422,6 +422,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/max.github.io/2020/03/29/心跳连接分析/" rel="prev" title="'心跳连接分析'">
+                '心跳连接分析' <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -502,7 +506,7 @@
               
                 <a href="/max.github.io/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
