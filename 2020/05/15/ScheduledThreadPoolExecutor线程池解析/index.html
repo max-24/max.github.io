@@ -79,21 +79,22 @@
 
 
 
-<meta name="description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任务也不能">
+<meta name="description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任">
 <meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ScheduledThreadPoolExecutor线程池解析">
 <meta property="og:url" content="http://yoursite.com/2020/05/15/ScheduledThreadPoolExecutor线程池解析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任务也不能">
+<meta property="og:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
 <meta property="og:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png">
 <meta property="og:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A02.png">
-<meta property="og:updated_time" content="2020-05-14T16:53:10.345Z">
+<meta property="og:updated_time" content="2020-05-14T17:04:04.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ScheduledThreadPoolExecutor线程池解析">
-<meta name="twitter:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任务也不能">
-<meta name="twitter:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png">
+<meta name="twitter:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任">
+<meta name="twitter:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
 
 
 
@@ -361,7 +362,11 @@
       
 
       
-        <h4 id="ScheduledThreadPoolExecutor线程池解析"><a href="#ScheduledThreadPoolExecutor线程池解析" class="headerlink" title="ScheduledThreadPoolExecutor线程池解析"></a>ScheduledThreadPoolExecutor线程池解析</h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：</p>
+        <img src="/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg" alt="3" style="zoom:80%;">
+
+
+
+<h4 id="ScheduledThreadPoolExecutor线程池解析"><a href="#ScheduledThreadPoolExecutor线程池解析" class="headerlink" title="ScheduledThreadPoolExecutor线程池解析"></a>ScheduledThreadPoolExecutor线程池解析</h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：</p>
 <table>
 <thead>
 <tr>
@@ -386,7 +391,6 @@
 <td>任务可以获取结果</td>
 </tr>
 </tbody></table>
-<p>显然ScheduledThreadPoolExecutor的性能更好。</p>
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>ScheduledThreadPoolExecutor包含两个重要的内部类，DelayedWorkQueue阻塞队列，ScheduledFutureTask定时异步任务(实现接口RunnableScheduledFuture)。线程池执行任务，封装成ScheduledFutureTask，然后放入到DelayedWorkQueue中。</p>
 <ul>
 <li>DelayedWorkQueue包含一个无界的数组，数组类型是<code>RunnableScheduledFuture</code>，由于是无界队列，设置线程池maximumPoolSize就没意义，只设置了corePoolSize核心线程数。</li>
@@ -460,11 +464,10 @@
 <li>不是ScheduledFutureTask类型，进行getDelay()相减。</li>
 </ol>
 <ul>
-<li>getDalay()</li>
+<li>getDalay()，返回剩余的到期时间</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getDelay</span><span class="params">(TimeUnit unit)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unit.convert(time - now(), NANOSECONDS);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>返回剩余的到期时间</p>
 <ul>
 <li>run()</li>
 </ul>
