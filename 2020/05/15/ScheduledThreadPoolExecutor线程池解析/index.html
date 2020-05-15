@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
 <meta property="og:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png">
 <meta property="og:image" content="http://yoursite.com/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A02.png">
-<meta property="og:updated_time" content="2020-05-15T05:47:56.274Z">
+<meta property="og:updated_time" content="2020-05-15T05:52:15.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ScheduledThreadPoolExecutor线程池解析">
 <meta name="twitter:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任">
@@ -391,7 +391,9 @@
 <td>任务可以获取结果</td>
 </tr>
 </tbody></table>
-<p>&lt; !—— ——more—— ——&gt;</p>
+<a id="more"></a>
+
+
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>ScheduledThreadPoolExecutor包含两个重要的内部类，DelayedWorkQueue阻塞队列，ScheduledFutureTask定时异步任务(实现接口RunnableScheduledFuture)。线程池执行任务，封装成ScheduledFutureTask，然后放入到DelayedWorkQueue中。</p>
 <ul>
 <li>DelayedWorkQueue包含一个无界的数组，数组类型是<code>RunnableScheduledFuture</code>，由于是无界队列，设置线程池maximumPoolSize就没意义，只设置了corePoolSize核心线程数。</li>
