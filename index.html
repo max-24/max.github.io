@@ -382,7 +382,7 @@
 <td>任务可以获取结果</td>
 </tr>
 </tbody></table>
-<p>&lt; !–more–&gt;</p>
+<p>&lt; !—— ——more—— ——&gt;</p>
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>ScheduledThreadPoolExecutor包含两个重要的内部类，DelayedWorkQueue阻塞队列，ScheduledFutureTask定时异步任务(实现接口RunnableScheduledFuture)。线程池执行任务，封装成ScheduledFutureTask，然后放入到DelayedWorkQueue中。</p>
 <ul>
 <li>DelayedWorkQueue包含一个无界的数组，数组类型是<code>RunnableScheduledFuture</code>，由于是无界队列，设置线程池maximumPoolSize就没意义，只设置了corePoolSize核心线程数。</li>
