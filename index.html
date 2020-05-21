@@ -153,7 +153,7 @@
     <div class="custom-logo-site-title">
       <a href="/max.github.io/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Max Blog</span>
+        <span class="site-title">Hexo</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -246,6 +246,314 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Max">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/" itemprop="url">SpringIOC源码解析 - 获取bean解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-21T13:06:20+08:00">
+                2020-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/max.github.io/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <img src="/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg" alt="7">
+
+
+
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在前面分析到了，<code>ApplicationContext</code>的一个容器实现类<code>FileSystemApplicationContext</code>读取包含Bean定义信息的xml文件，使用xml的读取器解析xml标签的信息成BeanDefinition，然后注册到容器中。那么容器是怎么解决依赖注入呢？之前提到BeanFactory接口有个方法<code>getBean()</code>,从容器中获取指定的bean对象，从这个过程看容器怎么进行依赖注入的。从<code>DefaultListableBeanFactory</code>功能较完整的BeanFactory分析getBean()方法。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/05/21/SpringIOC源码解析-IOC简析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Max">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2020/05/21/SpringIOC源码解析-IOC简析/" itemprop="url">SpringIOC源码解析 - IOC简析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-21T13:04:34+08:00">
+                2020-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/max.github.io/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <img src="/max.github.io/2020/05/21/SpringIOC源码解析-IOC简析/8.jpg" alt="8" style="zoom: 50%;">
+
+
+
+
+
+<h4 id="IOC简介"><a href="#IOC简介" class="headerlink" title="IOC简介"></a>IOC简介</h4><p>熟悉Spring的应该知道IOC，在维基百科中这样定义：ioc意为<code>依赖反转</code> ,依赖对象的获取方式反转了，也称”依赖注入“。在比较复杂的程序中，往往是很多类彼此合作完成复杂的业务，使得每个对象都需要与其合作的对象(也就是与其依赖的对象)的引用。如果这个获取过程需要靠自身实现，将导致代码高度耦合和难以测试。IOC解决的正是将依赖对象的获取交给外界控制，从而避免复杂的代码实现这个过程。</p>
+<p>实现IOC的方式有很多种，在Spring中使用的是IOC容器作为一个载体，当创建某个对象时，容器解决其数据或方法中依赖的所有对象的引用，然后传递给这个对象，即将依赖注入到对象中。</p>
+<p>Spring依赖注入方式主要有两种：</p>
+<ul>
+<li>setter注入</li>
+<li>构造器注入</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/max.github.io/2020/05/21/SpringIOC源码解析-IOC简析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2164,372 +2472,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Max">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/max.github.io/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/" itemprop="url">自定义channelhandler处理器执行客户端请求的过程分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-22T21:27:28+08:00">
-                2020-03-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
-                    <span itemprop="name">netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="客户端请求在pipeline中handler处理器的执行过程分析"><a href="#客户端请求在pipeline中handler处理器的执行过程分析" class="headerlink" title="客户端请求在pipeline中handler处理器的执行过程分析"></a>客户端请求在pipeline中handler处理器的执行过程分析</h5><h6 id="1、回顾下服务器接收请求的过程"><a href="#1、回顾下服务器接收请求的过程" class="headerlink" title="1、回顾下服务器接收请求的过程"></a>1、回顾下服务器接收请求的过程</h6><ul>
-<li><p>NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在<code>processSelectedKeys()</code>方法中处理。</p>
-</li>
-<li><p>这个方法内部判断，如果是Accept事件，调用 <code>unsafe.read()</code>方法。其中， <code>doReadMessages(List&lt;Object&gt; buf)</code> 方法使用<code>SocketUtils.accept()</code>生成客户端连接通道对象SoketChannel，添加到buf集合中。</p>
-</li>
-<li><p><code>unfase.read()</code>接着遍历buf集合， 将每个客户端连接通道对象传NioServerSocketChannel的pipeline对象中，执行方法<code>pipeline.fireChannelRead(this.readBuf.get(i))</code>。</p>
-</li>
-<li><p><code>fireChannelRead()</code>方法中。之前在netty启动过程已经将NioServerSocketChannel的pipeline，设置ChannelHandlerContext双向链表，包含的节点是：head内部类头节点——》LoggingHandler处理器构成的一个节点——》ServerBootstrap.ServerBootstrapAcceptor处理器构成的一个节点——》tail内部类尾节点。</p>
-<p><code>fireChannelRead()</code>方法内部调用<code>invokeChannelRead(this.findContextInbound(32), msg)</code>方法，会不断执行所有的节点<code>channelRead()</code>方法。当执行到ServerBootstrapAcceptor处理器所在的节点，先得到SocketChannel的pipeline对象，将在服务端代码自定义的handler对象通过addLast()方法加到pipeline对象中。这样生成的客户端连接通道对象，pipeline中就构建了channelhandler处理器链。最后还要将SocketChannel对象注册到childgroup中一个NioEventLoop线程，并添加监视器。<code>this.childGroup.register(child).addListener()</code> 。</p>
-</li>
-<li><p>这节分析的就是客户端连接通道对象，在pipeline中怎么执行我们自定义的channelhandler。</p>
-</li>
-</ul>
-<h6 id="2、NioSocketChannel通道处理事件的过程"><a href="#2、NioSocketChannel通道处理事件的过程" class="headerlink" title="2、NioSocketChannel通道处理事件的过程"></a>2、NioSocketChannel通道处理事件的过程</h6><p>当把NioSocketChannel通道注册到workgroup的eventloop线程，其实和NioServerSocketChannel通道处理客户端事件一样，也会在eventloop线程中监听客户端的事件    </p>
-<ul>
-<li><p>NioEventLoop中run()方法的<code>this.processSelectedKeys()</code>方法，其内部调用<code>this.processSelectedKeysOptimized()</code>方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processSelectedKeysOptimized</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//这里selectedKeys大小为一，即一个客户端连接事件</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.selectedKeys.size; ++i) &#123;</span><br><span class="line">        SelectionKey k = <span class="keyword">this</span>.selectedKeys.keys[i];</span><br><span class="line">        <span class="keyword">this</span>.selectedKeys.keys[i] = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//attachment()返回的是NioSocketChannel客户端连接通道对象</span></span><br><span class="line">        Object a = k.attachment();</span><br><span class="line">        <span class="keyword">if</span> (a <span class="keyword">instanceof</span> AbstractNioChannel) &#123;</span><br><span class="line">            <span class="comment">//再调用这个方法</span></span><br><span class="line">            <span class="keyword">this</span>.processSelectedKey(k, (AbstractNioChannel)a);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            NioTask&lt;SelectableChannel&gt; task = (NioTask)a;</span><br><span class="line">            processSelectedKey(k, task);</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.needsToSelectAgain) &#123;</span><br><span class="line">            <span class="keyword">this</span>.selectedKeys.reset(i + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">this</span>.selectAgain();</span><br><span class="line">            i = -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后的逻辑就和NioServerSocketChannel的处理一样，监听到Accept事件，执行unsafe.read()方法，然后依次执行SocketChannel的pipeline中的ChannelHandlerContext的<code>channelRead()</code>方法，比如我们自定义了EchoServerHandler类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EchoServerHandler</span>  <span class="keyword">extends</span> <span class="title">ChannelInboundHandlerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead</span><span class="params">(ChannelHandlerContext ctx, Object msg)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ctx.write(msg);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelReadComplete</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ctx.flush();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        cause.printStackTrace();</span><br><span class="line">        ctx.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行完ChannelHandlerContext链的头节点后，就执行EchoServerHandler的节点，channelRead()方法就会执行我们重写的方法。<br>当然，后面还可以依次执行每个节点的channelReadComplete方法。包括出现异常时执行 exceptionCaught    方法。</p>
-</li>
-</ul>
-<h6 id="3、小节"><a href="#3、小节" class="headerlink" title="3、小节"></a>3、小节</h6><p>​其实把NioSocketChannel注册到NioEventLoop线程后，处理客户端的事件和        NioServerSocketChannel处理连接事件一样。需要注意的是：两个通道对象一个是在    bossgroup的线程中注册，一个是在workgroup中线程注册。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/09/netty接受客户端请求过程分析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Max">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/max.github.io/2020/03/09/netty接受客户端请求过程分析/" itemprop="url">netty接受客户端请求过程分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T18:44:44+08:00">
-                2020-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
-                    <span itemprop="name">netty</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="netty服务器接受请求过程"><a href="#netty服务器接受请求过程" class="headerlink" title="netty服务器接受请求过程"></a>netty服务器接受请求过程</h4><blockquote>
-<p>回顾netty的启动过程中，最后是bossgroup的NioEventLoop线程会监听ServerSocketChannel这个通道，如果有事件发生，使用<code>processSelectedKeys()</code> 方法处理事件，最后还要处理消息队列中的所有任务 <code>this.runAllTasks()</code>。</p>
-</blockquote>
-<p><code>processSelectedKey(SelectionKey k, AbstractNioChannel ch)</code>是<code>processSelectedKeys()</code>内部调用核心方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当服务器在通道上监听到事件就会执行这个方法，当然这个方法是bossgroup的nioEventLoop线程下执行的</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processSelectedKey</span><span class="params">(SelectionKey k, AbstractNioChannel ch)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//unsafe是这个类AbstractNioMessageChannel$NioMessageUnsafe的实例</span></span><br><span class="line">    NioUnsafe unsafe = ch.unsafe();</span><br><span class="line">    <span class="keyword">if</span> (!k.isValid()) &#123;</span><br><span class="line">        NioEventLoop eventLoop;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">       		<span class="comment">//获得bossgroup的nioEventLoop</span></span><br><span class="line">            eventLoop = ch.eventLoop();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var6) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (eventLoop == <span class="keyword">this</span> &amp;&amp; eventLoop != <span class="keyword">null</span>) &#123;</span><br><span class="line">            unsafe.close(unsafe.voidPromise());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        	<span class="comment">//readyOps就是事件类型对应的值</span></span><br><span class="line">            <span class="keyword">int</span> readyOps = k.readyOps();</span><br><span class="line">            <span class="keyword">if</span> ((readyOps &amp; <span class="number">8</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> ops = k.interestOps();</span><br><span class="line">                ops &amp;= -<span class="number">9</span>;</span><br><span class="line">                k.interestOps(ops);</span><br><span class="line">                unsafe.finishConnect();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((readyOps &amp; <span class="number">4</span>) != <span class="number">0</span>) &#123;</span><br><span class="line">                ch.unsafe().forceFlush();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> ((readyOps &amp; <span class="number">17</span>) != <span class="number">0</span> || readyOps == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//如果是连接Accept事件就会执行unsafe的read方法</span></span><br><span class="line">                unsafe.read();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (CancelledKeyException var7) &#123;</span><br><span class="line">            unsafe.close(unsafe.voidPromise());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/max.github.io/2020/03/09/netty接受客户端请求过程分析/netty-2.png" alt="netty-2"></p>
-<p>浏览器访问服务器端口，经过debug可以看到readyOps值是16，在SelectionKey这个类中，</p>
-<ol>
-<li>读事件是 <code>OP_READ = 1 &lt;&lt; 0</code>值为1</li>
-<li>写事件是<code>OP_WRITE = 1 &lt;&lt; 2</code>值为4  </li>
-<li>连接事件是<code>OP_CONNECT = 1 &lt;&lt; 3</code>值为8</li>
-<li>接收事件是<code>OP_ACCEPT = 1 &lt;&lt; 4</code>值为16</li>
-</ol>
-<blockquote>
-<p>然后进入了unsafe.read（）方法</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">assert</span> AbstractNioMessageChannel.<span class="keyword">this</span>.eventLoop().inEventLoop();</span><br><span class="line">    ChannelConfig config = AbstractNioMessageChannel.<span class="keyword">this</span>.config();</span><br><span class="line">    <span class="comment">//获得NioServerSocketChannel的pipeline</span></span><br><span class="line">    ChannelPipeline pipeline = AbstractNioMessageChannel.<span class="keyword">this</span>.pipeline();</span><br><span class="line">    Handle allocHandle = AbstractNioMessageChannel.<span class="keyword">this</span>.unsafe().recvBufAllocHandle();</span><br><span class="line">    allocHandle.reset(config);</span><br><span class="line">    <span class="keyword">boolean</span> closed = <span class="keyword">false</span>;</span><br><span class="line">    Throwable exception = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> localRead;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">            	<span class="comment">//AbstractNioMessageChannel.this就是NioServerSocketChannel，调用了doReadMessages</span></span><br><span class="line">            	<span class="comment">//方法，并且传入了一个readBuf参数</span></span><br><span class="line">                localRead = AbstractNioMessageChannel.<span class="keyword">this</span>.doReadMessages(<span class="keyword">this</span>.readBuf);</span><br><span class="line">                <span class="keyword">if</span> (localRead == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (localRead &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    closed = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                allocHandle.incMessagesRead(localRead);</span><br><span class="line">            &#125; <span class="keyword">while</span>(allocHandle.continueReading());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var11) &#123;</span><br><span class="line">            exception = var11;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        localRead = <span class="keyword">this</span>.readBuf.size();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; localRead; ++i) &#123;</span><br><span class="line">            AbstractNioMessageChannel.<span class="keyword">this</span>.readPending = <span class="keyword">false</span>;</span><br><span class="line">            <span class="comment">//NioServerSocketChannel的pipeline，执行fireChannleRead(),传入了readBuf</span></span><br><span class="line">            pipeline.fireChannelRead(<span class="keyword">this</span>.readBuf.get(i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.readBuf.clear();</span><br><span class="line">        allocHandle.readComplete();</span><br><span class="line">        pipeline.fireChannelReadComplete();</span><br><span class="line">        <span class="keyword">if</span> (exception != <span class="keyword">null</span>) &#123;</span><br><span class="line">            closed = AbstractNioMessageChannel.<span class="keyword">this</span>.closeOnReadError(exception);</span><br><span class="line">            pipeline.fireExceptionCaught(exception);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (closed) &#123;</span><br><span class="line">            AbstractNioMessageChannel.<span class="keyword">this</span>.inputShutdown = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (AbstractNioMessageChannel.<span class="keyword">this</span>.isOpen()) &#123;</span><br><span class="line">                <span class="keyword">this</span>.close(<span class="keyword">this</span>.voidPromise());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!AbstractNioMessageChannel.<span class="keyword">this</span>.readPending &amp;&amp; !config.isAutoRead()) &#123;</span><br><span class="line">            <span class="keyword">this</span>.removeReadOp();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>重点看下这个方法 localRead = AbstractNioMessageChannel.this.doReadMessages(this.readBuf)</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">doReadMessages</span><span class="params">(List&lt;Object&gt; buf)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//SocketUtils.accept方法产生了一个客户端连接通道SocketChannel！</span></span><br><span class="line">    SocketChannel ch = SocketUtils.accept(<span class="keyword">this</span>.javaChannel());</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch != <span class="keyword">null</span>) &#123;</span><br><span class="line">        	<span class="comment">//this就是NioServerSocketChannel，和SocketChannel封装在一起，添加到list中</span></span><br><span class="line">        	<span class="comment">//list就是最开始的unsafe【AbstractNioMessageChannel$NioMessageUnsafe】实例的readbuf</span></span><br><span class="line">            buf.add(<span class="keyword">new</span> NioSocketChannel(<span class="keyword">this</span>, ch));</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable var6) &#123;</span><br><span class="line">        logger.warn(<span class="string">"Failed to create a new channel from an accepted socket."</span>, var6);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ch.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable var5) &#123;</span><br><span class="line">            logger.warn(<span class="string">"Failed to close a socket."</span>, var5);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>SocketUtils.accept()返回的不就是我们想要客户端连接通道吗！得到了这个通道，接下来就是处理这个连接事件。处理客户端通道的连接事件在<code>pipeline.fireChannelRead(this.readBuf.get(i))</code>方法中。</p>
-<blockquote>
-<p>pipeline.fireChannelRead(this.readBuf.get(i))，这个方法，先得到NioServerSocketChannel的pipeline，然后调用fireChannelRead方法，传入readBuf，里面是封装了serversocketchannel和socketchannle的NioSocketChannel（在上面的doReadMessage方法中创建的）</p>
-</blockquote>
-<p>这个方法里面是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public final ChannelPipeline fireChannelRead(Object msg) &#123;</span><br><span class="line">    AbstractChannelHandlerContext.invokeChannelRead(this.head, msg);</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>invokeChannelRead方法传入了两个参数，this是NioServerSocketChannel的pipeline，之前在netty启动过程中分析了serversocketchannel的pipeline，包含了由ChannelHandlerContext构成的双链表结构，结构是：head内部类头节点——&gt;LoggingHandler处理器构成的一个节点——&gt;ServerBootstrap.ServerBootstrapAcceptor处理器构成的一个节点——&gt;tail内部类尾节点。</p>
-<blockquote>
-<p>this.head就是pipeline的head节点，msg就是NioSocketChannel。</p>
-</blockquote>
-<p>再看方法内部：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invokeChannelRead(this.findContextInbound(32), msg)</span><br></pre></td></tr></table></figure>
-
-<p>一直追下去，直到这个方法，this是Head头节点，findContext方法干了什么呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private AbstractChannelHandlerContext findContextInbound(int mask) &#123;</span><br><span class="line">    AbstractChannelHandlerContext ctx = this;</span><br><span class="line"></span><br><span class="line">    do &#123;</span><br><span class="line">        ctx = ctx.next;</span><br><span class="line">    &#125; while((ctx.executionMask &amp; mask) == 0);</span><br><span class="line"></span><br><span class="line">    return ctx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其实就是next()方法获得下一个节点，下一个节点就是LoggingHandler的节点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception &#123;</span><br><span class="line">    if (this.logger.isEnabled(this.internalLevel)) &#123;</span><br><span class="line">        this.logger.log(this.internalLevel, this.format(ctx, &quot;READ&quot;, msg));</span><br><span class="line">    &#125;</span><br><span class="line">    ctx.fireChannelRead(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到执行完又执行了fireChannelRead方法，又是循环，下一个节点是ServerBootstrap.ServerBootstrapAcc</p>
-<p>-eptor处理器构成的节点。这个Handler处理过程如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public void channelRead(ChannelHandlerContext ctx, Object msg) &#123;</span><br><span class="line">    //得到NioSocketChannel</span><br><span class="line">    final Channel child = (Channel)msg;</span><br><span class="line">    /**</span><br><span class="line">    *向NioSocketChannel的pipeline加入处理器！</span><br><span class="line">    *this是ServerBootstrap的内部类ServerBootstrapAcceptor</span><br><span class="line">    *childHandler就是我们之前实现了ChannelInitializer类，在里面添加了自定义的channelhandler！！</span><br><span class="line">    **/</span><br><span class="line">    child.pipeline().addLast(new ChannelHandler[]&#123;this.childHandler&#125;);</span><br><span class="line">    AbstractBootstrap.setChannelOptions(child, this.childOptions, ServerBootstrap.logger);</span><br><span class="line">    AbstractBootstrap.setAttributes(child, this.childAttrs);</span><br><span class="line">    try &#123;</span><br><span class="line">    	//到这里发现了客户端连接通道是childGroup线程组注册的</span><br><span class="line">        this.childGroup.register(child).addListener(new ChannelFutureListener() &#123;</span><br><span class="line">            public void operationComplete(ChannelFuture future) throws Exception &#123;</span><br><span class="line">                if (!future.isSuccess()) &#123;</span><br><span class="line">                    ServerBootstrap.ServerBootstrapAcceptor.forceClose(child, future.cause());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; catch (Throwable var5) &#123;</span><br><span class="line">        forceClose(child, var5);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>child.pipeline().addLast(new ChannelHandler[]{this.childHandler})，这个方法成功的将我们自定义的handler处理器添加到NioSocketChannel的pipeline中，就能读写客户端发送的数据了！</p>
-</blockquote>
-<p>还没有完，接着this.childGroup是最开始自定义的workgroup，包含了8个NioEventLoop线程。然后将NioSocketChannel注册到这个workgroup中，使用workgroup线程组执行客户端连接，不就是最开始说的服务器接收到客户端连接后，使用workgroup处理连接吗！当然，还加了一个Listener监听器。</p>
-<p>【childgroup.register()的逻辑和启动过程中bossgroup.register(NioServerSocketChannel)逻辑相同，这里就不赘述了。】</p>
-<p>至此netty启动过程和接受请求过程粗略地分析了一遍，肯定还有很多细节没分析，等之后再花功夫把细节完善下。后面就是看pipeline管道的handler处理器是怎么依次执行的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/max.github.io/page/2/">2</a><a class="extend next" rel="next" href="/max.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/max.github.io/page/2/">2</a><a class="page-number" href="/max.github.io/page/3/">3</a><a class="extend next" rel="next" href="/max.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2579,7 +2526,7 @@
               
                 <a href="/max.github.io/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2590,7 +2537,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/max.github.io/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2601,7 +2548,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/max.github.io/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
