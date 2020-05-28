@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="​                                    并发之可重入锁ReentrantLock简介Java协调共享对象的访问时关机制有synchronized、volatile，Java5.0后新增了一种机制：ReentrantLock。前面两个是Java内置的关键字，可以说是内置锁。ReentrantLock可以称作是显示锁，因为其使用时加锁、解锁是显示的。也可以称作可重入锁">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/max.github.io//max-24.github.io/max.github.io/2020/05/09/并发之可重入锁/主题.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/09/并发之可重入锁/主题.png">
 <meta property="og:updated_time" content="2020-05-09T16:14:58.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发之可重入锁">
 <meta name="twitter:description" content="​                                    并发之可重入锁ReentrantLock简介Java协调共享对象的访问时关机制有synchronized、volatile，Java5.0后新增了一种机制：ReentrantLock。前面两个是Java内置的关键字，可以说是内置锁。ReentrantLock可以称作是显示锁，因为其使用时加锁、解锁是显示的。也可以称作可重入锁">
-<meta name="twitter:image" content="http://yoursite.com/max.github.io//max-24.github.io/max.github.io/2020/05/09/并发之可重入锁/主题.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/09/并发之可重入锁/主题.png">
 
 
 
@@ -355,12 +355,12 @@
 
       
         <p>​                                 </p>
-<img src="/max.github.io//max-24.github.io/max.github.io/2020/05/09/并发之可重入锁/主题.png" alt="主题">
+<img src="//yoursite.com/2020/05/09/并发之可重入锁/主题.png" alt="主题">
 
 <h3 id="并发之可重入锁"><a href="#并发之可重入锁" class="headerlink" title="并发之可重入锁"></a>并发之可重入锁</h3><h4 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>Java协调共享对象的访问时关机制有synchronized、volatile，Java5.0后新增了一种机制：ReentrantLock。前面两个是Java内置的关键字，可以说是内置锁。ReentrantLock可以称作是显示锁，因为其使用时加锁、解锁是显示的。也可以称作可重入锁，因为使用时同一个线程可以重复获得锁，而不会阻塞。除此之外，ReentrantLock还有更丰富的特性：公平\非公平性，可响应中断，定时等。</p>
 <h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><ul>
 <li><p>重入性</p>
-<p>ReentrantLock内部主要实现依赖于AQS(感兴趣可以看下之前的文章<a href="https://max-24.github.io/max.github.io/2020/05/03/AQS原理解析/">AQS原理解析</a>)，可重入性比较好理解，独占锁获锁的实现是CAS操作同步变量expect为0，update为1。可重入则是CAS操作同步变量，expect为当前同步变量值c，update为c+1。每次释放时，线程获得的同步变量就会减一。当然具体的逻辑不止这些，在实现中具体分析。</p>
+<p>ReentrantLock内部主要实现依赖于AQS(感兴趣可以看下之前的文章<a href="https://max-24.github.io/max.github.io/2020/05/03/AQS原理解析/" target="_blank" rel="noopener">AQS原理解析</a>)，可重入性比较好理解，独占锁获锁的实现是CAS操作同步变量expect为0，update为1。可重入则是CAS操作同步变量，expect为当前同步变量值c，update为c+1。每次释放时，线程获得的同步变量就会减一。当然具体的逻辑不止这些，在实现中具体分析。</p>
 </li>
 <li><p>公平性</p>
 <p>ReentrantLock另一个重要的特性就是公平性。公平与非公平是针对线程获取锁的方式。ReentrantLock为公平锁时，线程会按照他们发出的请求顺序获得锁，如果已经有线程获得了锁或者有线程在同步队列等待锁，该线程就会放入到队列尾部。ReentrantLock为非公平锁时，线程则允许”插队”获取锁，具体来说，当同步状态为0时，线程可以跨越同步队列的线程尝试获取锁，只有当锁已被其它线程持有，才会放入同步队列。</p>

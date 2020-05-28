@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="集合继承关系 1、Iterator​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。 ​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的 123456789101112131415161718192021  default void forEachRemaining(Co">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/max.github.io//max-24.github.io/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png">
 <meta property="og:updated_time" content="2019-06-20T02:42:04.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="collection的一些底层方法">
 <meta name="twitter:description" content="集合继承关系 1、Iterator​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。 ​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的 123456789101112131415161718192021  default void forEachRemaining(Co">
-<meta name="twitter:image" content="http://yoursite.com/max.github.io//max-24.github.io/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png">
 
 
 
@@ -354,7 +354,7 @@
       
 
       
-        <h6 id="集合继承关系"><a href="#集合继承关系" class="headerlink" title="集合继承关系"></a>集合继承关系</h6><p><img src="/max.github.io//max-24.github.io/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png" alt="集合"></p>
+        <h6 id="集合继承关系"><a href="#集合继承关系" class="headerlink" title="集合继承关系"></a>集合继承关系</h6><p><img src="//yoursite.com/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png" alt="集合"></p>
 <h6 id="1、Iterator"><a href="#1、Iterator" class="headerlink" title="1、Iterator"></a>1、Iterator</h6><p>​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。</p>
 <p>​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  default void forEachRemaining(Consumer&lt;? super E&gt; action) &#123;</span><br><span class="line">      Objects.requireNonNull(action);</span><br><span class="line">      while (hasNext())</span><br><span class="line">          action.accept(next());</span><br><span class="line">  &#125;</span><br><span class="line">  //使用时需要重写accept方法（）,集合类会覆盖这个方法</span><br><span class="line">  forEach(new Consumer&lt;E&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void accept(E e) &#123;</span><br><span class="line">      //TODO</span><br><span class="line">  &#125;</span><br><span class="line">  比如：</span><br><span class="line">  list.add(&quot;1&quot;);</span><br><span class="line">  list.add(&quot;2&quot;);</span><br><span class="line">  list.forEach(new Consumer&lt;String&gt;()&#123;</span><br><span class="line">      @Override</span><br><span class="line">      public void accept(String s)&#123;</span><br><span class="line">System.out.println(s);&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  //也可以使用Lambda表达式</span><br><span class="line">  list.forEach(str-&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
