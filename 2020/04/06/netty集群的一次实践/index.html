@@ -40,7 +40,7 @@
 
   
   
-  <link href="/max.github,io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/max.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/max.github,io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/max.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/max.github,io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/max.github,io/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/max.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/max.github,io/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/max.github.io/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/max.github,io/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/max.github.io/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/max.github,io/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/max.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/max.github.io/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -87,23 +87,23 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="netty集群的一次实践简介我们使用netty时，一般只设计一个服务端节点。这样也没什么问题，单机环境下netty最大可支撑1w左右客户端长连接，但是如果有更多的客户端连接需求，单机就满足不了了。可以采用netty集群的方案解决，集群的意思就是多个服务器部署相同的netty服务，增大客户端连接数量。那怎么管理这些服务端节点，怎么让客户端均衡地获得服务器资源，可以使用zookeeper解决。  zo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/first.png">
-<meta property="og:image" content="http://yoursite.com/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/two.png">
-<meta property="og:image" content="http://yoursite.com/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/three.png">
-<meta property="og:image" content="http://yoursite.com/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/four.png">
-<meta property="og:image" content="http://yoursite.com/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/five.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/first.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/two.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/three.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/four.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/five.png">
 <meta property="og:updated_time" content="2020-04-06T10:24:06.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="netty集群的一次实践">
 <meta name="twitter:description" content="netty集群的一次实践简介我们使用netty时，一般只设计一个服务端节点。这样也没什么问题，单机环境下netty最大可支撑1w左右客户端长连接，但是如果有更多的客户端连接需求，单机就满足不了了。可以采用netty集群的方案解决，集群的意思就是多个服务器部署相同的netty服务，增大客户端连接数量。那怎么管理这些服务端节点，怎么让客户端均衡地获得服务器资源，可以使用zookeeper解决。  zo">
-<meta name="twitter:image" content="http://yoursite.com/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/first.png">
+<meta name="twitter:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/first.png">
 
 
 
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/max.github,io/',
+    root: '/max.github.io/',
     scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -160,7 +160,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/max.github,io/" class="brand" rel="start">
+      <a href="/max.github.io/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">The Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -188,7 +188,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/max.github,io/" rel="section">
+          <a href="/max.github.io/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
@@ -198,7 +198,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/max.github,io/about/" rel="section">
+          <a href="/max.github.io/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
@@ -208,7 +208,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/max.github,io/tags/" rel="section">
+          <a href="/max.github.io/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
@@ -218,7 +218,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/max.github,io/categories/" rel="section">
+          <a href="/max.github.io/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
@@ -228,7 +228,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/max.github,io/archives/" rel="section">
+          <a href="/max.github.io/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
@@ -269,12 +269,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github,io/2020/04/06/netty集群的一次实践/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/04/06/netty集群的一次实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Max">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/max.github,io/images/avatar.jpg">
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -321,7 +321,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github,io/categories/netty/" itemprop="url" rel="index">
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
                     <span itemprop="name">netty</span>
                   </a>
                 </span>
@@ -364,7 +364,7 @@
 </blockquote>
 <h6 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h6><p>1、服务注册</p>
 <p>netty的服务注册，就是netty启动时将服务器的ip、port作为一个ZNode注册到zookeeper中，ZNode就是zookeeper中数据的最小单元。每个节点可以存储数据，也可以挂载子节点，构成一个树。如下图所示：</p>
-<p><img src="/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/first.png" alt="first"></p>
+<p><img src="/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/first.png" alt="first"></p>
 <p>zookeeper访问每个节点 是按照路径访问，类似Unix的文件系统。</p>
 <p>注册生成的节点有四种类型</p>
 <blockquote>
@@ -401,7 +401,7 @@
 <p>3、服务订阅</p>
 <p>上面使用一个缓存列表来保存zookeeper中注册的可用服务节点，并且注册的节点的变更也会同步到缓存列表中。怎么保证同步的？或者说客户端怎么订阅zookeeper的服务？</p>
 <p>zookeeper提供了一个Watcher机制，实现当客户端订阅的服务状态发生变化，zookeeper会自动通知客户端。</p>
-<p><img src="/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/two.png" alt="two"></p>
+<p><img src="/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/two.png" alt="two"></p>
 <p>Watcher机制如上图所示</p>
 <ul>
 <li>客户端向zookeeper注册Watcher</li>
@@ -426,7 +426,7 @@
 <p>在解决分布式集群的负载均衡上，可以使用一致性Hash算法。</p>
 </blockquote>
 <p>一致性hash算法中，根据算法的值构成一个hash环。每次有一个请求绑定的key，对key进行一次hash运算，同样对每个服务器ip或主机名也会做一次hash运算，然后将两种hash值映射到hash环中。</p>
-<p><img src="/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/three.png" alt="three"></p>
+<p><img src="/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/three.png" alt="three"></p>
 <ul>
 <li>请求经过hash运算后，然后映射到对应的位置，那么对应负载的服务器节点就是顺时针的第一个节点。</li>
 <li>当有服务器节点删除时，之前对应的请求会负载到该节点按照顺时针的下一个节点。</li>
@@ -434,14 +434,14 @@
 </ul>
 <p>这里存在一个问题，可能由于删除的节点负载了大量的请求，这样导致下一个节点负载更多的请求，会造成一定的负载不均衡。</p>
 <p>引入”虚拟节点“：对同一个服务器进行多次hash，得到的hash值分布在hash环中，这些节点就称为”虚拟节点”。一般可以在服务器ip后面添加编号，然后进行hash得到虚拟节点。</p>
-<p><img src="/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/four.png" alt="four"></p>
+<p><img src="/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/four.png" alt="four"></p>
 <p>这样可以解决当有节点删除时，减少大量请求负载在某个节点上面。当然，最终请求如果映射到某个虚拟节点上，还是需要将虚拟节点转为真实的节点连接。</p>
 <blockquote>
 <p>Java实现一致性hash算法</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">public class ConsistentHashingBalance &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 集群地址列表</span><br><span class="line">     */</span><br><span class="line">    private static String[] groups = &#123;</span><br><span class="line">        &quot;127.0.0.1:8081&quot;, &quot;127.0.0.1:8082&quot;, &quot;127.0.0.1:8083&quot;,</span><br><span class="line">        &quot;127.0.0.1:8084&quot;, &quot;127.0.0.1:8085&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 真实集群列表</span><br><span class="line">     */</span><br><span class="line">    private static List&lt;String&gt; realGroups = new LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 虚拟节点映射关系</span><br><span class="line">     */</span><br><span class="line">    private static SortedMap&lt;Integer, String&gt; virtualNodes = new TreeMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">		//虚拟节点数量</span><br><span class="line">    private static final int VIRTUAL_NODE_NUM = 1000;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        // 先添加真实节点列表</span><br><span class="line">        realGroups.addAll(Arrays.asList(groups));</span><br><span class="line"></span><br><span class="line">        // 将虚拟节点映射到Hash环上</span><br><span class="line">        for (String realGroup: realGroups) &#123;</span><br><span class="line">            for (int i = 0; i &lt; VIRTUAL_NODE_NUM; i++) &#123;</span><br><span class="line">                String virtualNodeName = getVirtualNodeName(realGroup, i);</span><br><span class="line">                int hash = HashUtil.getHash(virtualNodeName);</span><br><span class="line">                System.out.println(&quot;[&quot; + virtualNodeName + &quot;] launched @ &quot; + hash);</span><br><span class="line">               	//放到hash环中</span><br><span class="line">                virtualNodes.put(hash, virtualNodeName);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	//通过在真实ip后面加“&amp;&amp;VN&quot;+数字得到虚拟节点ip</span><br><span class="line">    private static String getVirtualNodeName(String realName, int num) &#123;</span><br><span class="line">        return realName + &quot;&amp;&amp;VN&quot; + String.valueOf(num);</span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">	//得到虚拟节点对应的真实ip</span><br><span class="line">    private static String getRealNodeName(String virtualName) &#123;</span><br><span class="line">        return virtualName.split(&quot;&amp;&amp;&quot;)[0];</span><br><span class="line">    &#125;</span><br><span class="line">		</span><br><span class="line">		//负载均衡得到服务器ip</span><br><span class="line">    private static String getServer(String key) &#123;</span><br><span class="line">        int hash = HashUtil.getHash(key);</span><br><span class="line">        // 只取出所有大于该hash值的部分而不必遍历整个Tree</span><br><span class="line">        SortedMap&lt;Integer, String&gt; subMap = virtualNodes.tailMap(hash);</span><br><span class="line">        String virtualNodeName;</span><br><span class="line">        if (subMap == null || subMap.isEmpty()) &#123;</span><br><span class="line">            // hash值在最尾部，应该映射到第一个group上</span><br><span class="line">            virtualNodeName = virtualNodes.get(virtualNodes.firstKey());</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            virtualNodeName = subMap.get(subMap.firstKey());</span><br><span class="line">        &#125;</span><br><span class="line">        return getRealNodeName(virtualNodeName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 生成随机数进行测试</span><br><span class="line">        Map&lt;String, Integer&gt; resMap = new HashMap&lt;&gt;();</span><br><span class="line">				//一百万个测试连接</span><br><span class="line">        for (int i = 0; i &lt; 1000000; i++) &#123;</span><br><span class="line">            Integer widgetId = i;</span><br><span class="line">            String group = getServer(widgetId.toString());</span><br><span class="line">            if (resMap.containsKey(group)) &#123;</span><br><span class="line">                resMap.put(group, resMap.get(group) + 1);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                resMap.put(group, 1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        resMap.forEach(</span><br><span class="line">            (k, v) -&gt; &#123;</span><br><span class="line">                System.out.println(&quot;group &quot; + k + &quot;: &quot; + v + &quot;(&quot; + v/10000.0D +&quot;%)&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/max.github,io//yoursite.com/2020/04/06/netty集群的一次实践/five.png" alt="five"></p>
+<p><img src="/max.github.io//yoursite.com/2020/04/06/netty集群的一次实践/five.png" alt="five"></p>
 <p>结果如上图所示，负载几乎均衡了。当服务器有新增和删除时，也是比较均衡的，这里就不测试了。</p>
 
       
@@ -460,7 +460,7 @@
       
         <div class="post-tags">
           
-            <a href="/max.github,io/tags/netty/" rel="tag"># netty</a>
+            <a href="/max.github.io/tags/netty/" rel="tag"># netty</a>
           
         </div>
       
@@ -473,7 +473,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/max.github,io/2020/03/29/心跳连接分析/" rel="next" title="心跳连接分析">
+              <a href="/max.github.io/2020/03/29/心跳连接分析/" rel="next" title="心跳连接分析">
                 <i class="fa fa-chevron-left"></i> 心跳连接分析
               </a>
             
@@ -483,7 +483,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/max.github,io/2020/04/13/并发工具——阻塞队列/" rel="prev" title="并发工具——阻塞队列">
+              <a href="/max.github.io/2020/04/13/并发工具——阻塞队列/" rel="prev" title="并发工具——阻塞队列">
                 并发工具——阻塞队列 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -551,7 +551,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/max.github,io/images/avatar.jpg" alt="Max">
+              <img class="site-author-image" itemprop="image" src="/max.github.io/images/avatar.jpg" alt="Max">
             
               <p class="site-author-name" itemprop="name">Max</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -562,7 +562,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/max.github,io/archives/">
+                <a href="/max.github.io/archives/">
               
                   <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
@@ -574,7 +574,7 @@
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/max.github,io/categories/index.html">
+                <a href="/max.github.io/categories/index.html">
                   <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
@@ -585,7 +585,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/max.github,io/tags/index.html">
+                <a href="/max.github.io/tags/index.html">
                   <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
@@ -716,64 +716,64 @@
 
   
   
-    <script type="text/javascript" src="/max.github,io/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/max.github.io/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/max.github,io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/max.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/max.github,io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/max.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/max.github,io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/max.github,io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/max.github,io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/max.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/max.github,io/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/max.github,io/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/max.github,io/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/max.github,io/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/max.github,io/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/max.github,io/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/max.github,io/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/max.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/max.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/max.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
