@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="常量池  方法区又称Non Heap(非堆)，更多的称为“永久代”。但本质上并不等价，仅仅因为HotSpot虚拟机把GC分代收集扩展至方法区，用永久代来实现方法区，就可以省去专门为方法区编写内存管理代码的工作。但是这样会更容易遇到内存溢出的情况，JVM使用-XX:PermSize设置非堆内存初始值，默认是物理内存的1/64，-XX:MaxPermSize设置最大非堆内存大小，默认是物理内存的1/4">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png">
+<meta property="og:image" content="https://max-24.github.io/max.github.io/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png">
 <meta property="og:updated_time" content="2019-06-27T06:32:51.574Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM方法区的变更--字符串常量池">
 <meta name="twitter:description" content="常量池  方法区又称Non Heap(非堆)，更多的称为“永久代”。但本质上并不等价，仅仅因为HotSpot虚拟机把GC分代收集扩展至方法区，用永久代来实现方法区，就可以省去专门为方法区编写内存管理代码的工作。但是这样会更容易遇到内存溢出的情况，JVM使用-XX:PermSize设置非堆内存初始值，默认是物理内存的1/64，-XX:MaxPermSize设置最大非堆内存大小，默认是物理内存的1/4">
-<meta name="twitter:image" content="https://max-24.github.io/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png">
+<meta name="twitter:image" content="https://max-24.github.io/max.github.io/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png">
 
 
 
@@ -355,7 +355,7 @@
 
       
         <p>常量池</p>
-<p><img src="/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png" alt></p>
+<p><img src="/max.github.io/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png" alt></p>
 <pre><code>方法区又称Non Heap(非堆)，更多的称为“永久代”。但本质上并不等价，仅仅因为HotSpot虚拟机把GC分代收集扩展至方法区，用永久代来实现方法区，就可以省去专门为方法区编写内存管理代码的工作。但是这样会更容易遇到内存溢出的情况，JVM使用-XX:PermSize设置非堆内存初始值，默认是物理内存的1/64，-XX:MaxPermSize设置最大非堆内存大小，默认是物理内存的1/4。项目过大可能会发生方法区内存溢出，所以jdk1.8将方法区分配到Native memory(本地内存)，也没有方法区了，改为MetaSpace(元空间)。</code></pre><p>jdk1.7    字符串常量池移至堆中</p>
 <p>jdk1.8      常量池和静态变量移至堆中，其他类的元数据存储在MetaSpace中，位于本地内存。</p>
 <h6 id="字符串常量池移至堆中后变化？"><a href="#字符串常量池移至堆中后变化？" class="headerlink" title="字符串常量池移至堆中后变化？"></a>字符串常量池移至堆中后变化？</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Interned</span><br><span class="line">&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">       	//先在堆中生成对象，并且再生成值相等的字符串对象在常量池中，但是二者的地址不相同</span><br><span class="line">       	String s1=new String(&quot;a&quot;);</span><br><span class="line">        s1.intern();			//显示返回&quot;a&quot;在常量池的引用</span><br><span class="line">        String s2=&quot;a&quot;;			//s2指向生成s1时，常量池中“a”的对象的引用</span><br><span class="line">        System.out.println(s1==s2);</span><br><span class="line">        //如果字符串相加不全是直接字面量的相加，jvm会自动调优，常量池就不会生成相加后的字符串对象</span><br><span class="line">        String s3=new String(&quot;a&quot;)+new String(&quot;a&quot;);</span><br><span class="line">        s3.intern();</span><br><span class="line">        String s4=&quot;aa&quot;;</span><br><span class="line">        System.out.println(s3==s4);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
