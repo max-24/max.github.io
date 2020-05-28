@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/max.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/max.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/max.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/max.github.io/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/max.github.io/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/max.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/max.github.io/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -87,21 +87,21 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="简介在上一篇文章获取bean解析中，通过getBean(String)获取bean对象，简单来说过程是：首先从缓存获取bean，再从父容器中获取，如果还没成功获取再通过createBean()创建bean。本篇文章接着分析createBean()过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png">
+<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
+<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png">
+<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png">
 <meta property="og:updated_time" content="2020-05-28T09:35:10.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringIOC源码解析 -- 创建原始bean解析">
 <meta name="twitter:description" content="简介在上一篇文章获取bean解析中，通过getBean(String)获取bean对象，简单来说过程是：首先从缓存获取bean，再从父容器中获取，如果还没成功获取再通过createBean()创建bean。本篇文章接着分析createBean()过程。">
-<meta name="twitter:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
+<meta name="twitter:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
 
 
 
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '/max.github.io/',
     scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -158,7 +158,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="/max.github.io/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">The Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -186,7 +186,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/max.github.io/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
@@ -196,7 +196,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/max.github.io/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
@@ -206,7 +206,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/max.github.io/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
@@ -216,7 +216,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/max.github.io/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
@@ -226,7 +226,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/max.github.io/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
@@ -267,12 +267,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/">
+    <link itemprop="mainEntityOfPage" href="https://max-24.github.io/max.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Max">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -319,7 +319,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                  <a href="/max.github.io/categories/Spring/" itemprop="url" rel="index">
                     <span itemprop="name">Spring</span>
                   </a>
                 </span>
@@ -356,7 +356,7 @@
       
 
       
-        <p><img src="//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg" alt="2"></p>
+        <p><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg" alt="2"></p>
 <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在上一篇文章获取bean解析中，通过<code>getBean(String)</code>获取bean对象，简单来说过程是：首先从缓存获取bean，再从父容器中获取，如果还没成功获取再通过<code>createBean()</code>创建bean。本篇文章接着分析<code>createBean()</code>过程。</p>
 <a id="more"></a>
 
@@ -377,7 +377,7 @@
 <p>测试：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String configuration=<span class="string">"beans.xml"</span>;</span><br><span class="line">    ApplicationContext applicationContext=<span class="keyword">new</span> ClassPathXmlApplicationContext(configuration);</span><br><span class="line">    Shop shop=(Shop)applicationContext.getBean(<span class="string">"shop"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++) &#123;</span><br><span class="line">       shop.PrintAmount();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>结果：<br><img src="//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png" alt="12"></p>
+<p>结果：<br><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png" alt="12"></p>
 <ul>
 <li>replaced-method 实现</li>
 </ul>
@@ -387,7 +387,7 @@
 <p>xml配置又有点不同,<code>name</code>也是要替换生成多例bean的方法，<code>replacer</code>是实现MethodReplacer接口的bean。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"shop"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.max.bean.Shop"</span>&gt;</span><br><span class="line">		&lt;replaced-method name=<span class="string">"getProduct"</span></span><br><span class="line">           replacer=<span class="string">"shopReplace"</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id="shopReplace" class="com.max.bean.ShopReplace"&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 
-<p>结果<br><img src="//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png" alt="13"></p>
+<p>结果<br><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png" alt="13"></p>
 <p>关于实现原理在下一篇文章介绍，结合创建bean的过程一起分析。</p>
 <hr>
 <p>好了，回到 <code>prepareMethodOverrides()</code>方法的实现上。</p>
@@ -459,7 +459,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/spring/" rel="tag"># spring</a>
+            <a href="/max.github.io/tags/spring/" rel="tag"># spring</a>
           
         </div>
       
@@ -472,7 +472,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/05/21/SpringIOC源码解析-获取bean解析/" rel="next" title="SpringIOC源码解析 - 获取bean解析">
+              <a href="/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/" rel="next" title="SpringIOC源码解析 - 获取bean解析">
                 <i class="fa fa-chevron-left"></i> SpringIOC源码解析 - 获取bean解析
               </a>
             
@@ -546,7 +546,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Max">
+              <img class="site-author-image" itemprop="image" src="/max.github.io/images/avatar.jpg" alt="Max">
             
               <p class="site-author-name" itemprop="name">Max</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -557,7 +557,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/max.github.io/archives/">
               
                   <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
@@ -569,7 +569,7 @@
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
+                <a href="/max.github.io/categories/index.html">
                   <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
@@ -580,7 +580,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
+                <a href="/max.github.io/tags/index.html">
                   <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
@@ -711,64 +711,64 @@
 
   
   
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/max.github.io/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/max.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/max.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/max.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/max.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/max.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/max.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
