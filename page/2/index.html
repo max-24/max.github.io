@@ -1,26 +1,85 @@
 <!DOCTYPE html>
-<html lang="zh-Hans">
-<head>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 3.9.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/max.github.io/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/max.github.io/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/max.github.io/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/max.github.io/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/max.github.io/css/main.css">
 
 
-<link rel="stylesheet" href="/max.github.io/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/max.github.io/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
 
-  <meta property="og:type" content="website">
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/max.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/max.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/max.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/max.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/max.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/max.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/max.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
 <meta property="og:title" content="The Blog">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="The Blog">
@@ -28,18 +87,39 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The Blog">
 
-<link rel="canonical" href="http://yoursite.com/page/2/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-Hans'
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/max.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
   };
 </script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/2/">
+
+
+
+
 
   <title>The Blog</title>
   
@@ -49,165 +129,218 @@
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
+	<a href="https://github.com/isMaxaaa" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/max.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Max</p>
+      
+  </div>
+
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/max.github.io/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">The Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Max</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
 </div>
 
-
-
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
         <li class="menu-item menu-item-home">
-
-    <a href="/max.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
+          <a href="/max.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-about">
-
-    <a href="/max.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>معلومات</a>
-
-  </li>
+          <a href="/max.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
-
-    <a href="/max.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>الوسوم</a>
-
-  </li>
+          <a href="/max.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-categories">
-
-    <a href="/max.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>التصنيفات</a>
-
-  </li>
+          <a href="/max.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
+          <a href="/max.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
 
-    <a href="/max.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+      
+    </ul>
+  
 
-  </li>
-  </ul>
+  
 </nav>
 
 
 
-
-</div>
+ </div>
     </header>
 
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
+    <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
+          <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
       
+
+  
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/29/心跳连接分析/">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/29/心跳连接分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2020/03/29/心跳连接分析/" class="post-title-link" itemprop="url">心跳连接分析</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2020/03/29/心跳连接分析/" itemprop="url">心跳连接分析</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-29T21:42:13+08:00">
+                2020-03-29
+              </time>
+            
 
-              <time title="أُنشأ: 2020-03-29 21:42:13" itemprop="dateCreated datePublished" datetime="2020-03-29T21:42:13+08:00">2020-03-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-05-03 12:55:26" itemprop="dateModified" datetime="2020-05-03T12:55:26+08:00">2020-05-03</time>
-              </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a>
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -215,7 +348,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h5><p>主要针对tcp的长连接，客户端和服务端某一方可能会突然断开连接，为了防止断线造成传输的影响，服务端客户端会每隔一定时间发送tcp数据包，检查连接是否正常，这就是心跳检验机制。</p>
+      
+
+      
+        
+          
+            <h5 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h5><p>主要针对tcp的长连接，客户端和服务端某一方可能会突然断开连接，为了防止断线造成传输的影响，服务端客户端会每隔一定时间发送tcp数据包，检查连接是否正常，这就是心跳检验机制。</p>
 <blockquote>
 <p>tcp心跳包还有一个作用，一个连接长时间不用，防火墙或路由器就会断开连接。</p>
 </blockquote>
@@ -279,65 +417,134 @@
 
 <p>到这就可以根据发生什么超时事件，进行一些业务处理，比如通过ctx向客户端socket通道写数据并监听，如果没有回复就可以关闭通道等。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/" class="post-title-link" itemprop="url">自定义channelhandler处理器执行客户端请求的过程分析</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2020/03/22/自定义channelhandler处理器执行客户端请求的过程分析/" itemprop="url">自定义channelhandler处理器执行客户端请求的过程分析</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
               
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-22T21:27:28+08:00">
+                2020-03-22
+              </time>
+            
 
-              <time title="أُنشأ: 2020-03-22 21:27:28 / عُدل: 22:49:18" itemprop="dateCreated datePublished" datetime="2020-03-22T21:27:28+08:00">2020-03-22</time>
-            </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a>
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -345,7 +552,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="客户端请求在pipeline中handler处理器的执行过程分析"><a href="#客户端请求在pipeline中handler处理器的执行过程分析" class="headerlink" title="客户端请求在pipeline中handler处理器的执行过程分析"></a>客户端请求在pipeline中handler处理器的执行过程分析</h5><h6 id="1、回顾下服务器接收请求的过程"><a href="#1、回顾下服务器接收请求的过程" class="headerlink" title="1、回顾下服务器接收请求的过程"></a>1、回顾下服务器接收请求的过程</h6><ul>
+      
+
+      
+        
+          
+            <h5 id="客户端请求在pipeline中handler处理器的执行过程分析"><a href="#客户端请求在pipeline中handler处理器的执行过程分析" class="headerlink" title="客户端请求在pipeline中handler处理器的执行过程分析"></a>客户端请求在pipeline中handler处理器的执行过程分析</h5><h6 id="1、回顾下服务器接收请求的过程"><a href="#1、回顾下服务器接收请求的过程" class="headerlink" title="1、回顾下服务器接收请求的过程"></a>1、回顾下服务器接收请求的过程</h6><ul>
 <li><p>NioServerSocketChannel注册到一个NioEventLoop线程中，会监听这个通道，如果监听到事件发生，在<code>processSelectedKeys()</code>方法中处理。</p>
 </li>
 <li><p>这个方法内部判断，如果是Accept事件，调用 <code>unsafe.read()</code>方法。其中， <code>doReadMessages(List&lt;Object&gt; buf)</code> 方法使用<code>SocketUtils.accept()</code>生成客户端连接通道对象SoketChannel，添加到buf集合中。</p>
@@ -371,71 +583,134 @@
 </ul>
 <h6 id="3、小节"><a href="#3、小节" class="headerlink" title="3、小节"></a>3、小节</h6><p>​其实把NioSocketChannel注册到NioEventLoop线程后，处理客户端的事件和        NioServerSocketChannel处理连接事件一样。需要注意的是：两个通道对象一个是在    bossgroup的线程中注册，一个是在workgroup中线程注册。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/09/netty接受客户端请求过程分析/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/09/netty接受客户端请求过程分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2020/03/09/netty接受客户端请求过程分析/" class="post-title-link" itemprop="url">netty接受客户端请求过程分析</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2020/03/09/netty接受客户端请求过程分析/" itemprop="url">netty接受客户端请求过程分析</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-09T18:44:44+08:00">
+                2020-03-09
+              </time>
+            
 
-              <time title="أُنشأ: 2020-03-09 18:44:44" itemprop="dateCreated datePublished" datetime="2020-03-09T18:44:44+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-03-22 10:24:39" itemprop="dateModified" datetime="2020-03-22T10:24:39+08:00">2020-03-22</time>
-              </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a>
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -443,7 +718,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="netty服务器接受请求过程"><a href="#netty服务器接受请求过程" class="headerlink" title="netty服务器接受请求过程"></a>netty服务器接受请求过程</h4><blockquote>
+      
+
+      
+        
+          
+            <h4 id="netty服务器接受请求过程"><a href="#netty服务器接受请求过程" class="headerlink" title="netty服务器接受请求过程"></a>netty服务器接受请求过程</h4><blockquote>
 <p>回顾netty的启动过程中，最后是bossgroup的NioEventLoop线程会监听ServerSocketChannel这个通道，如果有事件发生，使用<code>processSelectedKeys()</code> 方法处理事件，最后还要处理消息队列中的所有任务 <code>this.runAllTasks()</code>。</p>
 </blockquote>
 <p><code>processSelectedKey(SelectionKey k, AbstractNioChannel ch)</code>是<code>processSelectedKeys()</code>内部调用核心方法</p>
@@ -498,71 +778,134 @@
 <p>【childgroup.register()的逻辑和启动过程中bossgroup.register(NioServerSocketChannel)逻辑相同，这里就不赘述了。】</p>
 <p>至此netty启动过程和接受请求过程粗略地分析了一遍，肯定还有很多细节没分析，等之后再花功夫把细节完善下。后面就是看pipeline管道的handler处理器是怎么依次执行的。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/01/netty启动过程分析/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/01/netty启动过程分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2020/03/01/netty启动过程分析/" class="post-title-link" itemprop="url">netty启动过程分析</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2020/03/01/netty启动过程分析/" itemprop="url">netty启动过程分析</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-01T19:20:10+08:00">
+                2020-03-01
+              </time>
+            
 
-              <time title="أُنشأ: 2020-03-01 19:20:10" itemprop="dateCreated datePublished" datetime="2020-03-01T19:20:10+08:00">2020-03-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-03-02 12:00:18" itemprop="dateModified" datetime="2020-03-02T12:00:18+08:00">2020-03-02</time>
-              </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index"><span itemprop="name">netty</span></a>
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -570,7 +913,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="netty的启动过程"><a href="#netty的启动过程" class="headerlink" title="netty的启动过程"></a>netty的启动过程</h4><ol>
+      
+
+      
+        
+          
+            <h4 id="netty的启动过程"><a href="#netty的启动过程" class="headerlink" title="netty的启动过程"></a>netty的启动过程</h4><ol>
 <li><p><strong>创建线程组</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EventLoopGroup bossGroup = new NioEventLoopGroup(1);</span><br><span class="line">EventLoopGroup workerGroup = new NioEventLoopGroup();</span><br></pre></td></tr></table></figure>
 
@@ -650,71 +998,134 @@
 </li>
 </ol>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/26/杂想/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/26/杂想/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2019/06/26/杂想/" class="post-title-link" itemprop="url">杂想</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/26/杂想/" itemprop="url">杂想</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-26T23:26:02+08:00">
+                2019-06-26
+              </time>
+            
 
-              <time title="أُنشأ: 2019-06-26 23:26:02" itemprop="dateCreated datePublished" datetime="2019-06-26T23:26:02+08:00">2019-06-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2019-06-27 00:36:49" itemprop="dateModified" datetime="2019-06-27T00:36:49+08:00">2019-06-27</time>
-              </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/杂想/" itemprop="url" rel="index"><span itemprop="name">杂想</span></a>
+                  <a href="/max.github.io/categories/杂想/" itemprop="url" rel="index">
+                    <span itemprop="name">杂想</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -722,7 +1133,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>​                                  </p>
+      
+
+      
+        
+          
+            <p>​                                  </p>
 <p>​                         <img src="/max.github.io/2019/06/26/杂想/zaxiang.gif" alt="zaxiang"></p>
 <p>​    </p>
 <p>​    朝着目标慢慢的也走到了现在，人总会有疲倦的时候，啥也不想干，正好整理下思绪。</p>
@@ -731,65 +1147,134 @@
 <p>​    回到师兄的话题😂那时候身边的一些同学进了实验室，跟着老师做项目，学的是java。而我自学python，越学越没底，感觉我学的不太深入，这样咋找工作。等到最后一堂课结束，我和师兄聊了很久，请教他给我指导下，规划下路线。师兄说，其实任何一门语言没有好坏，只要学的深学的扎实。他看得出我着急就业，加上我们学校也没啥竞争力，说如果想找一个好的工作，可以学java，毕竟现在python工程师岗位在国内还是不太多的，有和我分析了python语言的特点和未来发展，可以考虑作为第二语言技能，主学还是java。等以后按照发展，再考虑其他的语言学习。就这样，走上了一去不回的java之路了。</p>
 <p>​    到现在半年的积累，还是学了挺多的，慢慢改善学习方法，思考方法，完善知识基础、项目经历。虽然现在还有很多知识去总结，有些还没学扎实，项目进度也稍微急，还是尽量去做吧。两三个月，好好把握下👌。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/HashMap、ConccurrentHashMap和HashTable/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/HashMap、ConccurrentHashMap和HashTable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2019/06/20/HashMap、ConccurrentHashMap和HashTable/" class="post-title-link" itemprop="url">HashMap、ConccurrentHashMap和HashTable</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/20/HashMap、ConccurrentHashMap和HashTable/" itemprop="url">HashMap、ConccurrentHashMap和HashTable</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
               
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:34:18+08:00">
+                2019-06-20
+              </time>
+            
 
-              <time title="أُنشأ: 2019-06-20 10:34:18 / عُدل: 10:39:03" itemprop="dateCreated datePublished" datetime="2019-06-20T10:34:18+08:00">2019-06-20</time>
-            </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index"><span itemprop="name">集合容器</span></a>
+                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
+                    <span itemprop="name">集合容器</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -797,72 +1282,140 @@
     <div class="post-body" itemprop="articleBody">
 
       
+      
+
+      
+        
           
+            
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/HashMap底层实现/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/HashMap底层实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2019/06/20/HashMap底层实现/" class="post-title-link" itemprop="url">HashMap底层实现</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/20/HashMap底层实现/" itemprop="url">HashMap底层实现</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:32:26+08:00">
+                2019-06-20
+              </time>
+            
 
-              <time title="أُنشأ: 2019-06-20 10:32:26" itemprop="dateCreated datePublished" datetime="2019-06-20T10:32:26+08:00">2019-06-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2020-03-01 19:39:12" itemprop="dateModified" datetime="2020-03-01T19:39:12+08:00">2020-03-01</time>
-              </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index"><span itemprop="name">集合容器</span></a>
+                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
+                    <span itemprop="name">集合容器</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -870,7 +1423,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h6 id="HashMap的相关继承关系"><a href="#HashMap的相关继承关系" class="headerlink" title="HashMap的相关继承关系"></a>HashMap的相关继承关系</h6><p><img src="/max.github.io/2019/06/20/HashMap底层实现/hashmap.png" alt="hashmap">  </p>
+      
+
+      
+        
+          
+            <h6 id="HashMap的相关继承关系"><a href="#HashMap的相关继承关系" class="headerlink" title="HashMap的相关继承关系"></a>HashMap的相关继承关系</h6><p><img src="/max.github.io/2019/06/20/HashMap底层实现/hashmap.png" alt="hashmap">  </p>
 <p>HashMap是使用频率最高的用于映射(键值对)处理的数据类型，jdk1.7和jdk1.8开始，hashmap的底层使用发生了改变。下面就从源码上分析hashmap的结构功能。</p>
 <h6 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h6><p>hashmap是散列表(哈希表)的一个应用的实现。</p>
 <p>散列表的结构：用链表数组实现，相比于链表和数组，可以很快的查找到所要的对象。</p>
@@ -914,65 +1472,134 @@
 <p>线程B    在扩容过程中，e.next指向了线程A完成扩容后的对应位置，将原来next指向的元素丢失了。</p>
 <p>3.数据重复</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/List相关整理/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/List相关整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2019/06/20/List相关整理/" class="post-title-link" itemprop="url">List相关整理</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/20/List相关整理/" itemprop="url">List相关整理</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
               
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:31:45+08:00">
+                2019-06-20
+              </time>
+            
 
-              <time title="أُنشأ: 2019-06-20 10:31:45 / عُدل: 10:43:08" itemprop="dateCreated datePublished" datetime="2019-06-20T10:31:45+08:00">2019-06-20</time>
-            </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index"><span itemprop="name">集合容器</span></a>
+                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
+                    <span itemprop="name">集合容器</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -980,7 +1607,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h5 id="List"><a href="#List" class="headerlink" title="List"></a>List</h5><p>list集合可以存放相同值的元素，是可重复有序的。</p>
+      
+
+      
+        
+          
+            <h5 id="List"><a href="#List" class="headerlink" title="List"></a>List</h5><p>list集合可以存放相同值的元素，是可重复有序的。</p>
 <p>Arraylist：</p>
 <p><strong>线程安全</strong>：不同步，线程不安全。                                                                                                                                                    <strong>数据结构</strong>：底层使用Object数组，默认为空的数组，如果不指定集合的大小，当第一次有元素添加，会使用默认       大小为10的数组。</p>
 <p><strong>插入或删除是否受元素位置影响</strong>：插入时，ArrayList会默认插在列表的末尾，时间复杂度为O(1)。但是如果在指定的位置i插入或删除时，集合中第 i 和第 i 个元素之后的(n-i)个元素都要执行向后位/向前移一位的操作，时间复杂度为O(n-i)。</p>
@@ -1035,65 +1667,134 @@
 <p>区别：</p>
 <p>arraycopy()需要目标数组，将原数组拷贝到你自己定义的数组里或者原数组，而且可以选择拷贝的起点和长度以及放入新数组中的位置 ;copyOf()是系统自动在内部新建一个数组，并返回该数组。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/20/collection的一些底层方法/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/collection的一些底层方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2019/06/20/collection的一些底层方法/" class="post-title-link" itemprop="url">collection的一些底层方法</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/20/collection的一些底层方法/" itemprop="url">collection的一些底层方法</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
               
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:30:44+08:00">
+                2019-06-20
+              </time>
+            
 
-              <time title="أُنشأ: 2019-06-20 10:30:44 / عُدل: 10:42:04" itemprop="dateCreated datePublished" datetime="2019-06-20T10:30:44+08:00">2019-06-20</time>
-            </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index"><span itemprop="name">集合容器</span></a>
+                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
+                    <span itemprop="name">集合容器</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -1101,7 +1802,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h6 id="集合继承关系"><a href="#集合继承关系" class="headerlink" title="集合继承关系"></a>集合继承关系</h6><p><img src="/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png" alt="集合"></p>
+      
+
+      
+        
+          
+            <h6 id="集合继承关系"><a href="#集合继承关系" class="headerlink" title="集合继承关系"></a>集合继承关系</h6><p><img src="/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png" alt="集合"></p>
 <h6 id="1、Iterator"><a href="#1、Iterator" class="headerlink" title="1、Iterator"></a>1、Iterator</h6><p>​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。</p>
 <p>​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  default void forEachRemaining(Consumer&lt;? super E&gt; action) &#123;</span><br><span class="line">      Objects.requireNonNull(action);</span><br><span class="line">      while (hasNext())</span><br><span class="line">          action.accept(next());</span><br><span class="line">  &#125;</span><br><span class="line">  //使用时需要重写accept方法（）,集合类会覆盖这个方法</span><br><span class="line">  forEach(new Consumer&lt;E&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void accept(E e) &#123;</span><br><span class="line">      //TODO</span><br><span class="line">  &#125;</span><br><span class="line">  比如：</span><br><span class="line">  list.add(&quot;1&quot;);</span><br><span class="line">  list.add(&quot;2&quot;);</span><br><span class="line">  list.forEach(new Consumer&lt;String&gt;()&#123;</span><br><span class="line">      @Override</span><br><span class="line">      public void accept(String s)&#123;</span><br><span class="line">System.out.println(s);&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  //也可以使用Lambda表达式</span><br><span class="line">  list.forEach(str-&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
@@ -1109,71 +1815,134 @@
 <p>注意：forEach与当前线程方法是异步执行的，但是当前线程改变原有的集合，并不会影响forEach遍历的对象。可能是使用了ThreadLocal。</p>
 <p>​    Iterator子接口LinkedIterator在它的基础上增加了add(),previous(),hasprevious()。对于无序集合，如HashSet、HashMap等就使用Iterator。对于有序集合比LinkedList、LinkedHashMap等,就使用LinkedIterator，能前后遍历。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+
+    <footer class="post-footer">
+      
 
       
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/JVM方法区的变更-字符串常量池/">
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/max.github.io/images/avatar.gif">
       <meta itemprop="name" content="Max">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="The Blog">
     </span>
+
+    
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/" class="post-title-link" itemprop="url">JVM方法区的变更--字符串常量池</a>
-        </h2>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/" itemprop="url">JVM方法区的变更--字符串常量池</a></h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
+                <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-19T15:58:18+08:00">
+                2019-06-19
+              </time>
+            
 
-              <time title="أُنشأ: 2019-06-19 15:58:18" itemprop="dateCreated datePublished" datetime="2019-06-19T15:58:18+08:00">2019-06-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2019-06-27 14:32:51" itemprop="dateModified" datetime="2019-06-27T14:32:51+08:00">2019-06-27</time>
-              </span>
-            <span class="post-meta-item">
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
               <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
+                <i class="fa fa-folder-o"></i>
               </span>
-              <span class="post-meta-item-text">في</span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/max.github.io/categories/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                  <a href="/max.github.io/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
                 </span>
+
+                
+                
+              
             </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -1181,7 +1950,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>常量池</p>
+      
+
+      
+        
+          
+            <p>常量池</p>
 <p><img src="/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/momery.png" alt></p>
 <pre><code>方法区又称Non Heap(非堆)，更多的称为“永久代”。但本质上并不等价，仅仅因为HotSpot虚拟机把GC分代收集扩展至方法区，用永久代来实现方法区，就可以省去专门为方法区编写内存管理代码的工作。但是这样会更容易遇到内存溢出的情况，JVM使用-XX:PermSize设置非堆内存初始值，默认是物理内存的1/64，-XX:MaxPermSize设置最大非堆内存大小，默认是物理内存的1/4。项目过大可能会发生方法区内存溢出，所以jdk1.8将方法区分配到Native memory(本地内存)，也没有方法区了，改为MetaSpace(元空间)。</code></pre><p>jdk1.7    字符串常量池移至堆中</p>
 <p>jdk1.8      常量池和静态变量移至堆中，其他类的元数据存储在MetaSpace中，位于本地内存。</p>
@@ -1194,24 +1968,45 @@
 <p>结果为false, true</p>
 <p>字符串变量拼接时会调用stringBuild.append()在堆上创建新的对象，对于final字符串在编译时会自动合并，在创建时会到常量池中寻找，普通字符串变量则会在运行时合并，在堆上生成对象。</p>
 
+          
+        
       
     </div>
+    
+    
+    
 
     
+
     
+
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
-  
-  
-  
 
+
+    
+  </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/max.github.io/"><i class="fa fa-angle-left" aria-label="الصفحة السابقة"></i></a><a class="page-number" href="/max.github.io/">1</a><span class="page-number current">2</span><a class="page-number" href="/max.github.io/page/3/">3</a><a class="extend next" rel="next" href="/max.github.io/page/3/"><i class="fa fa-angle-right" aria-label="الصفحة التالية"></i></a>
+    <a class="extend prev" rel="prev" href="/max.github.io/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/max.github.io/">1</a><span class="page-number current">2</span><a class="page-number" href="/max.github.io/page/3/">3</a><a class="extend next" rel="next" href="/max.github.io/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1219,116 +2014,149 @@
           </div>
           
 
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
+
+          
 
         </div>
+        
           
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
   </div>
 
-  <aside class="sidebar">
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
     <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          المحتويات
-        </li>
-        <li class="sidebar-nav-overview">
-          عام
-        </li>
-      </ul>
+      
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
+      
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Max</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/max.github.io/archives/">
-        
-          <span class="site-state-item-count">22</span>
-          <span class="site-state-item-name">المقالات</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/max.github.io/categories/">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/max.github.io/images/avatar.jpg" alt="Max">
+            
+              <p class="site-author-name" itemprop="name">Max</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/max.github.io/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/max.github.io/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/max.github.io/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
           
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">التصنيفات</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/max.github.io/tags/">
+
           
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">الوسوم</span></a>
-      </div>
-  </nav>
-</div>
 
+          
+          
 
+          
+          
 
-      </div>
+          
+
+        </div>
+      </section>
+
+      
+
+      
 
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
 
 
+        
       </div>
     </main>
 
-    <footer class="footer">
+    <footer id="footer" class="footer">
       <div class="footer-inner">
         
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Max</span>
+
+  
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
 
         
 <div class="busuanzi-count">
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
 </div>
 
 
@@ -1338,17 +2166,34 @@
 
 
 
+        
       </div>
     </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
   </div>
 
   
-  <script src="/max.github.io/lib/anime.min.js"></script>
-  <script src="/max.github.io/lib/velocity/velocity.min.js"></script>
-  <script src="/max.github.io/lib/velocity/velocity.ui.min.js"></script>
-<script src="/max.github.io/js/utils.js"></script><script src="/max.github.io/js/motion.js"></script>
-<script src="/max.github.io/js/schemes/muse.js"></script>
-<script src="/max.github.io/js/next-boot.js"></script>
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
 
 
 
@@ -1365,8 +2210,114 @@
 
 
 
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
 
   
 
