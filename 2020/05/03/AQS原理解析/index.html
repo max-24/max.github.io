@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="AQS原理解析简介AQS(AbstractQueuedSynchronizer)抽象队列同步器，是JUC中很多并发工具的基础框架，比如ReentrantLock、CountDownLatch等，并且线程池ThreadPoolExecutor的worker工作线程类也是基于AQS实现。所以掌握AQS的原理对理解并发工具的原理大有裨益。 原理AQS内部有两个重要的内部类，ConditionObject">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://a/max.github.io/max.github.io/2020/05/03/AQS原理解析/AQS2.png">
+<meta property="og:image" content="https://a/max.github.io//a/2020/05/03/AQS原理解析/AQS2.png">
 <meta property="og:updated_time" content="2020-05-03T05:02:33.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AQS原理解析">
 <meta name="twitter:description" content="AQS原理解析简介AQS(AbstractQueuedSynchronizer)抽象队列同步器，是JUC中很多并发工具的基础框架，比如ReentrantLock、CountDownLatch等，并且线程池ThreadPoolExecutor的worker工作线程类也是基于AQS实现。所以掌握AQS的原理对理解并发工具的原理大有裨益。 原理AQS内部有两个重要的内部类，ConditionObject">
-<meta name="twitter:image" content="https://a/max.github.io/max.github.io/2020/05/03/AQS原理解析/AQS2.png">
+<meta name="twitter:image" content="https://a/max.github.io//a/2020/05/03/AQS原理解析/AQS2.png">
 
 
 
@@ -362,7 +362,7 @@
 <li><p>同步队列，尝试获取lock锁（或者说尝试设置AQS原子变量）失败时，线程就会封装成节点放于同步队列。ConditionObject在之前的文章已经分析过了，这里就只分析同步队列了。</p>
 </li>
 </ul>
-<p><img src="/max.github.io/max.github.io/2020/05/03/AQS原理解析/AQS2.png" alt="AQS2"></p>
+<p><img src="/max.github.io//a/2020/05/03/AQS原理解析/AQS2.png" alt="AQS2"></p>
 <p>​                                                                                同步队列示意图</p>
 <p>1、第一个线程如果成功获取同步变量后，其它的线程尝试获取会失败，会封装成Node节点，加入到双链表队列中。第一次加入时，链表中没有节点，会生成一个空节点作为Head节点，同时也是Tail节点。然后CAS尝试加入到队尾，成功加入队尾并成为新的Tail节点，同时Head空节点的next指向该封装的Node节点，封装的Node节点的prev也指向Head。然后进入循环尝试一定次数获取同步状态。</p>
 <p>2、循环中，如果当前节点前驱节点是Head节点，尝试CAS获取同步状态，成功则将自己设为新的Head节点，清空Thread、prev值，也变成了一个空节点。而原来的Head节点则直接断开，等待GC。</p>

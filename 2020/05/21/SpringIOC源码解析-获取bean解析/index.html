@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="简介在前面分析到了，ApplicationContext的一个容器实现类FileSystemApplicationContext读取包含Bean定义信息的xml文件，使用xml的读取器解析xml标签的信息成BeanDefinition，然后注册到容器中。那么容器是怎么解决依赖注入呢？之前提到BeanFactory接口有个方法getBean(),从容器中获取指定的bean对象，从这个过程看容">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://a/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg">
-<meta property="og:image" content="https://a/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/8.png">
-<meta property="og:image" content="https://a/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/9.png">
-<meta property="og:image" content="https://a/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/10.png">
-<meta property="og:image" content="https://a/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/11.jpg">
+<meta property="og:image" content="https://a/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg">
+<meta property="og:image" content="https://a/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/8.png">
+<meta property="og:image" content="https://a/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/9.png">
+<meta property="og:image" content="https://a/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/10.png">
+<meta property="og:image" content="https://a/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/11.jpg">
 <meta property="og:updated_time" content="2020-05-21T05:34:17.228Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringIOC源码解析 - 获取bean解析">
 <meta name="twitter:description" content="简介在前面分析到了，ApplicationContext的一个容器实现类FileSystemApplicationContext读取包含Bean定义信息的xml文件，使用xml的读取器解析xml标签的信息成BeanDefinition，然后注册到容器中。那么容器是怎么解决依赖注入呢？之前提到BeanFactory接口有个方法getBean(),从容器中获取指定的bean对象，从这个过程看容">
-<meta name="twitter:image" content="https://a/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg">
+<meta name="twitter:image" content="https://a/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg">
 
 
 
@@ -358,7 +358,7 @@
       
 
       
-        <img src="/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg" alt="7">
+        <img src="/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/7.jpg" alt="7">
 
 
 
@@ -379,7 +379,7 @@
 <p>具体代码演示下</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">       String configuration=<span class="string">"beans.xml"</span>;</span><br><span class="line">        ClassPathResource resource = <span class="keyword">new</span> ClassPathResource(<span class="string">"beans.xml"</span>);</span><br><span class="line">       DefaultListableBeanFactory beanFactory = <span class="keyword">new</span> DefaultListableBeanFactory();</span><br><span class="line">       XmlBeanDefinitionReader beanDefinitionReader = <span class="keyword">new</span> XmlBeanDefinitionReader(beanFactory);</span><br><span class="line">       beanDefinitionReader.loadBeanDefinitions(resource);</span><br><span class="line">       System.out.println(beanFactory.getBean(<span class="string">"hhh"</span>));</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   &lt;bean id="FactoryBeanColor" class="com.max.bean.ColorFactoryBean"&gt;&lt;/bean&gt;</span><br><span class="line">&lt;alias name="FactoryBeanColor" alias="hhh"&gt;&lt;/alias&gt;</span><br><span class="line">&lt;alias name="hhh" alias="xxx"&gt;&lt;/alias&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/8.png" alt="8"><br>可以看到从<code>aliasMap</code>中获取到最终的bean名称“FactoryBeanColor”。</p>
+<p><img src="/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/8.png" alt="8"><br>可以看到从<code>aliasMap</code>中获取到最终的bean名称“FactoryBeanColor”。</p>
 <ol start="2">
 <li>看下<code>getSingleton()</code></li>
 </ol>
@@ -431,9 +431,9 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"FactoryBeanColor"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.atguigu.bean.ColorFactoryBean"</span>&gt;</span><br><span class="line">	&lt;property name="Name" value="parent"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">   <span class="comment">//ChildFactoryBeanColor是FactoryBeanColor的子类，没有包含class属性</span></span><br><span class="line">&lt;bean id=<span class="string">"ChildFactoryBeanColor"</span> parent=<span class="string">"FactoryBeanColor"</span>&gt;</span><br><span class="line">	&lt;property name="Name" value="chiled"&gt;&lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">       String configuration=<span class="string">"beans.xml"</span>;</span><br><span class="line">      ApplicationContext applicationContext=<span class="keyword">new</span> 				                   ClassPathXmlApplicationContext(configuration);</span><br><span class="line">       System.out.println(<span class="string">"bean———&gt;"</span> + applicationContext.getBean(<span class="string">"ChildFactoryBeanColor"</span>));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/9.png" alt="9"></p>
+<p><img src="/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/9.png" alt="9"></p>
 <p>这是ChildFactoryBeanColor的beanDefinition信息，可以看到beanClass属性为null，要从parentName获取到该属性。</p>
-<p><img src="/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/10.png" alt="10"></p>
+<p><img src="/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/10.png" alt="10"></p>
 <p>这是合并后的beanDefinition，发现class属性已经被覆盖。</p>
 <p>其实<code>getMergedBeanDefinition()</code>主要是为了解决xml中父子bean属性定义更方便，继承一些属性定义信息。</p>
 <blockquote>
@@ -455,7 +455,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//如果需要进行类型转换，进行类型转换，返回完整的bean实例</span></span><br><span class="line"><span class="keyword">if</span> (requiredType != <span class="keyword">null</span> &amp;&amp; bean != <span class="keyword">null</span> &amp;&amp; !requiredType.isInstance(bean)) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> getTypeConverter().convertIfNecessary(bean, requiredType);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (TypeMismatchException ex) &#123;</span><br><span class="line">			<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">				logger.debug(<span class="string">"Failed to convert bean '"</span> + name + <span class="string">"' to required type '"</span> +</span><br><span class="line">						ClassUtils.getQualifiedName(requiredType) + <span class="string">"'"</span>, ex);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> BeanNotOfRequiredTypeException(name, requiredType, bean.getClass());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (T) bean;</span><br></pre></td></tr></table></figure>
 
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>至此<code>getBean()</code>获取bean的整个流程都分析完了。还剩余<code>createBean()</code>创建bean实例没有分析，再后面的文章分析。<br>总结一下<code>getBean(String name)</code>的流程：</p>
-<img src="/max.github.io/max.github.io/2020/05/21/SpringIOC源码解析-获取bean解析/11.jpg" alt="11" style="zoom:80%;">
+<img src="/max.github.io//a/2020/05/21/SpringIOC源码解析-获取bean解析/11.jpg" alt="11" style="zoom:80%;">
 
 <blockquote>
 <p>参考  </p>
