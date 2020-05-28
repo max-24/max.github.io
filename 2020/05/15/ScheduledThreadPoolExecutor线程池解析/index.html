@@ -83,18 +83,18 @@
 <meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ScheduledThreadPoolExecutor线程池解析">
-<meta property="og:url" content="https://max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/index.html">
+<meta property="og:url" content="https://github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/index.html">
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
-<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png">
-<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A02.png">
+<meta property="og:image" content="https://github.com/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
+<meta property="og:image" content="https://github.com/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png">
+<meta property="og:image" content="https://github.com/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A02.png">
 <meta property="og:updated_time" content="2020-05-15T05:52:15.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ScheduledThreadPoolExecutor线程池解析">
 <meta name="twitter:description" content="ScheduledThreadPoolExecutor线程池解析简介在处理延时、周期性任务时，使用jdk的工具主要有两种方案：Timer、ScheduledThreadPoolExecutor。二者的具体区别如下：    Timer ScheduledThreadPoolExecutor    单线程 多线程   任务基于绝对时间执行 任务基于相对时间执行   任务出现异常不会捕获，其它任">
-<meta name="twitter:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
+<meta name="twitter:image" content="https://github.com/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg">
 
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="https://max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/">
+  <link rel="canonical" href="https://github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/">
 
 
 
@@ -267,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://max-24.github.io/max.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/max-24/max.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Max">
@@ -356,7 +356,7 @@
       
 
       
-        <img src="/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg" alt="3" style="zoom:80%;">
+        <img src="/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/3.jpg" alt="3" style="zoom:80%;">
 
 
 
@@ -397,7 +397,7 @@
 <li>往队列中按延时顺序添加到对应的位置，然后创建工作线程，获取任务然后执行。如果是延时任务，到时再执行。如果是周期任务，执行完后，再修改任务的下次执行时间，然后放入队列中。但是最多只能创建核心数量(corePoolSize)的工作线程不断从队列中获取任务执行。</li>
 </ol>
 <h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>ScheduledThreadPoolExecutor相关类图如下：</p>
-<p><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png" alt="线程池1"></p>
+<p><img src="/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A01.png" alt="线程池1"></p>
 <p>继承了ThreadPoolExecutor类，实现了接口ScheduledExecutorService，接口内部主要定义了一些定时执行任务的方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title">ThreadPoolExecutor</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">ScheduledExecutorService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//周期任务在线程池关闭后是否继续执行</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> continueExistingPeriodicTasksAfterShutdown;</span><br><span class="line">    <span class="comment">//延时任务在线程池关闭后是否继续执行</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> executeExistingDelayedTasksAfterShutdown = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">//如果任务停止是否从队列中移除</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> removeOnCancel = <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">//记录任务创建的顺序，用于任务进队排序</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AtomicLong sequencer = <span class="keyword">new</span> AtomicLong();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -422,7 +422,7 @@
 <blockquote>
 <p>如果当前线程池的线程数量&lt;corePoolSize，才会创建工作线程。也就是说最多只能存在corePoolSize数量的线程。还要注意的是工作线程没有附带任务，所以最后执行都是getTask()方法获取任务。</p>
 </blockquote>
-<p>addWorker()相关方法都在<a href="https://max-24.github.io/max.github.io/2020/04/20/并发工具Excutor框架/">ThreadPoolExecutor</a>中介绍了。</p>
+<p>addWorker()相关方法都在<a href="https://max-24.github.io/max.github.io/2020/04/20/并发工具Excutor框架/" target="_blank" rel="noopener">ThreadPoolExecutor</a>中介绍了。</p>
 <p>除了execute()没有设置延时或周期，submit()也是一样的。真正可以设置时间的是scheduleWithFixedDelay(）、scheduleAtFixedRate()方法，这两个方法就是线程池实现的<code>ScheduledExecutorService</code>接口的定时方法。</p>
 <ul>
 <li>scheduleWithFixedDelay(）</li>
@@ -470,7 +470,7 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//判断任务是否设置周期时间</span></span><br><span class="line">    <span class="keyword">boolean</span> periodic = isPeriodic();</span><br><span class="line">    <span class="comment">//当前线程池运行状态下如果不可以执行任务，取消该任务</span></span><br><span class="line">    <span class="keyword">if</span> (!canRunInCurrentRunState(periodic))</span><br><span class="line">        cancel(<span class="keyword">false</span>);</span><br><span class="line">    <span class="comment">//如果不是周期任务，直接运行</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!periodic)</span><br><span class="line">        ScheduledFutureTask.<span class="keyword">super</span>.run();</span><br><span class="line">    <span class="comment">//如果是周期任务</span></span><br><span class="line">    <span class="comment">//runAndReset()执行任务，但不会设置执行结果，所以可以重复执行</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (ScheduledFutureTask.<span class="keyword">super</span>.runAndReset()) &#123;</span><br><span class="line">        <span class="comment">//设置下次执行时间，修改time属性</span></span><br><span class="line">        setNextRunTime();</span><br><span class="line">        <span class="comment">//再将任务添加到队列中，并创建工作线程执行</span></span><br><span class="line">        reExecutePeriodic(outerTask);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setNextRunTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">long</span> p = period;</span><br><span class="line">       <span class="comment">//采用绝对固定的周期时间，则time是上次执行的时间加上周期时间</span></span><br><span class="line">       <span class="keyword">if</span> (p &gt; <span class="number">0</span>)</span><br><span class="line">          time += p;</span><br><span class="line">       <span class="comment">//采用相对固定的周期时间，则time是当前时间加上周期时间</span></span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">          time = triggerTime(-p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h6 id="DelayedWorkQueue"><a href="#DelayedWorkQueue" class="headerlink" title="DelayedWorkQueue"></a>DelayedWorkQueue</h6><p>DelayedWorkQueue实现了BlockingQueue接口，一种无界的阻塞队列。无界并不是像LinkedBlockingQueue一样，底层是链表实现的，而是可扩容的数组实现的。<a href="https://max-24.github.io/max.github.io/2020/04/13/并发工具——阻塞队列/">关于阻塞队列更多的知识可以看另一篇文章</a>。</p>
+<h6 id="DelayedWorkQueue"><a href="#DelayedWorkQueue" class="headerlink" title="DelayedWorkQueue"></a>DelayedWorkQueue</h6><p>DelayedWorkQueue实现了BlockingQueue接口，一种无界的阻塞队列。无界并不是像LinkedBlockingQueue一样，底层是链表实现的，而是可扩容的数组实现的。<a href="https://max-24.github.io/max.github.io/2020/04/13/并发工具——阻塞队列/" target="_blank" rel="noopener">关于阻塞队列更多的知识可以看另一篇文章</a>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">DelayedWorkQueue</span> <span class="keyword">extends</span> <span class="title">AbstractQueue</span>&lt;<span class="title">Runnable</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">BlockingQueue</span>&lt;<span class="title">Runnable</span>&gt; </span>&#123;</span><br><span class="line">        <span class="comment">//默认容量16</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INITIAL_CAPACITY = <span class="number">16</span>;</span><br><span class="line">        <span class="comment">//数组类型是RunnableScheduledFuture，是ScheduledFutureTask的父接口</span></span><br><span class="line">        <span class="keyword">private</span> RunnableScheduledFuture&lt;?&gt;[] queue =</span><br><span class="line">                    <span class="keyword">new</span> RunnableScheduledFuture&lt;?&gt;[INITIAL_CAPACITY];</span><br><span class="line">        <span class="comment">//全局锁，take、put操作需要获取重入锁</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">        <span class="comment">//数组的元素的大小</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//进行take操作的线程</span></span><br><span class="line">        <span class="keyword">private</span> Thread leader = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//条件对象，用于take、put操作的唤醒和阻塞</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Condition available = lock.newCondition();</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -508,7 +508,7 @@
 <p>最后再介绍下DelayedWorkQueue队列的元素“上沉”和”下沉“操作。</p>
 </blockquote>
 <p>一般在堆排序中，为了使元素插入到正确的位置，需要”堆上浮“。从堆首中取出元素，为了使剩余的元素处于正确的顺序，需要”堆下沉“。在DelayedWorkQueue中，put()添加元素和take()移除元素过程中，就涉及到了”上浮“和”下沉“。</p>
-<p><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A02.png" alt="线程池2"></p>
+<p><img src="/max.github.io//github.com/max-24/max.github.io/2020/05/15/ScheduledThreadPoolExecutor线程池解析/%E7%BA%BF%E7%A8%8B%E6%B1%A02.png" alt="线程池2"></p>
 <p>假设数组的元素索引从0到8，依次组成堆的结构。假设当前元素索引为k，那么</p>
 <p>父节点的位置：（k-1）/ 2</p>
 <p>左子节点的的位置：   k / 2 +1 </p>
