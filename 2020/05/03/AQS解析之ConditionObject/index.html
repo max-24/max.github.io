@@ -83,16 +83,16 @@
 <meta name="keywords" content="AQS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AQS解析之ConditionObject">
-<meta property="og:url" content="https://github.com/max-24/max.github.io/2020/05/03/AQS解析之ConditionObject/index.html">
+<meta property="og:url" content="https://max-24.github.io/max.github.io/2020/05/03/AQS解析之ConditionObject/index.html">
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="AQS解析之ConditionObjectConditionObjectConditionObject是AQS(AbstractQueuedSynchronizer)抽象队列同步器的一个内部类，实现了JUC(java.util.concurrent)的Condition接口。Condition的await、singnal/singnall和Java的Object类的wait、notify/noti">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/max-24/max.github.io/2020/05/03/AQS解析之ConditionObject/AQS1.png">
+<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/03/AQS解析之ConditionObject/AQS1.png">
 <meta property="og:updated_time" content="2020-05-03T05:02:20.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AQS解析之ConditionObject">
 <meta name="twitter:description" content="AQS解析之ConditionObjectConditionObjectConditionObject是AQS(AbstractQueuedSynchronizer)抽象队列同步器的一个内部类，实现了JUC(java.util.concurrent)的Condition接口。Condition的await、singnal/singnall和Java的Object类的wait、notify/noti">
-<meta name="twitter:image" content="https://github.com/max-24/max.github.io/2020/05/03/AQS解析之ConditionObject/AQS1.png">
+<meta name="twitter:image" content="https://max-24.github.io/max.github.io/2020/05/03/AQS解析之ConditionObject/AQS1.png">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://github.com/max-24/max.github.io/2020/05/03/AQS解析之ConditionObject/">
+  <link rel="canonical" href="https://max-24.github.io/max.github.io/2020/05/03/AQS解析之ConditionObject/">
 
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/max-24/max.github.io/2020/05/03/AQS解析之ConditionObject/">
+    <link itemprop="mainEntityOfPage" href="https://max-24.github.io/max.github.io/2020/05/03/AQS解析之ConditionObject/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Max">
@@ -359,7 +359,7 @@
 
 <h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p><code>Node</code>是AQS另一个内部类，同步队列，每个节点包含一个线程，等待获取锁成功。</p>
 <p>同步队列中，<code>Node</code>连接其它节点通过prev、next方式。条件队列中，<code>Node</code>则是通过nextWaiter方式。也意味着同步队列是一个双向链表，条件队列则是单链表。</p>
-<p><img src="//github.com/max-24/max.github.io/2020/05/03/AQS解析之ConditionObject/AQS1.png" alt="AQS1"></p>
+<p><img src="//max-24.github.io/max.github.io/2020/05/03/AQS解析之ConditionObject/AQS1.png" alt="AQS1"></p>
 <p>​                                                                             条件队列示意图</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionObject</span> <span class="keyword">implements</span> <span class="title">Condition</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//条件队列的头节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> Node firstWaiter;</span><br><span class="line">    <span class="comment">//条件队列的尾节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> Node lastWaiter;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//await时需要重新中断的标志</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REINTERRUPT =  <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//await时需要抛出中断异常的标志</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> THROW_IE    = -<span class="number">1</span>;</span><br><span class="line">   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConditionObject</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
