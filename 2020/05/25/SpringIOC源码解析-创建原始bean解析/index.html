@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="简介在上一篇文章获取bean解析中，通过getBean(String)获取bean对象，简单来说过程是：首先从缓存获取bean，再从父容器中获取，如果还没成功获取再通过createBean()创建bean。本篇文章接着分析createBean()过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png">
-<meta property="og:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png">
+<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
+<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png">
+<meta property="og:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png">
 <meta property="og:updated_time" content="2020-05-28T09:35:10.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringIOC源码解析 -- 创建原始bean解析">
 <meta name="twitter:description" content="简介在上一篇文章获取bean解析中，通过getBean(String)获取bean对象，简单来说过程是：首先从缓存获取bean，再从父容器中获取，如果还没成功获取再通过createBean()创建bean。本篇文章接着分析createBean()过程。">
-<meta name="twitter:image" content="https://max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
+<meta name="twitter:image" content="https://max-24.github.io/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg">
 
 
 
@@ -356,7 +356,7 @@
       
 
       
-        <p><img src="//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg" alt="2"></p>
+        <p><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/2.jpg" alt="2"></p>
 <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在上一篇文章获取bean解析中，通过<code>getBean(String)</code>获取bean对象，简单来说过程是：首先从缓存获取bean，再从父容器中获取，如果还没成功获取再通过<code>createBean()</code>创建bean。本篇文章接着分析<code>createBean()</code>过程。</p>
 <a id="more"></a>
 
@@ -377,7 +377,7 @@
 <p>测试：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String configuration=<span class="string">"beans.xml"</span>;</span><br><span class="line">    ApplicationContext applicationContext=<span class="keyword">new</span> ClassPathXmlApplicationContext(configuration);</span><br><span class="line">    Shop shop=(Shop)applicationContext.getBean(<span class="string">"shop"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++) &#123;</span><br><span class="line">       shop.PrintAmount();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>结果：<br><img src="//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png" alt="12"></p>
+<p>结果：<br><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/12.png" alt="12"></p>
 <ul>
 <li>replaced-method 实现</li>
 </ul>
@@ -387,7 +387,7 @@
 <p>xml配置又有点不同,<code>name</code>也是要替换生成多例bean的方法，<code>replacer</code>是实现MethodReplacer接口的bean。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"shop"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.max.bean.Shop"</span>&gt;</span><br><span class="line">		&lt;replaced-method name=<span class="string">"getProduct"</span></span><br><span class="line">           replacer=<span class="string">"shopReplace"</span>/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id="shopReplace" class="com.max.bean.ShopReplace"&gt;&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 
-<p>结果<br><img src="//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png" alt="13"></p>
+<p>结果<br><img src="/max.github.io//max-24.github.io/max.github.io/2020/05/25/SpringIOC源码解析-创建原始bean解析/13.png" alt="13"></p>
 <p>关于实现原理在下一篇文章介绍，结合创建bean的过程一起分析。</p>
 <hr>
 <p>好了，回到 <code>prepareMethodOverrides()</code>方法的实现上。</p>
