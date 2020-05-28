@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/max.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/max.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/max.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/max.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/max.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/max.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/max.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="netty,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="netty的启动过程 创建线程组 12EventLoopGroup bossGroup = new NioEventLoopGroup(1);EventLoopGroup workerGroup = new NioEventLoopGroup();  bossGroup线程组用来监听客户端的连接，workerGroup线程组用来处理客户端连接通道。  new NioEventLoopGroup()">
+<meta name="keywords" content="netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="netty启动过程分析">
+<meta property="og:url" content="http://yoursite.com/2020/03/01/netty启动过程分析/index.html">
+<meta property="og:site_name" content="The Blog">
+<meta property="og:description" content="netty的启动过程 创建线程组 12EventLoopGroup bossGroup = new NioEventLoopGroup(1);EventLoopGroup workerGroup = new NioEventLoopGroup();  bossGroup线程组用来监听客户端的连接，workerGroup线程组用来处理客户端连接通道。  new NioEventLoopGroup()">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/max.github.io/2020/03/01/netty启动过程分析/netty%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90.png">
+<meta property="og:updated_time" content="2020-03-02T04:00:18.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="netty启动过程分析">
+<meta name="twitter:description" content="netty的启动过程 创建线程组 12EventLoopGroup bossGroup = new NioEventLoopGroup(1);EventLoopGroup workerGroup = new NioEventLoopGroup();  bossGroup线程组用来监听客户端的连接，workerGroup线程组用来处理客户端连接通道。  new NioEventLoopGroup()">
+<meta name="twitter:image" content="http://yoursite.com/max.github.io/2020/03/01/netty启动过程分析/netty%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/max.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/03/01/netty启动过程分析/">
+
+
+
+
+
+  <title>netty启动过程分析 | The Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/max.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Max</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/max.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/max.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/max.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/max.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/max.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/03/01/netty启动过程分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Max">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">netty启动过程分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-01T19:20:10+08:00">
+                2020-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/max.github.io/categories/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="netty的启动过程"><a href="#netty的启动过程" class="headerlink" title="netty的启动过程"></a>netty的启动过程</h4><ol>
+<li><p><strong>创建线程组</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EventLoopGroup bossGroup = new NioEventLoopGroup(1);</span><br><span class="line">EventLoopGroup workerGroup = new NioEventLoopGroup();</span><br></pre></td></tr></table></figure>
+
+<p>bossGroup线程组用来监听客户端的连接，workerGroup线程组用来处理客户端连接通道。</p>
+<blockquote>
+<p>new NioEventLoopGroup()设置断点</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">public NioEventLoopGroup() &#123;</span><br><span class="line">    this(0);</span><br><span class="line">&#125;</span><br><span class="line">—— ——&gt;继续into</span><br><span class="line">public NioEventLoopGroup(int nThreads) &#123;</span><br><span class="line">        this(nThreads, (Executor)null);</span><br><span class="line">&#125;</span><br><span class="line">—— ——&gt;</span><br><span class="line">//到这里，又传入了两个参数，线程执行器executor和nio的选择器selector</span><br><span class="line">public NioEventLoopGroup(int nThreads, Executor executor) &#123;</span><br><span class="line">        this(nThreads, executor, SelectorProvider.provider());</span><br><span class="line">&#125;</span><br><span class="line">—— ——&gt;</span><br><span class="line">//重要的参数改变了，如果传入线程数==0，则设为DEFAULT_EVENT_LOOP_THREADS，</span><br><span class="line">  否则线程数就是构造器传入的</span><br><span class="line">//并传给父类MultithreadEventExecutorGroup构造器方法</span><br><span class="line">protected MultithreadEventLoopGroup(int nThreads, Executor executor, Object... args) &#123;</span><br><span class="line">        super(nThreads == 0 ? DEFAULT_EVENT_LOOP_THREADS : nThreads, executor, args);</span><br><span class="line">&#125;</span><br><span class="line">//默认的线程数是cpu数*2</span><br><span class="line">DEFAULT_EVENT_LOOP_THREADS=Math.max(1,SystemPropertyUtil.getInt(&quot;io.netty.eventLoopThreads&quot;, NettyRuntime.availableProcessors()*2));</span><br><span class="line">—— ——&gt;</span><br><span class="line"> //这个里面的方法才是真正创建线程组的</span><br><span class="line"> protected MultithreadEventExecutorGroup(int nThreads, Executor executor, EventExecutorChooserFactory chooserFactory, Object... args)&#123;</span><br><span class="line"> 	...</span><br><span class="line"> 	//给executor赋值，创建ThreadPerTaskExecutor类实例</span><br><span class="line"> 	 if (executor == null) &#123;</span><br><span class="line">          executor = new ThreadPerTaskExecutor(this.newDefaultThreadFactory());</span><br><span class="line">      &#125;</span><br><span class="line">    //创建线程组，EventExecutor是接口Executor的实现类</span><br><span class="line">    this.children = new EventExecutor[nThreads];</span><br><span class="line">    for(int i = 0; i &lt; nThreads; ++i) &#123;</span><br><span class="line">	....</span><br><span class="line">	try&#123;</span><br><span class="line">		//使用new Child()方法，对每个线程赋值</span><br><span class="line">		//new Child()抽象方法，NioEventLoop类重写了，返回NioEventLoop类型</span><br><span class="line">		this.children[i] = this.newChild((Executor)executor, args);</span><br><span class="line">		...</span><br><span class="line">	&#125;catch (Exception var19) &#123;</span><br><span class="line">                    throw new IllegalStateException(&quot;failed to create a child event loop&quot;, 		var19);</span><br><span class="line">	&#125; finally &#123;</span><br><span class="line">                if (var18) &#123;</span><br><span class="line">                      	if (!success) &#123;</span><br><span class="line">                      		//如果某个线程实例时出现了异常，会把之前所有的线程都安全关闭掉</span><br><span class="line">                            int j;</span><br><span class="line">                            for(j = 0; j &lt; i; ++j) &#123;</span><br><span class="line">                                this.children[j].shutdownGracefully();</span><br><span class="line">                            &#125;</span><br><span class="line">                            ...</span><br><span class="line">                        &#125;&#125;&#125;</span><br><span class="line">      ...</span><br><span class="line">	&#125;</span><br><span class="line">	this.chooser = chooserFactory.newChooser(this.children);</span><br><span class="line">    FutureListener&lt;Object&gt; terminationListener = new FutureListener&lt;Object&gt;() &#123;</span><br><span class="line">    public void operationComplete(Future&lt;Object&gt; future) throws Exception &#123;</span><br><span class="line">          if(MultithreadEventExecutorGroup.this.terminatedChildren.incrementAndGet() == 					MultithreadEventExecutorGroup.this.children.length) &#123;</span><br><span class="line">           MultithreadEventExecutorGroup.this.terminationFuture.setSuccess((Object)null);</span><br><span class="line">           &#125;&#125;</span><br><span class="line">      	&#125;;</span><br><span class="line">            EventExecutor[] var24 = this.children;</span><br><span class="line">            j = var24.length;</span><br><span class="line">            //对线程组中的每个NioEventLoop实例增加FutureListener监听器</span><br><span class="line">            for(int var26 = 0; var26 &lt; j; ++var26) &#123;</span><br><span class="line">                EventExecutor e = var24[var26];</span><br><span class="line">                e.terminationFuture().addListener(terminationListener);</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ServerBootStrap配置</strong></p>
+<p>ServerBootStrap用于服务端引导配置，包括设置线程组、通道类型、通道处理器等。</p>
+<blockquote>
+<p>new ServerBootStrap()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	public class ServerBootstrap extends AbstractBootstrap&lt;ServerBootstrap, ServerChannel&gt; &#123;</span><br><span class="line">   private final Map&lt;ChannelOption&lt;?&gt;, Object&gt; childOptions = new ConcurrentHashMap();</span><br><span class="line">   private final Map&lt;AttributeKey&lt;?&gt;, Object&gt; childAttrs = new ConcurrentHashMap();</span><br><span class="line">   private final ServerBootstrapConfig config = new ServerBootstrapConfig(this);</span><br><span class="line">   private volatile EventLoopGroup childGroup;</span><br><span class="line">   private volatile ChannelHandler childHandler;</span><br><span class="line">private static final InternalLogger logger = 	 </span><br><span class="line">                              InternalLoggerFactory.getInstance(ServerBootstrap.class);</span><br><span class="line">   public ServerBootstrap() &#123;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现构造器并没做什么，但是类的相关属性都初始化了。</p>
+<blockquote>
+<p>group(bossgroup,workergroup)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public ServerBootstrap group(EventLoopGroup parentGroup, EventLoopGroup childGroup) &#123;</span><br><span class="line">    //AbstracServerBootstrap父类的group方法执行</span><br><span class="line">    super.group(parentGroup);</span><br><span class="line">    ObjectUtil.checkNotNull(childGroup, &quot;childGroup&quot;);</span><br><span class="line">    if (this.childGroup != null) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;childGroup set already&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    	//赋值childgroup属性，然后返回实例</span><br><span class="line">        this.childGroup = childGroup;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//AbstracServerBootStrap group方法</span><br><span class="line">public B group(EventLoopGroup group) &#123;</span><br><span class="line">    ObjectUtil.checkNotNull(group, &quot;group&quot;);</span><br><span class="line">    if (this.group != null) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;group set already&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">    	//赋值group属性</span><br><span class="line">        this.group = group;</span><br><span class="line">        return this.self();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>channel(NioServerSocketChannel.class)</p>
+</blockquote>
+<p>设置服务端通道类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//使用AbstractServerBootStrap的channel方法，将ReflectiveChannelFactory实例赋给channelFactory属  //性，并且设置ReflectiveChannelFactory实例的construct属性为传进去的channelClass的construct</span><br><span class="line">public B channel(Class&lt;? extends C&gt; channelClass) &#123;</span><br><span class="line">		//使用反射通道工厂设置通道，就是根据class类型反射创建实例</span><br><span class="line">        return this.channelFactory((io.netty.channel.ChannelFactory)(new ReflectiveChannelFactory((Class)ObjectUtil.checkNotNull(channelClass, &quot;channelClass&quot;))));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">//调用到最底层类ReflectiveChannelFactory的构造方法 </span><br><span class="line">public ReflectiveChannelFactory(Class&lt;? extends T&gt; clazz) &#123;</span><br><span class="line">        ObjectUtil.checkNotNull(clazz, &quot;clazz&quot;);</span><br><span class="line">        try &#123;</span><br><span class="line">        	//将通道类型的构造器赋值</span><br><span class="line">            this.constructor = clazz.getConstructor();</span><br><span class="line">        &#125; catch (NoSuchMethodException var3) &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;Class &quot; + StringUtil.simpleClassName(clazz) + &quot; does not have a public non-arg constructor&quot;, var3);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"> //并且将ReflectiveChannelFactory实例赋给AbstractServerBootstrap的channelFactory属性</span><br><span class="line"> public B channelFactory(ChannelFactory&lt;? extends C&gt; channelFactory) &#123;</span><br><span class="line">        ObjectUtil.checkNotNull(channelFactory, &quot;channelFactory&quot;);</span><br><span class="line">        if (this.channelFactory != null) &#123;</span><br><span class="line">            throw new IllegalStateException(&quot;channelFactory set already&quot;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            this.channelFactory = channelFactory;</span><br><span class="line">            return this.self();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>option(ChannelOption.SO_BACKLOG,100)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//AbstractBootstrap的方法</span><br><span class="line">public &lt;T&gt; B option(ChannelOption&lt;T&gt; option, T value) &#123;</span><br><span class="line">    ObjectUtil.checkNotNull(option, &quot;option&quot;);</span><br><span class="line">    if (value == null) &#123;</span><br><span class="line">        this.options.remove(option);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      //其实是给optionmap中插入数据</span><br><span class="line">        this.options.put(option, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return this.self();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>handler(new LoggingHandler(LogLevel.INFO))</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//AbstractBootstrap的方法，给handler属性赋值</span><br><span class="line">public B handler(ChannelHandler handler) &#123;</span><br><span class="line">        this.handler = (ChannelHandler)ObjectUtil.checkNotNull(handler, &quot;handler&quot;);</span><br><span class="line">        return this.self();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ChannelFuture f = b.bind(port).sync()</strong></p>
+<p>最核心的部分，绑定端口并运行服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">—— ——&gt;</span><br><span class="line">//AbstractBootstrap类的bind方法</span><br><span class="line"> public ChannelFuture bind(int inetPort) &#123;</span><br><span class="line">        return this.bind(new InetSocketAddress(inetPort));</span><br><span class="line"> &#125;</span><br><span class="line">—— ——&gt;</span><br><span class="line">public ChannelFuture bind(SocketAddress localAddress) &#123;</span><br><span class="line">        this.validate();</span><br><span class="line">        return this.doBind((SocketAddress)ObjectUtil.checkNotNull(localAddress, &quot;localAddress&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"> —— ——&gt;</span><br><span class="line"> //最底层的方法</span><br><span class="line"> private ChannelFuture doBind(final SocketAddress localAddress) &#123;</span><br><span class="line">        //initAndRegister方法进行初始化和注册</span><br><span class="line">        final ChannelFuture regFuture = this.initAndRegister();</span><br><span class="line">        final Channel channel = regFuture.channel();</span><br><span class="line">        if (regFuture.cause() != null) &#123;</span><br><span class="line">            return regFuture;</span><br><span class="line">        &#125; else if (regFuture.isDone()) &#123;</span><br><span class="line">            ChannelPromise promise = channel.newPromise();</span><br><span class="line">            doBind0(regFuture, channel, localAddress, promise);</span><br><span class="line">            return promise;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            final AbstractBootstrap.PendingRegistrationPromise promise = new AbstractBootstrap.PendingRegistrationPromise(channel);</span><br><span class="line">            regFuture.addListener(new ChannelFutureListener() &#123;</span><br><span class="line">                public void operationComplete(ChannelFuture future) throws Exception &#123;</span><br><span class="line">                    Throwable cause = future.cause();</span><br><span class="line">                    if (cause != null) &#123;</span><br><span class="line">                        promise.setFailure(cause);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        promise.registered();</span><br><span class="line">                        //关键bind方法</span><br><span class="line">                        AbstractBootstrap.doBind0(regFuture, channel, localAddress, promise);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            return promise;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">  —— —— —— ——&gt;</span><br><span class="line">  final ChannelFuture initAndRegister() &#123;</span><br><span class="line">        Channel channel = null;</span><br><span class="line">        try &#123;</span><br><span class="line">        	//通过channelFactory通道工厂属性的newChannel方法创建channel</span><br><span class="line">        	/**因为之前已经将flectiveChannelFactory实例赋给channelFactory属性</span><br><span class="line">        	*flectiveChannelFactory的newChannel()方法实现为</span><br><span class="line">        	*  return (Channel)this.constructor.newInstance();</span><br><span class="line">        	* 通过构造器反射创建channel实例，即NioServerSocketChannel实例</span><br><span class="line">        	**/</span><br><span class="line">            channel = this.channelFactory.newChannel();</span><br><span class="line">            this.init(channel);</span><br><span class="line">        &#125; catch (Throwable var3) &#123;</span><br><span class="line">            if (channel != null) &#123;</span><br><span class="line">                channel.unsafe().closeForcibly();</span><br><span class="line">                return (new DefaultChannelPromise(channel, GlobalEventExecutor.INSTANCE)).setFailure(var3);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            return (new DefaultChannelPromise(new FailedChannel(), GlobalEventExecutor.INSTANCE)).setFailure(var3);</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">		/**</span><br><span class="line">		* 这个方法是将nioServerSocketChannel注册到bossgroup中</span><br><span class="line">		* group()返回是bossgroup，register()先使用next()得到bossgroup的一个线程，然后绑定通道</span><br><span class="line">		*</span><br><span class="line">		**/</span><br><span class="line">        ChannelFuture regFuture = this.config().group().register(channel);</span><br><span class="line">        if (regFuture.cause() != null) &#123;</span><br><span class="line">            if (channel.isRegistered()) &#123;</span><br><span class="line">                channel.close();</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                channel.unsafe().closeForcibly();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return regFuture;</span><br><span class="line">    &#125;</span><br><span class="line">—— —— —— —— ——</span><br><span class="line">//ServerBootStrap类的init方法实现</span><br><span class="line">   void init(Channel channel) &#123;</span><br><span class="line">   		//给channel的config绑定optionmap的键值对</span><br><span class="line">        setChannelOptions(channel, (Entry[])this.options0().entrySet().toArray(newOptionArray(0)), logger);</span><br><span class="line">        setAttributes(channel, (Entry[])this.attrs0().entrySet().toArray(newAttrArray(0)));</span><br><span class="line">        //获得NioServerSocketChannel通道的管道</span><br><span class="line">        ChannelPipeline p = channel.pipeline();</span><br><span class="line">        final EventLoopGroup currentChildGroup = this.childGroup;</span><br><span class="line">        final ChannelHandler currentChildHandler = this.childHandler;</span><br><span class="line">        final Entry&lt;ChannelOption&lt;?&gt;, Object&gt;[] currentChildOptions = (Entry[])this.childOptions.entrySet().toArray(newOptionArray(0));</span><br><span class="line">        final Entry&lt;AttributeKey&lt;?&gt;, Object&gt;[] currentChildAttrs = (Entry[])this.childAttrs.entrySet().toArray(newAttrArray(0));</span><br><span class="line">        //加入NioServerSocketChannel通道的处理器</span><br><span class="line">        p.addLast(new ChannelHandler[]&#123;new ChannelInitializer&lt;Channel&gt;() &#123;</span><br><span class="line">            public void initChannel(final Channel ch) &#123;</span><br><span class="line">                final ChannelPipeline pipeline = ch.pipeline();</span><br><span class="line">                //获得ServerBootstrap的channelhandler属性</span><br><span class="line">                ChannelHandler handler = ServerBootstrap.this.config.handler();</span><br><span class="line">                if (handler != null) &#123;</span><br><span class="line">                	//如果事先设置，则向NioServerSocketChannel的peipeline尾部添加handler</span><br><span class="line">                	/**</span><br><span class="line">                	 * 这个handler是serverbootstrap的handler()方法的参数，在这里是</span><br><span class="line">                     * logginghandler</span><br><span class="line">                	 **/</span><br><span class="line">                    pipeline.addLast(new ChannelHandler[]&#123;handler&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">			</span><br><span class="line">			</span><br><span class="line">			/**</span><br><span class="line">			* 这段代码作用是：ch.eventLoop()即bossgroup的线程，向nioServerSocketChannel的</span><br><span class="line">			* pipeline尾部加了ServerBootstrapAcceptor接收器，监听等待客户端的连接</span><br><span class="line">			**/</span><br><span class="line">                ch.eventLoop().execute(new Runnable() &#123;</span><br><span class="line">                    public void run() &#123;</span><br><span class="line">                        pipeline.addLast(new ChannelHandler[]&#123;new ServerBootstrap.ServerBootstrapAcceptor(ch, currentChildGroup, currentChildHandler, currentChildOptions, currentChildAttrs)&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;&#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ChannelFuture regFuture = this.config().group().register(channel);</p>
+</blockquote>
+<p>看下initAndRegister()方法中的这行代码，作用是将使用bossgroup线程组注册nioServerSocketChannel通道。其实主要干了两件事：</p>
+<p>1、先使用next()获得bossgroup的一个线程，然后execute执行register0(promise)。</p>
+<p>​    promise是将NioServerSocketChannel和NioEventLoop封装在一起的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>2、register0(promise)方法最底层调用到了AbstractNioChannel类的doRegister()方法。下面这行代码就是这个方法的核心，这个不就是nio中将选择器注册到通道中吗！当然执行这整个过程都是在bossgroup的eventLoop线程中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.selectionKey = this.javaChannel().register(this.eventLoop().unwrappedSelector(), 0, this);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p><strong>initAndRegister()方法</strong>之后进入到核心方法 <code>AbstractBootstrap.doBind0(regFuture, channel, localAddress, promise)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">—— —— —— ——&gt;</span><br><span class="line">AbstractBootstrap.bind0方法内调用了   </span><br><span class="line">channel.bind(localAddress, promise).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);</span><br><span class="line"></span><br><span class="line">—— —— —— ——&gt;</span><br><span class="line">调用到DefaultChannelHandlerPipeline类中的bind(SocketAddress localAddress, ChannelPromise promise)</span><br><span class="line">—— —— —— ——&gt;</span><br><span class="line">调用到AbstractChannelHandlerContext类中的 bind(final SocketAddress localAddress, final ChannelPromise promise) </span><br><span class="line">方法里使用了  next.invokeBind(localAddress, promise);</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">—— —— —— ——&gt;</span><br><span class="line">跳出bind方法后会跳到SingleThreadEventExecutor线程类的runAllTasks方法</span><br><span class="line"></span><br><span class="line">—— —— —— ——&gt;</span><br><span class="line">执行完后跳到NioEventLoop类的run()方法</span><br><span class="line">这个方法中有两个很重要的方法</span><br><span class="line">1、this.processSelectedKeys();</span><br><span class="line">2、  this.runAllTasks();</span><br><span class="line">因为之前已经在NioEventLoop中给ServerSocketChannel通道注册了选择器，所以</span><br><span class="line">当有客户端和服务端连接时，NioEventLoop线程监听到连接事件，会让childgroup的线程组执行处理这些连接，并且不断循环监听事件。</span><br></pre></td></tr></table></figure>
+
+<p>这个过程其实很复杂，涉及到线程操作。先进行简单分析。 </p>
+</li>
+<li><p><strong>NioServerSocketChannel和Pipeline、ChannelHandler、ChannelHandlerContext的关系</strong></p>
+<p>在<code>initAndRegister()</code>方法中，使用channelFactory通道工厂给channel赋值生成NioServerSocketChannel实例，channel中相关的属性如下：</p>
+<p><img src="/max.github.io/2020/03/01/netty启动过程分析/netty%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90.png" alt="netty启动过程分析"></p>
+<blockquote>
+<p>包含一个pipeline属性</p>
+</blockquote>
+<p>pipeline属性初始为DefaultChannelPipeline实例，<code>DefaultChannelPipeline</code>是一个双链表结构，包含head、tail头尾结点，更具体的看head头结点是DefaultChannelPipeline中的HeadContext内部类，tail尾结点是TailContext内部类，并且头尾结点是AbstractChannelHandlerContext类型，从其源码可以应证： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class DefaultChannelPipeline implements ChannelPipeline &#123;</span><br><span class="line">//头结点</span><br><span class="line">final AbstractChannelHandlerContext head;</span><br><span class="line">//尾结点</span><br><span class="line">final AbstractChannelHandlerContext tail;</span><br><span class="line">//pipeline也可以获得channel实例</span><br><span class="line">private final Channel channel;</span><br><span class="line"></span><br><span class="line">protected DefaultChannelPipeline(Channel channel) &#123;</span><br><span class="line">    this.channel = (Channel)ObjectUtil.checkNotNull(channel, &quot;channel&quot;);</span><br><span class="line">    this.succeededFuture = new SucceededChannelFuture(channel, (EventExecutor)null);</span><br><span class="line">    this.voidPromise = new VoidChannelPromise(channel, true);</span><br><span class="line">    this.tail = new DefaultChannelPipeline.TailContext(this);</span><br><span class="line">    this.head = new DefaultChannelPipeline.HeadContext(this);</span><br><span class="line">    //初始头结点next指向尾结点，尾结点prev指向头结点</span><br><span class="line">    this.head.next = this.tail;</span><br><span class="line">    this.tail.prev = this.head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">final class HeadContext extends AbstractChannelHandlerContext implements ChannelOutboundHandler, ChannelInboundHandler &#123;...&#125;</span><br><span class="line"></span><br><span class="line">final class TailContext extends AbstractChannelHandlerContext implements ChannelInboundHandler &#123;...&#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至于channelhandler怎么关联，可以继续看pipeline的方法<code>addLast(String name, ChannelHandler handler)</code> ，有可以不带name参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//调用更底层方法</span><br><span class="line">public final ChannelPipeline addLast(String name, ChannelHandler handler) &#123;</span><br><span class="line">    return this.addLast((EventExecutorGroup)null, name, handler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public final ChannelPipeline addLast(EventExecutorGroup group, String name, ChannelHandler handler) &#123;</span><br><span class="line">	//创建AbstractChannelHanderContext实例</span><br><span class="line">    AbstractChannelHandlerContext newCtx;</span><br><span class="line">    //保证多线程添加的安全</span><br><span class="line">    synchronized(this) &#123;</span><br><span class="line">        checkMultiplicity(handler);</span><br><span class="line">        /**</span><br><span class="line">        * 这个方法返回一个DefaultChannelHandlerContext实例，这个类是AbstractChannelHandler</span><br><span class="line">        * Context的子类，并且多了一个channelhandler属性，将handler赋给channelhandler属性</span><br><span class="line">        **/</span><br><span class="line">        newCtx = this.newContext(group, this.filterName(name, handler), handler);</span><br><span class="line">        //然后将channelhandlercontext添加到tail结点的前面</span><br><span class="line">        this.addLast0(newCtx);</span><br><span class="line">        if (!this.registered) &#123;</span><br><span class="line">            newCtx.setAddPending();</span><br><span class="line">            this.callHandlerCallbackLater(newCtx, true);</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        EventExecutor executor = newCtx.executor();</span><br><span class="line">        if (!executor.inEventLoop()) &#123;</span><br><span class="line">            this.callHandlerAddedInEventLoop(newCtx, executor);</span><br><span class="line">            return this;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    this.callHandlerAdded0(newCtx);</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每次使用addLast方法添加channelhandler时，会先创建一个DefaultChannelHandlerContext实例，将channlehandler赋给这个实例的channelhandler属性，然后将这个实例添加到pipeline的尾结点前面。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/max.github.io/tags/netty/" rel="tag"># netty</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/max.github.io/2019/06/26/杂想/" rel="next" title="杂想">
+                <i class="fa fa-chevron-left"></i> 杂想
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/max.github.io/2020/03/09/netty接受客户端请求过程分析/" rel="prev" title="netty接受客户端请求过程分析">
+                netty接受客户端请求过程分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/max.github.io/images/avatar.jpg" alt="Max">
+            
+              <p class="site-author-name" itemprop="name">Max</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/max.github.io/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/max.github.io/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/max.github.io/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#netty的启动过程"><span class="nav-number">1.</span> <span class="nav-text">netty的启动过程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Max</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/max.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/max.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
