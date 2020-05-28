@@ -83,17 +83,17 @@
 <meta name="keywords" content="多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发工具Excutor框架">
-<meta property="og:url" content="https://a/2020/04/20/并发工具Excutor框架/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/04/20/并发工具Excutor框架/index.html">
 <meta property="og:site_name" content="The Blog">
 <meta property="og:description" content="Excutor框架解析线程池的好处线程的使用提高了程序的执行效率，能同时处理多个任务。在网络编程时，常使用多线程处理客户端的连接，有这样一个需求：当客户端连接请求很多时，如果给每个请求都去主动创建一个线程，就存在以下3个问题：  线程生命周期的开销非常高。线程创建时，需要JVM和底层操作系统提供一个辅助操作，尤其当大量线程创建时，创建每个线程时将消耗大量的计算资源。 资源消耗。活跃的线程会消耗系统">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://a/max.github.io//a/2020/04/20/并发工具Excutor框架/Excutor1.png">
-<meta property="og:image" content="https://a/max.github.io//a/2020/04/20/并发工具Excutor框架/%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7Excutor%E6%A1%86%E6%9E%B6%5CExcutor2.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/20/并发工具Excutor框架/Excutor1.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/20/并发工具Excutor框架/%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7Excutor%E6%A1%86%E6%9E%B6%5CExcutor2.png">
 <meta property="og:updated_time" content="2020-04-20T14:11:26.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发工具Excutor框架">
 <meta name="twitter:description" content="Excutor框架解析线程池的好处线程的使用提高了程序的执行效率，能同时处理多个任务。在网络编程时，常使用多线程处理客户端的连接，有这样一个需求：当客户端连接请求很多时，如果给每个请求都去主动创建一个线程，就存在以下3个问题：  线程生命周期的开销非常高。线程创建时，需要JVM和底层操作系统提供一个辅助操作，尤其当大量线程创建时，创建每个线程时将消耗大量的计算资源。 资源消耗。活跃的线程会消耗系统">
-<meta name="twitter:image" content="https://a/max.github.io//a/2020/04/20/并发工具Excutor框架/Excutor1.png">
+<meta name="twitter:image" content="http://yoursite.com/max.github.io//yoursite.com/2020/04/20/并发工具Excutor框架/Excutor1.png">
 
 
 
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="https://a/2020/04/20/并发工具Excutor框架/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/20/并发工具Excutor框架/">
 
 
 
@@ -266,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://a/max.github.io/2020/04/20/并发工具Excutor框架/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/04/20/并发工具Excutor框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Max">
@@ -368,7 +368,7 @@
 <li>提高线程的可管理性，线程池可以统一对线程进行分配、调优、监控，提高线程的可管理性。</li>
 </ol>
 <p>Java使用线程池的核心就是Excutor框架，接下来就对这个框架进行分析。</p>
-<h4 id="Excutor相关类图"><a href="#Excutor相关类图" class="headerlink" title="Excutor相关类图"></a>Excutor相关类图</h4><p><img src="/max.github.io//a/2020/04/20/并发工具Excutor框架/Excutor1.png" alt="Excutor1"></p>
+<h4 id="Excutor相关类图"><a href="#Excutor相关类图" class="headerlink" title="Excutor相关类图"></a>Excutor相关类图</h4><p><img src="/max.github.io//yoursite.com/2020/04/20/并发工具Excutor框架/Excutor1.png" alt="Excutor1"></p>
 <ul>
 <li>Executor接口采用了<strong>命令设计模式</strong>，让任务的提交与任务的执行策略解耦开来。</li>
 <li>ExecutorService接口扩展了Executor，包含了Excutor的生命周期，以及任务的提交功能。</li>
@@ -460,7 +460,7 @@
 <blockquote>
 <p>到这里可以完整地介绍下线程池的运行原理</p>
 </blockquote>
-<p><img src="/max.github.io//a/2020/04/20/并发工具Excutor框架/%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7Excutor%E6%A1%86%E6%9E%B6%5CExcutor2.png" alt="Excutor2"></p>
+<p><img src="/max.github.io//yoursite.com/2020/04/20/并发工具Excutor框架/%E5%B9%B6%E5%8F%91%E5%B7%A5%E5%85%B7Excutor%E6%A1%86%E6%9E%B6%5CExcutor2.png" alt="Excutor2"></p>
 <p><code>execute()</code>向线程池中提交任务时</p>
 <ol>
 <li>如果当前工作线程数量小于corePoolSize核心线程数量，需要创建新的工作线程执行任务。</li>
