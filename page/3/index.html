@@ -259,6 +259,349 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/List相关整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Max">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/20/List相关整理/" itemprop="url">List相关整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:31:45+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
+                    <span itemprop="name">集合容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="List"><a href="#List" class="headerlink" title="List"></a>List</h5><p>list集合可以存放相同值的元素，是可重复有序的。</p>
+<p>Arraylist：</p>
+<p><strong>线程安全</strong>：不同步，线程不安全。                                                                                                                                                    <strong>数据结构</strong>：底层使用Object数组，默认为空的数组，如果不指定集合的大小，当第一次有元素添加，会使用默认       大小为10的数组。</p>
+<p><strong>插入或删除是否受元素位置影响</strong>：插入时，ArrayList会默认插在列表的末尾，时间复杂度为O(1)。但是如果在指定的位置i插入或删除时，集合中第 i 和第 i 个元素之后的(n-i)个元素都要执行向后位/向前移一位的操作，时间复杂度为O(n-i)。</p>
+<p><strong>是否支持快速随机访问</strong> ：支持，能直接通过元素的序号得到指定的元素。</p>
+<p><strong>内存空间占用</strong>：ArrayList的空间浪费主要体现在在list列表的结尾会预留一定的容量空间。</p>
+<p>LinkedList：</p>
+<p><strong>线程安全</strong> ：不同步，线程不安全。</p>
+<p><strong>数据结构</strong>：底层使用双向链表实现。</p>
+<p><strong>插入或删除是否受元素位置影响</strong>：不受影响，复杂度为O(1)。</p>
+<p><strong>是否支持快速随机访问</strong>: 不支持。</p>
+<p><strong>内存空间占用</strong>：LinkedList的空间浪费主要体现在存放每个元素要存放直其接后继和直接前驱以及数据。</p>
+<p>Vector：</p>
+<p>和Arraylist区别主要在于，Vector是同步的线程安全的，而后者是不安全的。所以Vector在使用上会消耗更多的时间资源保证线程安全，效率就不太高，在不需要保证线程安全时建议使用Arraylist。（Vector一些方法加了synchronized关键字）</p>
+<p>RandomAccess接口：</p>
+<p><strong>ArrayList实现了RandomAccess接口，但是这个接口并没有方法声明，说明这个接口仅仅是一个标识，标识这个类是否可以快速随机访问</strong>。 </p>
+<h6 id="ArrayList的扩容："><a href="#ArrayList的扩容：" class="headerlink" title="ArrayList的扩容："></a>ArrayList的扩容：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//数组默认的初始化大小</span><br><span class="line">private static final int DEFAULT_CAPACITY = 10;</span><br><span class="line">//默认的空数组，显示声明size为0使用</span><br><span class="line">private static final Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line">//默认的空数组，没有声明size使用</span><br><span class="line">private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">transient Object[] elementData；</span><br><span class="line"></span><br><span class="line">//带参的构造器 </span><br><span class="line">public ArrayList(int initialCapacity) &#123;</span><br><span class="line">       if (initialCapacity &gt; 0) &#123;</span><br><span class="line">           this.elementData = new Object[initialCapacity];</span><br><span class="line">       &#125; else if (initialCapacity == 0) &#123;</span><br><span class="line">           this.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+</span><br><span class="line">                                              initialCapacity);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"> //不带参的构造器</span><br><span class="line"> public ArrayList() &#123;</span><br><span class="line">       this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"> //指定collection元素的列表</span><br><span class="line">   public ArrayList(Collection&lt;? extends E&gt; c) &#123;</span><br><span class="line">       elementData = c.toArray();</span><br><span class="line">       if ((size = elementData.length) != 0) &#123;</span><br><span class="line">           // c.toArray might (incorrectly) not return Object[] (see 6260652)</span><br><span class="line">           if (elementData.getClass() != Object[].class)</span><br><span class="line">               elementData = Arrays.copyOf(elementData, size, Object[].class);</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           // replace with empty array.</span><br><span class="line">           this.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Add方法扩容机制</strong></p>
+<p>以无参构造函数创建为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//将指定元素追加到末尾</span><br><span class="line">public boolean add(E e) &#123;</span><br><span class="line">        ensureCapacityInternal(size + 1);  // Increments modCount!! </span><br><span class="line">        elementData[size++] = e;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p> <strong>ensureCapacityInternal()</strong>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">private void ensureCapacityInternal(int minCapacity) &#123;</span><br><span class="line">      //比较当前size+1和默认容量大小10比较，取最大值</span><br><span class="line">      if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">           minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">       &#125;</span><br><span class="line">       ensureExplicitCapacity(minCapacity);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当add第一个元素时，数组的容量扩到默认容量10；<strong>在添加大量元素之前用 <code>ensureCapacity</code> 方法，以减少增量重新分配的次数</strong></p>
+<p>  <strong>ensureExplicitCapacity()方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">private void ensureExplicitCapacity(int minCapacity) &#123;</span><br><span class="line">       modCount++;</span><br><span class="line"></span><br><span class="line">       // overflow-conscious code</span><br><span class="line">       if (minCapacity - elementData.length &gt; 0)</span><br><span class="line">       //调用grow方法进行扩容，调用此方法代表已经开始扩容了</span><br><span class="line">           grow(minCapacity);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加完元素后，判断是否需要扩容；<strong>每次判断是拿当前数组中已有的元素个数+1和当前数组大小判断是否扩容</strong>，而我们获取集合的大小并不是获取数组的实际大小，而是数组中元素个数（size）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 要分配的最大数组大小  </span><br><span class="line"> private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;</span><br><span class="line"></span><br><span class="line">//扩容的核心方法</span><br><span class="line">private void grow(int minCapacity) &#123;</span><br><span class="line">        // overflow-conscious code</span><br><span class="line">        //oldCapacity为旧容量，newCapacity为新容量</span><br><span class="line">        int oldCapacity = elementData.length;</span><br><span class="line">        //将oldCapacity 右移一位，其效果相当于oldCapacity /2，</span><br><span class="line">        //我们知道位运算的速度远远快于整除运算，整句运算式的结果就是将新容量更新为旧容量的1.5倍</span><br><span class="line">        int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);</span><br><span class="line">        //如果扩容1.5倍的新容量小于minCapacity，则新扩容大小为minCapacity</span><br><span class="line">        if (newCapacity - minCapacity &lt; 0)</span><br><span class="line">            newCapacity = minCapacity;</span><br><span class="line">       //如果新容量大于 MAX_ARRAY_SIZE,进入(执行) `hugeCapacity()` 方法来比较 minCapacity 和 MAX_ARRAY_SIZE，</span><br><span class="line">       //如果minCapacity大于最大容量，则新容量则为`Integer.MAX_VALUE`，否则，新容量大小则为 MAX_ARRAY_SIZE 即为 `Integer.MAX_VALUE - 8`。</span><br><span class="line">        if (newCapacity - MAX_ARRAY_SIZE &gt; 0)</span><br><span class="line">            newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">        // minCapacity is usually close to size, so this is a win:</span><br><span class="line">        elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>扩容原理：</p>
+<ul>
+<li><strong>将原有的数组大小扩容至1.5倍</strong></li>
+<li>判断新的数组大小和minCapacity的大小（<strong>当第一个元素插入时，minCapacity是默认大小10，以后都是当前元素个数+1）</strong> </li>
+<li>如果新的数组小于minCapacity，新扩容大小为minCapacity(即10)，这种情况只出现第一次插入时。</li>
+<li>如果新的数组大于MAX_ARRAY_SIZE，再判断minCapacity和MAX_ARRAY_SIZE大小，前者大则赋当前数组大小为Integer.MAX_VALUE（不能再大了），否则赋为 MAX_ARRAY_SIZE。</li>
+<li>如果新的数组大于MAX_ARRAY_SIZE，就直接扩容新的数组的大小。</li>
+</ul>
+<p>hugeCapacity()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private static int hugeCapacity(int minCapacity) &#123;</span><br><span class="line">       if (minCapacity &lt; 0) // overflow</span><br><span class="line">           throw new OutOfMemoryError();</span><br><span class="line">       //对minCapacity和MAX_ARRAY_SIZE进行比较</span><br><span class="line">       //若minCapacity大，将Integer.MAX_VALUE作为新数组的大小</span><br><span class="line">       //若MAX_ARRAY_SIZE大，将MAX_ARRAY_SIZE作为新数组的大小</span><br><span class="line">       //MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;</span><br><span class="line">       return (minCapacity &gt; MAX_ARRAY_SIZE) ?</span><br><span class="line">           Integer.MAX_VALUE :</span><br><span class="line">           MAX_ARRAY_SIZE;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>由此可见，如果事先知道元素的大概数量，最好赋给一个确定的值，原因是这样可以避免数组的扩容，每次扩容都会进行数组的复制，造成资源浪费。</strong></p>
+<hr>
+<h6 id="Arrays-copyOf-方法："><a href="#Arrays-copyOf-方法：" class="headerlink" title="Arrays.copyOf()方法："></a>Arrays.copyOf()方法：</h6><p>添加元素和转换数组（toArray()）时经常使用该方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 以正确的顺序返回一个包含此列表中所有元素的数组（从第一个到最后一个元素）; 返回的数组的运行时类型		是指定数组的运行时类型。      </span><br><span class="line">public Object[] toArray() &#123;</span><br><span class="line">//elementData：要复制的数组；size：要复制的长度</span><br><span class="line">    return Arrays.copyOf(elementData, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看Arrays.copyOf源码，底层使用了System.arraycopy()方法，再查看该方法调用发现时native方法，要到虚拟机中查看实现了–.–</p>
+<p>不过在add(int index, E element)直接使用了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 在此列表中的指定位置插入指定的元素。 </span><br><span class="line"> *先调用 rangeCheckForAdd 对index进行界限检查；然后调用 ensureCapacityInternal 方法保证capacity       足够大；</span><br><span class="line"> *再将从index开始之后的所有成员后移一个位置；将element插入index位置；最后size加1。</span><br><span class="line"> */</span><br><span class="line">public void add(int index, E element) &#123;</span><br><span class="line">    rangeCheckForAdd(index);</span><br><span class="line"></span><br><span class="line">    ensureCapacityInternal(size + 1);  // Increments modCount!!</span><br><span class="line">    //arraycopy()方法实现数组自己复制自己</span><br><span class="line">    //elementData:源数组;index:源数组中的起始位置;elementData：目标数组；index + 1：目标数组中的          起始位置； size - index：要复制的数组元素的数量；</span><br><span class="line">    System.arraycopy(elementData, index, elementData, index + 1, size - index);</span><br><span class="line">    elementData[index] = element;</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>区别：</p>
+<p>arraycopy()需要目标数组，将原数组拷贝到你自己定义的数组里或者原数组，而且可以选择拷贝的起点和长度以及放入新数组中的位置 ;copyOf()是系统自动在内部新建一个数组，并返回该数组。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/20/collection的一些底层方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Max">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/max.github.io/2019/06/20/collection的一些底层方法/" itemprop="url">collection的一些底层方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T10:30:44+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/max.github.io/categories/集合容器/" itemprop="url" rel="index">
+                    <span itemprop="name">集合容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h6 id="集合继承关系"><a href="#集合继承关系" class="headerlink" title="集合继承关系"></a>集合继承关系</h6><p><img src="/max.github.io/2019/06/20/collection的一些底层方法/%E9%9B%86%E5%90%88.png" alt="集合"></p>
+<h6 id="1、Iterator"><a href="#1、Iterator" class="headerlink" title="1、Iterator"></a>1、Iterator</h6><p>​    Iterator接口，用于遍历集合中元素的，主要包含hasNext(),next(),remove()方法。</p>
+<p>​    jdk1.8增加了一个新特性，forEach遍历，Consumer是一个接口，用来执行action的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  default void forEachRemaining(Consumer&lt;? super E&gt; action) &#123;</span><br><span class="line">      Objects.requireNonNull(action);</span><br><span class="line">      while (hasNext())</span><br><span class="line">          action.accept(next());</span><br><span class="line">  &#125;</span><br><span class="line">  //使用时需要重写accept方法（）,集合类会覆盖这个方法</span><br><span class="line">  forEach(new Consumer&lt;E&gt;() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void accept(E e) &#123;</span><br><span class="line">      //TODO</span><br><span class="line">  &#125;</span><br><span class="line">  比如：</span><br><span class="line">  list.add(&quot;1&quot;);</span><br><span class="line">  list.add(&quot;2&quot;);</span><br><span class="line">  list.forEach(new Consumer&lt;String&gt;()&#123;</span><br><span class="line">      @Override</span><br><span class="line">      public void accept(String s)&#123;</span><br><span class="line">System.out.println(s);&#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  //也可以使用Lambda表达式</span><br><span class="line">  list.forEach(str-&gt; System.out.println(str));</span><br></pre></td></tr></table></figure>
+
+<p>注意：forEach与当前线程方法是异步执行的，但是当前线程改变原有的集合，并不会影响forEach遍历的对象。可能是使用了ThreadLocal。</p>
+<p>​    Iterator子接口LinkedIterator在它的基础上增加了add(),previous(),hasprevious()。对于无序集合，如HashSet、HashMap等就使用Iterator。对于有序集合比LinkedList、LinkedHashMap等,就使用LinkedIterator，能前后遍历。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2019/06/19/JVM方法区的变更-字符串常量池/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -840,7 +1183,7 @@
               
                 <a href="/max.github.io/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

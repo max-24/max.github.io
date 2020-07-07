@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/max.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/max.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/max.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/max.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/max.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/max.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/max.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="spring,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介Aop解释为面向切面编程，之前接触的都是面向对象编程，那么可能在不相关的多个类中，都会有类似日志、安全等功能的实现，那么就会使代码冗余并且不易维护。这时采用面向切面编程，将这些功能定义在一个切面中，然后在代码的执行中纵切进入。这就是Aop的核心思想，本文先介绍Aop涉及的重要类的注册和增强器的筛选过程。">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringAop源码解析——增强器筛选">
+<meta property="og:url" content="http://yoursite.com/2020/07/07/SpringAop源码解析——增强器筛选/index.html">
+<meta property="og:site_name" content="The Blog">
+<meta property="og:description" content="简介Aop解释为面向切面编程，之前接触的都是面向对象编程，那么可能在不相关的多个类中，都会有类似日志、安全等功能的实现，那么就会使代码冗余并且不易维护。这时采用面向切面编程，将这些功能定义在一个切面中，然后在代码的执行中纵切进入。这就是Aop的核心思想，本文先介绍Aop涉及的重要类的注册和增强器的筛选过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop1.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop2.png">
+<meta property="og:image" content="http://yoursite.com/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop3.png">
+<meta property="og:updated_time" content="2020-07-07T15:41:00.633Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringAop源码解析——增强器筛选">
+<meta name="twitter:description" content="简介Aop解释为面向切面编程，之前接触的都是面向对象编程，那么可能在不相关的多个类中，都会有类似日志、安全等功能的实现，那么就会使代码冗余并且不易维护。这时采用面向切面编程，将这些功能定义在一个切面中，然后在代码的执行中纵切进入。这就是Aop的核心思想，本文先介绍Aop涉及的重要类的注册和增强器的筛选过程。">
+<meta name="twitter:image" content="http://yoursite.com/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/max.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/07/SpringAop源码解析——增强器筛选/">
+
+
+
+
+
+  <title>SpringAop源码解析——增强器筛选 | The Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/max.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Max</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/max.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/max.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/max.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/max.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/max.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Max">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/max.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringAop源码解析——增强器筛选</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-07T23:30:26+08:00">
+                2020-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/max.github.io/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>Aop解释为面向切面编程，之前接触的都是面向对象编程，那么可能在不相关的多个类中，都会有类似日志、安全等功能的实现，那么就会使代码冗余并且不易维护。这时采用面向切面编程，将这些功能定义在一个切面中，然后在代码的执行中纵切进入。这就是Aop的核心思想，本文先介绍Aop涉及的重要类的注册和增强器的筛选过程。</p>
+<a id="more"></a>
+
+
+
+
+
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>先看下一个配置的栗子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogAspects</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(public int com.max.aop.MathCalculator.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointCut</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"pointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logStart</span><span class="params">(JoinPoint joinPoint)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"执行前—— —— ——"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(<span class="string">"com.max.aop.LogAspects.pointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logEnd</span><span class="params">(JoinPoint joinPoint)</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"执行后—— —— ——"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(value=<span class="string">"pointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logReturn</span><span class="params">(JoinPoint joinPoint)</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"正常返回—— —— ——"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(value=<span class="string">"pointCut()"</span>,throwing=<span class="string">"exception"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logException</span><span class="params">(JoinPoint joinPoint,Exception exception)</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"发生异常—— —— ——"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MathCalculator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">div</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MathCalculator...div..."</span>);</span><br><span class="line">        <span class="keyword">return</span> i/j;	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Aop注解配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainConfigOfAOP</span> </span>&#123;</span><br><span class="line">	 </span><br><span class="line">    <span class="comment">//业务逻辑类加入容器中</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MathCalculator <span class="title">calculator</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> MathCalculator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//切面类加入到容器中</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LogAspects <span class="title">logAspects</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> LogAspects();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>div(2,1)</code>结果：</p>
+<p><img src="/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop1.png" alt="aop1"></p>
+<p>本文介绍的Aop是基于@EnableAspectJAutoProxy注解的，其实Spring自己也有经典实现，基于<code>ProxyFactoryBean</code>配置。在《Spring技术内幕》书中介绍的就是这种实现。</p>
+<h5 id="AnnotationAwareAspectJAutoProxyCreator注册"><a href="#AnnotationAwareAspectJAutoProxyCreator注册" class="headerlink" title="AnnotationAwareAspectJAutoProxyCreator注册"></a>AnnotationAwareAspectJAutoProxyCreator注册</h5><p>从@EnableAspectJAutoProxy注解出发，可以看到导入了<code>AspectJAutoProxyRegistrar.class</code>这个类，字面意思是切面自动代理注册。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import</span>(AspectJAutoProxyRegistrar.class)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAspectJAutoProxy &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再看这个类做了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">AspectJAutoProxyRegistrar</span> <span class="keyword">implements</span> <span class="title">ImportBeanDefinitionRegistrar</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinitions</span><span class="params">(AnnotationMetadata importingClassMetadata, </span></span></span><br><span class="line"><span class="function"><span class="params">            BeanDefinitionRegistry registry)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        AopConfigUtils.registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry);</span><br><span class="line">        AnnotationAttributes enableAspectJAutoProxy =</span><br><span class="line">             AnnotationConfigUtils.attributesFor(importingClassMetadata, EnableAspectJAutoProxy.class);</span><br><span class="line">        <span class="keyword">if</span> (enableAspectJAutoProxy.getBoolean(<span class="string">"proxyTargetClass"</span>)) &#123;</span><br><span class="line">             AopConfigUtils.forceAutoProxyCreatorToUseClassProxying(registry);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (enableAspectJAutoProxy.getBoolean(<span class="string">"exposeProxy"</span>)) &#123;</span><br><span class="line">            AopConfigUtils.forceAutoProxyCreatorToExposeProxy(registry);</span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重点就是第一行代码注册<code>AspectJAnnotationAutoProxyCreator.class</code>，后面的是设置<code>proxyTargetClass</code>、<code>exposeProxy</code>属性。</p>
+<ol>
+<li><p>注册<code>AspectJAnnotationAutoProxyCreator.class</code></p>
+<p>最终调用至下面方法： </p>
+<p><code>AnnotationAwareAspectJAutoProxyCreator.class</code>即参数cls。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> BeanDefinition <span class="title">registerOrEscalateApcAsRequired</span><span class="params">(Class&lt;?&gt; cls, BeanDefinitionRegistry registry, Object source)</span> </span>&#123;</span><br><span class="line">       Assert.notNull(registry, <span class="string">"BeanDefinitionRegistry must not be null"</span>);</span><br><span class="line">       <span class="comment">//ioc容器beandefinition中包含AUTO_PROXY_CREATOR_BEAN_NAME定义</span></span><br><span class="line">       <span class="comment">//其值为"org.springframework.aop.config.internalAutoProxyCreator"</span></span><br><span class="line">       <span class="keyword">if</span> (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) &#123;</span><br><span class="line">           BeanDefinition apcDefinition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);</span><br><span class="line">           <span class="keyword">if</span> (!cls.getName().equals(apcDefinition.getBeanClassName())) &#123;</span><br><span class="line">               <span class="comment">//根据优先级设置bean的类名称</span></span><br><span class="line">               <span class="keyword">int</span> currentPriority = findPriorityForClass(apcDefinition.getBeanClassName());</span><br><span class="line">               <span class="keyword">int</span> requiredPriority = findPriorityForClass(cls);</span><br><span class="line">               <span class="keyword">if</span> (currentPriority &lt; requiredPriority) &#123;</span><br><span class="line">                  apcDefinition.setBeanClassName(cls.getName());</span><br><span class="line">               &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//没有包含则创建RootBeanDefinition，注册AspectJ自动代理创建器</span></span><br><span class="line">       RootBeanDefinition beanDefinition = <span class="keyword">new</span> RootBeanDefinition(cls);</span><br><span class="line">       beanDefinition.setSource(source);</span><br><span class="line">       beanDefinition.getPropertyValues().add(<span class="string">"order"</span>, Ordered.HIGHEST_PRECEDENCE);</span><br><span class="line">       beanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);</span><br><span class="line">       registry.registerBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME, beanDefinition);</span><br><span class="line">       <span class="keyword">return</span> beanDefinition;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样容器中就有 <code>AnnotationAwareAspectJAutoProxyCreator.class</code>的beandefinition定义了，在容器的启动过程中注入该bean。</p>
+<blockquote>
+<p>看下这个类的继承关系</p>
+</blockquote>
+<p><img src="/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop2.png" alt="aop2"><br>其实现了<code>BeanPostProcessor</code>和<code>BeanFactoryAware</code>接口，也是一种后置处理器。在IOC容器启动过程中，在执行<code>refresh()</code>方法时，其中<code>registerBeanPostProcessors(beanFactory)</code>这一步骤，注册容器中的拦截bean的创建的后置处理器bean processors。<code>AnnotationAwareAspectJAutoProxyCreator</code>会在这个过程中创建，其后就可以在需要增强的bean创建过程中拦截并代理。</p>
+<ul>
+<li><p>简单看下这个类的注册</p>
+<p><code>registerBeanPostProcessors(beanFactory)</code>先取得所有实现了<code>BeanPostProcessor</code>接口的bean，然后注册实现了<code>PriorityOrdered</code>优先级的bean，再注册实现<code>Ordered</code>优先级的bean，最后注册没有实现优先级接口的bean。<code>AnnotationAwareAspectJAutoProxyCreator</code>实现了<code>Ordered</code>接口，在第二个过程中注册。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Next, register the BeanPostProcessors that implement Ordered.</span></span><br><span class="line">List&lt;BeanPostProcessor&gt; orderedPostProcessors = <span class="keyword">new</span>    </span><br><span class="line">    ArrayList&lt;BeanPostProcessor&gt;();</span><br><span class="line"><span class="keyword">for</span> (String ppName : orderedPostProcessorNames) &#123;</span><br><span class="line">    BeanPostProcessor pp = beanFactory.getBean(ppName, BeanPostProcessor.</span><br><span class="line">        <span class="class"><span class="keyword">class</span>)</span>;</span><br><span class="line">    orderedPostProcessors.add(pp);</span><br><span class="line">    <span class="keyword">if</span> (pp <span class="keyword">instanceof</span> MergedBeanDefinitionPostProcessor) &#123;</span><br><span class="line">        internalPostProcessors.add(pp);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">sortPostProcessors(orderedPostProcessors, beanFactory);</span><br><span class="line">registerBeanPostProcessors(beanFactory, orderedPostProcessors);</span><br></pre></td></tr></table></figure>
+
+<p><code>getBean()</code>的过程在前面IOC相关文章介绍了，这里就不再赘述。</p>
+<h5 id="增强器的筛选"><a href="#增强器的筛选" class="headerlink" title="增强器的筛选"></a>增强器的筛选</h5><p>上面介绍了注册<code>AnnotationAwareAspectJAutoProxyCreator</code>后置处理器后，在需要增强的bean创建过程中拦截代理，那么这个过程具体怎么样的？</p>
+<p><img src="/max.github.io/2020/07/07/SpringAop源码解析——增强器筛选/aop3.png" alt="aop3"></p>
+<p>发生拦截代理的过程在<code>initializeBean</code>中的<code>applyBeanPostProcessorsAfterInitialization</code>方法中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">applyBeanPostProcessorsAfterInitialization</span><span class="params">(Object   </span></span></span><br><span class="line"><span class="function"><span class="params">            existingBean,  String beanName)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">    Object result = existingBean;</span><br><span class="line">    <span class="comment">//容器中的所有后置处理器对bean进行处理，这里只看Aop自动代理创建器这种处理器</span></span><br><span class="line">    <span class="keyword">for</span> (BeanPostProcessor beanProcessor : getBeanPostProcessors()) &#123;</span><br><span class="line">        result = beanProcessor.postProcessAfterInitialization(result,   </span><br><span class="line">                 beanName);</span><br><span class="line">        <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用的是<code>AbstractAutoProxyCreator</code>的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (bean != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Object cacheKey = getCacheKey(bean.getClass(), beanName);</span><br><span class="line">        <span class="comment">//如果bean适合被代理增强，则进行包装增强</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.earlyProxyReferences.contains(cacheKey)) &#123;</span><br><span class="line">           <span class="keyword">return</span> wrapIfNecessary(bean, beanName, cacheKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>wrapIfNecessary</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">protected</span> Object <span class="title">wrapIfNecessary</span><span class="params">(Object bean, String beanName, Object </span></span></span><br><span class="line"><span class="function"><span class="params">       cacheKey)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//如果已经处理过直接返回</span></span><br><span class="line">       <span class="keyword">if</span> (beanName != <span class="keyword">null</span> &amp;&amp; <span class="keyword">this</span>.targetSourcedBeans.contains(beanName)) &#123;</span><br><span class="line">           <span class="keyword">return</span> bean;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//如果无需增强</span></span><br><span class="line">       <span class="keyword">if</span> (Boolean.FALSE.equals(<span class="keyword">this</span>.advisedBeans.get(cacheKey))) &#123;</span><br><span class="line">           <span class="keyword">return</span> bean;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//如果bean是基础设施类或者配置了指定不需代理的bean，标识无需增强并返回</span></span><br><span class="line">       <span class="comment">//基础设施类比如Pointcut、Advice、Advisor等接口</span></span><br><span class="line">       <span class="keyword">if</span> (isInfrastructureClass(bean.getClass()) || shouldSkip(bean.getClass(), beanName)) &#123;</span><br><span class="line">           <span class="keyword">this</span>.advisedBeans.put(cacheKey, Boolean.FALSE);</span><br><span class="line">           <span class="keyword">return</span> bean;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取Bean的增强器</span></span><br><span class="line">       Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass</span><br><span class="line">                 (), beanName, <span class="keyword">null</span>);</span><br><span class="line">       <span class="comment">//针对性进行代理</span></span><br><span class="line">       <span class="keyword">if</span> (specificInterceptors != DO_NOT_PROXY) &#123;</span><br><span class="line">           <span class="keyword">this</span>.advisedBeans.put(cacheKey, Boolean.TRUE);</span><br><span class="line">           Object proxy = createProxy(</span><br><span class="line">                  bean.getClass(), beanName, specificInterceptors, <span class="keyword">new</span> </span><br><span class="line">                  SingletonTargetSource(bean));</span><br><span class="line">           <span class="keyword">this</span>.proxyTypes.put(cacheKey, proxy.getClass());</span><br><span class="line">           <span class="keyword">return</span> proxy;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">this</span>.advisedBeans.put(cacheKey, Boolean.FALSE);</span><br><span class="line">       <span class="keyword">return</span> bean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>wrapIfNecessary</code>的过程主要是描述对Bean是否进行增强和创建代理的顶层逻辑。</p>
+<p>1、如果Bean已经处理了或者无需增强，直接返回。如果是基础设施类或者配置了不需要代理，也返回。</p>
+<p>2、否则对Bean进行增强方法获取，进行增强器的筛选。</p>
+<p>3、根据获取的增强器针对性地对Bean进行代理增强。</p>
+<ol start="2">
+<li>getAdvicesAndAdvisorsForBean</li>
+</ol>
+<p>调用的是<code>AbstractAdvisorAutoProxyCreator</code>的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">protected</span> Object[] getAdvicesAndAdvisorsForBean(Class&lt;?&gt; beanClass, String </span><br><span class="line">       beanName, TargetSource targetSource) &#123;</span><br><span class="line">       <span class="comment">//寻找该bean的增强器</span></span><br><span class="line">       List&lt;Advisor&gt; advisors = findEligibleAdvisors(beanClass, beanName);</span><br><span class="line">       <span class="comment">//增强器列表为空，不代理</span></span><br><span class="line">       <span class="keyword">if</span> (advisors.isEmpty()) &#123;</span><br><span class="line">           <span class="keyword">return</span> DO_NOT_PROXY;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//否则返回增强器数组</span></span><br><span class="line">       <span class="keyword">return</span> advisors.toArray();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> List&lt;Advisor&gt; <span class="title">findEligibleAdvisors</span><span class="params">(Class&lt;?&gt; beanClass, String </span></span></span><br><span class="line"><span class="function"><span class="params">             beanName)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//找到bean的所有候选增强器</span></span><br><span class="line">       List&lt;Advisor&gt; candidateAdvisors = findCandidateAdvisors();</span><br><span class="line">       <span class="comment">//对候选增强器进行筛选，找出合适的</span></span><br><span class="line">       List&lt;Advisor&gt; eligibleAdvisors = findAdvisorsThatCanApply</span><br><span class="line">                        (candidateAdvisors, beanClass, beanName);</span><br><span class="line">       <span class="comment">//进行扩展</span></span><br><span class="line">       extendAdvisors(eligibleAdvisors);</span><br><span class="line">       <span class="keyword">if</span> (!eligibleAdvisors.isEmpty()) &#123;</span><br><span class="line">          <span class="comment">//对合适的增强器进行排序</span></span><br><span class="line">          eligibleAdvisors = sortAdvisors(eligibleAdvisors);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> eligibleAdvisors;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>getAdvicesAndAdvisorsForBean</code>是给Bean选出合适的增强器：<br>    1、找出所有的候选增强器<br>    2、对候选增强器进行筛选，选出合适的<br>    3、对选出的增强器列表进行扩展<br>    4、对增强器列表进行排序</p>
+<ol start="3">
+<li>findCandidateAdvisors</li>
+</ol>
+<p>调用的是<code>AnnotationAwareAspectJAutoProxyCreator</code>自己的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">protected</span> List&lt;Advisor&gt; <span class="title">findCandidateAdvisors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//调用父类方法加载配置文件中的AOP声明</span></span><br><span class="line">       List&lt;Advisor&gt; advisors = <span class="keyword">super</span>.findCandidateAdvisors();</span><br><span class="line">	<span class="comment">//再添加注解中定义的增强器</span></span><br><span class="line">       advisors.addAll(<span class="keyword">this</span>.aspectJAdvisorsBuilder.buildAspectJAdvisors());</span><br><span class="line">       <span class="keyword">return</span> advisors;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Spring有两种方法配置Aop，一种是XML配置，另一种是注解配置。使用注解方式获取增强器并不是抛弃了XML配置方法，会先获取XML配置的增强器，然后获取注解配置的。</p>
+<p>看下怎么从父类方法获取增强器</p>
+<p>调用的是<code>AbstractAdvisorAutoProxyCreator</code>的方法,<code>advisorRetrievalHelper</code>是类的一个属性。如果在XML配置中配置了增强方法，如After、Before等，会被解析为<code>Advisor</code>类型的Bean，添加到容器中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">protected</span> List&lt;Advisor&gt; <span class="title">findCandidateAdvisors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">this</span>.advisorRetrievalHelper.findAdvisorBeans();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> List&lt;Advisor&gt; <span class="title">findAdvisorBeans</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">// Determine list of advisor bean names, if not cached already.</span></span><br><span class="line">       String[] advisorNames = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">           <span class="comment">//缓存的Advisor类型Bean，即增强器</span></span><br><span class="line">           advisorNames = <span class="keyword">this</span>.cachedAdvisorBeanNames;</span><br><span class="line">           <span class="comment">//如果缓存中为空，到容器中寻找，然后添加到缓存</span></span><br><span class="line">           <span class="keyword">if</span> (advisorNames == <span class="keyword">null</span>) &#123;</span><br><span class="line">                advisorNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors</span><br><span class="line">                     (<span class="keyword">this</span>.beanFactory, Advisor.class, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">			<span class="keyword">this</span>.cachedAdvisorBeanNames = advisorNames;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">       <span class="comment">//没有找到Advisor类型Bean</span></span><br><span class="line">	<span class="keyword">if</span> (advisorNames.length == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> LinkedList&lt;Advisor&gt;();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	List&lt;Advisor&gt; advisors = <span class="keyword">new</span> LinkedList&lt;Advisor&gt;();</span><br><span class="line">	<span class="comment">//如果找到了Advisor类型Bean</span></span><br><span class="line">       <span class="keyword">for</span> (String name : advisorNames) &#123;</span><br><span class="line">		<span class="keyword">if</span> (isEligibleBean(name)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.beanFactory.isCurrentlyInCreation(name)) &#123;</span><br><span class="line">				<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">					logger.debug(<span class="string">"Skipping currently created advisor '"</span> + name + <span class="string">"'"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">                       <span class="comment">//从容器中获取并添加到advisors增强器列表中</span></span><br><span class="line">					advisors.add(<span class="keyword">this</span>.beanFactory.getBean(name, Advisor.class));</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">catch</span> (BeanCreationException ex) &#123;</span><br><span class="line">					Throwable rootCause = ex.getMostSpecificCause();</span><br><span class="line">					<span class="keyword">if</span> (rootCause <span class="keyword">instanceof</span> BeanCurrentlyInCreationException) &#123;</span><br><span class="line">						BeanCreationException bce = (BeanCreationException) rootCause;</span><br><span class="line">						<span class="keyword">if</span> (<span class="keyword">this</span>.beanFactory.isCurrentlyInCreation(bce.getBeanName())) &#123;</span><br><span class="line">							<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">								logger.debug(<span class="string">"Skipping advisor '"</span> + name +</span><br><span class="line">										<span class="string">"' with dependency on currently created bean: "</span> + ex.getMessage());</span><br><span class="line">							&#125;</span><br><span class="line">							<span class="comment">// Ignore: indicates a reference back to the bean we're trying to advise.</span></span><br><span class="line">							<span class="comment">// We want to find advisors other than the currently created bean itself.</span></span><br><span class="line">							<span class="keyword">continue</span>;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">throw</span> ex;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> advisors;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个过程并不复杂，XML配置的增强器会被解析成<code>Advisor</code>类型，然后添加到容器中。<code>findCandidateAdvisors</code>方法先查看缓存中是否有AdvisorBean，没有则从容器中寻找。最后将找到的Advisor类型Bean添加到增强器列表中。</p>
+<blockquote>
+<p>接下来再看怎么从注解方式配置中获取增强器</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">public</span> List&lt;Advisor&gt; <span class="title">buildAspectJAdvisors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//获取切面类的Bean名称</span></span><br><span class="line">       List&lt;String&gt; aspectNames = <span class="keyword">this</span>.aspectBeanNames;</span><br><span class="line">       <span class="keyword">if</span> (aspectNames == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">               aspectNames = <span class="keyword">this</span>.aspectBeanNames;</span><br><span class="line">               <span class="keyword">if</span> (aspectNames == <span class="keyword">null</span>) &#123;</span><br><span class="line">                   List&lt;Advisor&gt; advisors = <span class="keyword">new</span> LinkedList&lt;Advisor&gt;();</span><br><span class="line">                   aspectNames = <span class="keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">                   <span class="comment">//如果缓存中没有切面类Bean名称，从容器中获取所有Bean的名称</span></span><br><span class="line">                   String[] beanNames = BeanFactoryUtils.</span><br><span class="line">                       beanNamesForTypeIncludingAncestors(</span><br><span class="line">						<span class="keyword">this</span>.beanFactory, Object.class, <span class="keyword">true</span>, <span class="keyword">false</span>);</span><br><span class="line">				<span class="comment">//遍历</span></span><br><span class="line">                   <span class="keyword">for</span> (String beanName : beanNames) &#123;</span><br><span class="line">                       <span class="comment">//不合法的Baen跳过</span></span><br><span class="line">                       <span class="keyword">if</span> (!isEligibleBean(beanName)) &#123;</span><br><span class="line">						<span class="keyword">continue</span>;</span><br><span class="line">					&#125;</span><br><span class="line">                       Class&lt;?&gt; beanType = <span class="keyword">this</span>.beanFactory.getType(beanName);</span><br><span class="line">                       <span class="keyword">if</span> (beanType == <span class="keyword">null</span>) &#123;</span><br><span class="line">                          <span class="keyword">continue</span>;</span><br><span class="line">                       &#125;</span><br><span class="line">                       <span class="comment">//是Aspect类型</span></span><br><span class="line">                       <span class="comment">//通过this.advisorFactory.getAdvisors(factory)获取每个切面</span></span><br><span class="line">                       <span class="comment">//类的增强器,都放在advisors中</span></span><br><span class="line">                       <span class="keyword">if</span> (<span class="keyword">this</span>.advisorFactory.isAspect(beanType)) &#123;</span><br><span class="line">                           aspectNames.add(beanName);</span><br><span class="line">                           AspectMetadata amd = <span class="keyword">new</span> AspectMetadata(beanType, </span><br><span class="line">                                beanName);</span><br><span class="line">                           <span class="comment">//单例类型的</span></span><br><span class="line">                           <span class="keyword">if</span> (amd.getAjType().getPerClause().getKind() == </span><br><span class="line">                               PerClauseKind.SINGLETON) &#123;</span><br><span class="line">                               MetadataAwareAspectInstanceFactory factory =</span><br><span class="line">                                   <span class="keyword">new</span> BeanFactoryAspectInstanceFactory(<span class="keyword">this</span>.</span><br><span class="line">                                                      beanFactory, beanName);</span><br><span class="line">							List&lt;Advisor&gt; classAdvisors = <span class="keyword">this</span>.advisorFactory.</span><br><span class="line">                                                         getAdvisors(factory);</span><br><span class="line">                               <span class="keyword">if</span> (<span class="keyword">this</span>.beanFactory.isSingleton(beanName)) &#123;</span><br><span class="line">								<span class="keyword">this</span>.advisorsCache.put(beanName,    </span><br><span class="line">                                        classAdvisors);</span><br><span class="line">							&#125;</span><br><span class="line">							<span class="keyword">else</span> &#123;</span><br><span class="line">							  <span class="keyword">this</span>.aspectFactoryCache.put(beanName, factory);</span><br><span class="line">							&#125;</span><br><span class="line">							advisors.addAll(classAdvisors);</span><br><span class="line">						&#125; </span><br><span class="line">             <span class="comment">//多例类型</span></span><br><span class="line">						<span class="keyword">else</span> &#123;</span><br><span class="line">							<span class="comment">// Per target or per this.</span></span><br><span class="line">							<span class="keyword">if</span> (<span class="keyword">this</span>.beanFactory.isSingleton(beanName)) &#123;</span><br><span class="line">								<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Bean with name '"</span> + beanName +</span><br><span class="line">										<span class="string">"' is a singleton, but aspect instantiation model is not singleton"</span>);</span><br><span class="line">							&#125;</span><br><span class="line">							MetadataAwareAspectInstanceFactory factory =</span><br><span class="line">									<span class="keyword">new</span> PrototypeAspectInstanceFactory(<span class="keyword">this</span>.beanFactory, beanName);</span><br><span class="line">							<span class="keyword">this</span>.aspectFactoryCache.put(beanName, factory);</span><br><span class="line">							advisors.addAll(<span class="keyword">this</span>.advisorFactory.getAdvisors(factory));</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">this</span>.aspectBeanNames = aspectNames;</span><br><span class="line">				<span class="keyword">return</span> advisors;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (aspectNames.isEmpty()) &#123;</span><br><span class="line">		<span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">	&#125;</span><br><span class="line">       <span class="comment">//如果缓存有切面类BeanName</span></span><br><span class="line">	List&lt;Advisor&gt; advisors = <span class="keyword">new</span> LinkedList&lt;Advisor&gt;();</span><br><span class="line">       <span class="comment">//遍历所有的切面类，如果能从其缓存中获取到对应的增强器方法，直接添加到advisors。</span></span><br><span class="line">       <span class="comment">//否则通过this.advisorFactory.getAdvisors(factory)获取</span></span><br><span class="line">	<span class="keyword">for</span> (String aspectName : aspectNames) &#123;</span><br><span class="line">		List&lt;Advisor&gt; cachedAdvisors = <span class="keyword">this</span>.advisorsCache.get(aspectName);</span><br><span class="line">		<span class="keyword">if</span> (cachedAdvisors != <span class="keyword">null</span>) &#123;</span><br><span class="line">			advisors.addAll(cachedAdvisors);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			MetadataAwareAspectInstanceFactory factory = <span class="keyword">this</span>.aspectFactoryCache.get(aspectName);</span><br><span class="line">			advisors.addAll(<span class="keyword">this</span>.advisorFactory.getAdvisors(factory));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> advisors;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从注解配置中获取增强器：</p>
+<p>1、缓存中没有aspectNames，从容器中获取。遍历所有的类型Bean，找到是Aspect类型，然后通过advisorFactory.getAdvisors(factory)获取其定义的增强器。添加到advisors列表中。</p>
+<p>2、缓存中有aspectNames,遍历所有的切面类Bean，从其缓存中获取增强器或者通过advisorFactory.getAdvisors(factory)获取其定义的增强器。添加到advisors列表。</p>
+<blockquote>
+<p>那么getAdvisors()是怎么进行获取增强器的？</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">public</span> List&lt;Advisor&gt; <span class="title">getAdvisors</span><span class="params">(MetadataAwareAspectInstanceFactory </span></span></span><br><span class="line"><span class="function"><span class="params">           aspectInstanceFactory)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//获取标记为AspectJ的class</span></span><br><span class="line">       Class&lt;?&gt; aspectClass = aspectInstanceFactory.getAspectMetadata().</span><br><span class="line">                getAspectClass();</span><br><span class="line">       <span class="comment">//获取标记为AspectJ的name</span></span><br><span class="line">	String aspectName = aspectInstanceFactory.getAspectMetadata().</span><br><span class="line">                getAspectName();</span><br><span class="line">       <span class="comment">//验证</span></span><br><span class="line">	validate(aspectClass);</span><br><span class="line">       MetadataAwareAspectInstanceFactory lazySingletonAspectInstanceFactory </span><br><span class="line">           =<span class="keyword">new</span> LazySingletonAspectInstanceFactoryDecorator</span><br><span class="line">                (aspectInstanceFactory);</span><br><span class="line">       List&lt;Advisor&gt; advisors = <span class="keyword">new</span> LinkedList&lt;Advisor&gt;();</span><br><span class="line">       <span class="comment">//获取切面类所有的增强方法，排除注解为Pointcut的方法</span></span><br><span class="line">	<span class="keyword">for</span> (Method method : getAdvisorMethods(aspectClass)) &#123;</span><br><span class="line">           <span class="comment">//提取Advisor增强器</span></span><br><span class="line">           Advisor advisor = getAdvisor(method, </span><br><span class="line">               lazySingletonAspectInstanceFactory, advisors.size(), aspectName);</span><br><span class="line">		<span class="keyword">if</span> (advisor != <span class="keyword">null</span>) &#123;</span><br><span class="line">			advisors.add(advisor);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">       <span class="comment">//如果增强器不为空且配置了增强延迟初始化，在首位加入同步实例化增强器</span></span><br><span class="line">       <span class="keyword">if</span> (!advisors.isEmpty() &amp;&amp; lazySingletonAspectInstanceFactory. </span><br><span class="line">           getAspectMetadata().isLazilyInstantiated()) &#123;</span><br><span class="line">		Advisor instantiationAdvisor = <span class="keyword">new</span> SyntheticInstantiationAdvisor</span><br><span class="line">                   (lazySingletonAspectInstanceFactory);</span><br><span class="line">           advisors.add(<span class="number">0</span>, instantiationAdvisor);</span><br><span class="line">	&#125;</span><br><span class="line">       <span class="comment">//获取DeclaredParents注解</span></span><br><span class="line">	<span class="keyword">for</span> (Field field : aspectClass.getDeclaredFields()) &#123;</span><br><span class="line">           Advisor advisor = getDeclareParentsAdvisor(field);</span><br><span class="line">           <span class="keyword">if</span> (advisor != <span class="keyword">null</span>) &#123;</span><br><span class="line">              advisors.add(advisor);</span><br><span class="line">           &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> advisors;</span><br><span class="line">&#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">//提取Advisor增强器</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Advisor <span class="title">getAdvisor</span><span class="params">(Method candidateAdviceMethod, </span></span></span><br><span class="line"><span class="function"><span class="params">                MetadataAwareAspectInstanceFactory aspectInstanceFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">		             <span class="keyword">int</span> declarationOrderInAspect, String aspectName)</span> </span>&#123;</span><br><span class="line">       validate(aspectInstanceFactory.getAspectMetadata().getAspectClass());</span><br><span class="line">       <span class="comment">//获取Pointcut表达式信息</span></span><br><span class="line">       AspectJExpressionPointcut expressionPointcut = getPointcut(</span><br><span class="line">               candidateAdviceMethod, aspectInstanceFactory.getAspectMetadata().</span><br><span class="line">               getAspectClass());</span><br><span class="line">       <span class="keyword">if</span> (expressionPointcut == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//封装成Advisor增强器</span></span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> InstantiationModelAwarePointcutAdvisorImpl(expressionPointcut, </span><br><span class="line">              candidateAdviceMethod,</span><br><span class="line">		<span class="keyword">this</span>, aspectInstanceFactory, declarationOrderInAspect, aspectName);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>getAdvisor()</code>获取增强器的流程：</p>
+<p>1、获取当前AspectJ切面类的类型、名称，然后进行验证</p>
+<p>2、<code>getAdvisorMethods()</code>获取除Pointcut注解之外的增强器方法，遍历：提取方法的Pointcut表达式信息，再封装成<code>InstantiationModelAwarePointcutAdvisorImpl</code>增强器。</p>
+<blockquote>
+<p>看下根据Pointcut表达式封装成Advisor增强器的具体过程：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">InstantiationModelAwarePointcutAdvisorImpl</span><span class="params">(AspectJExpressionPointcut </span></span></span><br><span class="line"><span class="function"><span class="params">        declaredPointcut,Method aspectJAdviceMethod, AspectJAdvisorFactory </span></span></span><br><span class="line"><span class="function"><span class="params">        aspectJAdvisorFactory,MetadataAwareAspectInstanceFactory </span></span></span><br><span class="line"><span class="function"><span class="params">        aspectInstanceFactory, <span class="keyword">int</span> declarationOrder, String aspectName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.declaredPointcut = declaredPointcut;</span><br><span class="line">    <span class="keyword">this</span>.declaringClass = aspectJAdviceMethod.getDeclaringClass();</span><br><span class="line">    <span class="keyword">this</span>.methodName = aspectJAdviceMethod.getName();    </span><br><span class="line"></span><br><span class="line">    . . . . . .    </span><br><span class="line">        </span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// A singleton aspect.</span></span><br><span class="line">			<span class="keyword">this</span>.pointcut = <span class="keyword">this</span>.declaredPointcut;</span><br><span class="line">			<span class="keyword">this</span>.lazy = <span class="keyword">false</span>;</span><br><span class="line">            <span class="comment">// 解析Advisor</span></span><br><span class="line">			<span class="keyword">this</span>.instantiatedAdvice = instantiateAdvice(<span class="keyword">this</span>.declaredPointcut);</span><br><span class="line">	    &#125;       </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>封装Advisor增强器，只是进行一些初始化赋值操作，但是不同增强器是具有不同的功能，比如@Before、@After一个在方法执行前，一个在方法执行后。这个过程就是在<code>instantiateAdvice()</code>进行的。</p>
+<p>最终调用<code>ReflectiveAspectJAdvisorFactory</code>中的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Advice <span class="title">getAdvice</span><span class="params">(Method candidateAdviceMethod, AspectJExpressionPointcut </span></span></span><br><span class="line"><span class="function"><span class="params">            expressionPointcut,MetadataAwareAspectInstanceFactory </span></span></span><br><span class="line"><span class="function"><span class="params">            aspectInstanceFactory, <span class="keyword">int</span> declarationOrder, String aspectName)</span> </span>&#123;</span><br><span class="line">		Class&lt;?&gt; candidateAspectClass = aspectInstanceFactory.getAspectMetadata().</span><br><span class="line">                  getAspectClass();</span><br><span class="line">		validate(candidateAspectClass);</span><br><span class="line">        AspectJAnnotation&lt;?&gt; aspectJAnnotation =</span><br><span class="line">				AbstractAspectJAdvisorFactory.findAspectJAnnotationOnMethod</span><br><span class="line">                 (candidateAdviceMethod);</span><br><span class="line">		<span class="keyword">if</span> (aspectJAnnotation == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!isAspect(candidateAspectClass)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> AopConfigException(<span class="string">"Advice must be declared inside an aspect type: "</span> +</span><br><span class="line">					<span class="string">"Offending method '"</span> + candidateAdviceMethod + <span class="string">"' in class ["</span> +</span><br><span class="line">					candidateAspectClass.getName() + <span class="string">"]"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">			logger.debug(<span class="string">"Found AspectJ method: "</span> + candidateAdviceMethod);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		AbstractAspectJAdvice springAdvice;</span><br><span class="line">        <span class="comment">//增强方法不同的注解对应不同的增强器</span></span><br><span class="line">		<span class="keyword">switch</span> (aspectJAnnotation.getAnnotationType()) &#123;</span><br><span class="line">			<span class="comment">//@fBefore注解</span></span><br><span class="line">            <span class="keyword">case</span> AtBefore:</span><br><span class="line">				springAdvice = <span class="keyword">new</span> AspectJMethodBeforeAdvice(</span><br><span class="line">						candidateAdviceMethod, expressionPointcut, </span><br><span class="line">                        aspectInstanceFactory);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//@After注解</span></span><br><span class="line">			<span class="keyword">case</span> AtAfter:</span><br><span class="line">				springAdvice = <span class="keyword">new</span> AspectJAfterAdvice(</span><br><span class="line">						candidateAdviceMethod, expressionPointcut, </span><br><span class="line">                        aspectInstanceFactory);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//@AfterReturning注解</span></span><br><span class="line">			<span class="keyword">case</span> AtAfterReturning:</span><br><span class="line">				springAdvice = <span class="keyword">new</span> AspectJAfterReturningAdvice(</span><br><span class="line">						candidateAdviceMethod, expressionPointcut, </span><br><span class="line">                        aspectInstanceFactory);</span><br><span class="line">				AfterReturning afterReturningAnnotation = (AfterReturning) </span><br><span class="line">                                         aspectJAnnotation.getAnnotation();</span><br><span class="line">				<span class="keyword">if</span> (StringUtils.hasText(afterReturningAnnotation.returning())) &#123;</span><br><span class="line">					springAdvice.setReturningName(afterReturningAnnotation.</span><br><span class="line">                     returning());</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//@AfterThrowing注解</span></span><br><span class="line">			<span class="keyword">case</span> AtAfterThrowing:</span><br><span class="line">				springAdvice = <span class="keyword">new</span> AspectJAfterThrowingAdvice(</span><br><span class="line">						candidateAdviceMethod, expressionPointcut, </span><br><span class="line">                         aspectInstanceFactory);</span><br><span class="line">				AfterThrowing afterThrowingAnnotation = (AfterThrowing) </span><br><span class="line">                         aspectJAnnotation.getAnnotation();</span><br><span class="line">				<span class="keyword">if</span> (StringUtils.hasText(afterThrowingAnnotation.throwing())) &#123;</span><br><span class="line">					springAdvice.setThrowingName(afterThrowingAnnotation.throwing());</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//@Around注解</span></span><br><span class="line">			<span class="keyword">case</span> AtAround:</span><br><span class="line">				springAdvice = <span class="keyword">new</span> AspectJAroundAdvice(</span><br><span class="line">						candidateAdviceMethod, expressionPointcut, </span><br><span class="line">                         aspectInstanceFactory);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//@PointCut注解，不处理</span></span><br><span class="line">			<span class="keyword">case</span> AtPointcut:</span><br><span class="line">				<span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">					logger.debug(<span class="string">"Processing pointcut '"</span> + candidateAdviceMethod.</span><br><span class="line">                     getName() + <span class="string">"'"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(</span><br><span class="line">						<span class="string">"Unsupported advice type on method: "</span> + </span><br><span class="line">                         candidateAdviceMethod);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		springAdvice.setAspectName(aspectName);</span><br><span class="line">		springAdvice.setDeclarationOrder(declarationOrder);</span><br><span class="line">		<span class="comment">//获取方法参数列表名称</span></span><br><span class="line">        String[] argNames = <span class="keyword">this</span>.parameterNameDiscoverer.getParameterNames</span><br><span class="line">                            (candidateAdviceMethod);</span><br><span class="line">		<span class="keyword">if</span> (argNames != <span class="keyword">null</span>) &#123;</span><br><span class="line">			springAdvice.setArgumentNamesFromStringArray(argNames);</span><br><span class="line">		&#125;</span><br><span class="line">		springAdvice.calculateArgumentBindings();</span><br><span class="line">		<span class="keyword">return</span> springAdvice;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实主要过程就是根据之前遍历切面类的增强方法，根据其注解类型生成对应的增强器。</p>
+<ul>
+<li>看一下@Before对应的增强器<code>AspectJMethodBeforeAdvice</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AspectJMethodBeforeAdvice</span> <span class="keyword">extends</span> <span class="title">AbstractAspectJAdvice</span> <span class="keyword">implements</span> </span></span><br><span class="line"><span class="class">             <span class="title">MethodBeforeAdvice</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">AspectJMethodBeforeAdvice</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">			Method aspectJBeforeAdviceMethod, AspectJExpressionPointcut pointcut, </span></span></span><br><span class="line"><span class="function"><span class="params">            AspectInstanceFactory aif)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//调用父类的构造函数</span></span><br><span class="line">		<span class="keyword">super</span>(aspectJBeforeAdviceMethod, pointcut, aif);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行before增强方法</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		invokeAdviceMethod(getJoinPointMatch(), <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBeforeAdvice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAfterAdvice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//invokeAdviceMethod最终调用如下方法</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">invokeAdviceMethodWithGivenArgs</span><span class="params">(Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		Object[] actualArgs = args;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>.aspectJAdviceMethod.getParameterTypes().length == <span class="number">0</span>) &#123;</span><br><span class="line">			actualArgs = <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">            ReflectionUtils.makeAccessible(<span class="keyword">this</span>.aspectJAdviceMethod);</span><br><span class="line">			<span class="comment">// 利用反射执行Before前置增强方法</span></span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.aspectJAdviceMethod.invoke(<span class="keyword">this</span>.aspectInstanceFactory.</span><br><span class="line">            getAspectInstance(), actualArgs);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (IllegalArgumentException ex) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> AopInvocationException(<span class="string">"Mismatch on arguments to advice </span></span><br><span class="line"><span class="string">            method ["</span> +</span><br><span class="line">					<span class="keyword">this</span>.aspectJAdviceMethod + <span class="string">"]; pointcut expression ["</span> +</span><br><span class="line">					<span class="keyword">this</span>.pointcut.getPointcutExpression() + <span class="string">"]"</span>, ex);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (InvocationTargetException ex) &#123;</span><br><span class="line">			<span class="keyword">throw</span> ex.getTargetException();</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其它类型的增强器这里就不介绍了，至此<code>buildAspectJAdvisors()</code>获取容器中所有切面类中的增强器过程都完成了。注意此时获取的是所有的增强器，但是并不都是对<code>MathCalculator</code>进行增强的，所以还需要进行筛选操作。由于这个过程比较复杂，对切面类和增强器都进行了缓存，后面再获取时可以减少性能消耗。</p>
+<ol start="4">
+<li>findAdvisorsThatCanApply</li>
+</ol>
+<p>对候选增强器进行筛选</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> List&lt;Advisor&gt; <span class="title">findAdvisorsThatCanApply</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		List&lt;Advisor&gt; candidateAdvisors, Class&lt;?&gt; beanClass, String beanName)</span></span>&#123;</span><br><span class="line">	ProxyCreationContext.setCurrentProxiedBeanName(beanName);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> AopUtils.findAdvisorsThatCanApply(candidateAdvisors, beanClass);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">finally</span> &#123;</span><br><span class="line">		ProxyCreationContext.setCurrentProxiedBeanName(<span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Advisor&gt; <span class="title">findAdvisorsThatCanApply</span><span class="params">(List&lt;Advisor&gt; </span></span></span><br><span class="line"><span class="function"><span class="params">                 candidateAdvisors, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (candidateAdvisors.isEmpty()) &#123;</span><br><span class="line">		<span class="keyword">return</span> candidateAdvisors;</span><br><span class="line">	&#125;</span><br><span class="line">	List&lt;Advisor&gt; eligibleAdvisors = <span class="keyword">new</span> LinkedList&lt;Advisor&gt;();</span><br><span class="line">	<span class="keyword">for</span> (Advisor candidate : candidateAdvisors) &#123;</span><br><span class="line">		<span class="comment">//筛选 IntroductionAdvisor 类型的增强器</span></span><br><span class="line">           <span class="keyword">if</span> (candidate <span class="keyword">instanceof</span> IntroductionAdvisor &amp;&amp; canApply(candidate, </span><br><span class="line">               clazz)) &#123;</span><br><span class="line">			eligibleAdvisors.add(candidate);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">boolean</span> hasIntroductions = !eligibleAdvisors.isEmpty();</span><br><span class="line">	<span class="keyword">for</span> (Advisor candidate : candidateAdvisors) &#123;</span><br><span class="line">		<span class="keyword">if</span> (candidate <span class="keyword">instanceof</span> IntroductionAdvisor) &#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">           <span class="comment">//筛选普通类型的增强器</span></span><br><span class="line">		<span class="keyword">if</span> (canApply(candidate, clazz, hasIntroductions)) &#123;</span><br><span class="line">			eligibleAdvisors.add(candidate);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> eligibleAdvisors;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">canApply</span><span class="params">(Advisor advisor, Class&lt;?&gt; targetClass, <span class="keyword">boolean</span> </span></span></span><br><span class="line"><span class="function"><span class="params">                 hasIntroductions)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//从通知器中获取类型过滤器 ClassFilter，并调用 matchers 方法进行匹配。</span></span><br><span class="line">	<span class="keyword">if</span> (advisor <span class="keyword">instanceof</span> IntroductionAdvisor) &#123;</span><br><span class="line">		<span class="keyword">return</span> ((IntroductionAdvisor) advisor).getClassFilter().matches</span><br><span class="line">           (targetClass);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (advisor <span class="keyword">instanceof</span> PointcutAdvisor) &#123;</span><br><span class="line">		PointcutAdvisor pca = (PointcutAdvisor) advisor;</span><br><span class="line">           <span class="comment">//普通类型增强器筛选</span></span><br><span class="line">		<span class="keyword">return</span> canApply(pca.getPointcut(), targetClass, hasIntroductions);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// It doesn't have a pointcut so we assume it applies.</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">canApply</span><span class="params">(Pointcut pc, Class&lt;?&gt; targetClass, <span class="keyword">boolean</span> </span></span></span><br><span class="line"><span class="function"><span class="params">                 hasIntroductions)</span> </span>&#123;</span><br><span class="line">	Assert.notNull(pc, <span class="string">"Pointcut must not be null"</span>);</span><br><span class="line">	<span class="keyword">if</span> (!pc.getClassFilter().matches(targetClass)) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">       </span><br><span class="line">	MethodMatcher methodMatcher = pc.getMethodMatcher();</span><br><span class="line">	<span class="keyword">if</span> (methodMatcher == MethodMatcher.TRUE) &#123;</span><br><span class="line">		<span class="comment">// No need to iterate the methods if we're matching any method anyway...</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	IntroductionAwareMethodMatcher introductionAwareMethodMatcher = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">if</span> (methodMatcher <span class="keyword">instanceof</span> IntroductionAwareMethodMatcher) &#123;</span><br><span class="line">		introductionAwareMethodMatcher = (IntroductionAwareMethodMatcher) </span><br><span class="line">           methodMatcher;</span><br><span class="line">	&#125;</span><br><span class="line">       <span class="comment">//查找当前类的父类和其实现的接口</span></span><br><span class="line">	Set&lt;Class&lt;?&gt;&gt; classes = <span class="keyword">new</span> LinkedHashSet&lt;Class&lt;?&gt;&gt;(ClassUtils.</span><br><span class="line">                     getAllInterfacesForClassAsSet(targetClass));</span><br><span class="line">	classes.add(targetClass);</span><br><span class="line">       <span class="comment">//遍历这些类和接口，获取其方法，是否和增强器的表达式匹配</span></span><br><span class="line">	<span class="keyword">for</span> (Class&lt;?&gt; clazz : classes) &#123;</span><br><span class="line">		Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);</span><br><span class="line">		<span class="keyword">for</span> (Method method : methods) &#123;</span><br><span class="line">			<span class="keyword">if</span> ((introductionAwareMethodMatcher != <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">					introductionAwareMethodMatcher.matches(method, </span><br><span class="line">                       targetClass, hasIntroductions)) ||</span><br><span class="line">					methodMatcher.matches(method, targetClass)) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>findAdvisorsThatCanApply</code>筛选增强器的过程：</p>
+<p>1、筛选 IntroductionAdvisor 类型的增强器</p>
+<p>2、筛选普通类型的增强器：查找目标类的所有父类和接口，遍历这些类，通过反射获取每个类的所有方法，然后和增强器表达式进行匹配。方法匹配成功的说明是合适的增强器。</p>
+<ol start="5">
+<li>extendAdvisors(eligibleAdvisors)</li>
+</ol>
+<p>扩展合适的增强器列表，其实就是在列表首位增加一个拦截器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">extendAdvisors</span><span class="params">(List&lt;Advisor&gt; candidateAdvisors)</span> </span>&#123;</span><br><span class="line">	AspectJProxyUtils.makeAdvisorChainAspectJCapableIfNecessary</span><br><span class="line">       (candidateAdvisors);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">makeAdvisorChainAspectJCapableIfNecessary</span><span class="params">(List&lt;Advisor&gt; advisors)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// Don't add advisors to an empty list; may indicate that proxying is just not required</span></span><br><span class="line">	<span class="keyword">if</span> (!advisors.isEmpty()) &#123;</span><br><span class="line">		<span class="keyword">boolean</span> foundAspectJAdvice = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (Advisor advisor : advisors) &#123;</span><br><span class="line">			<span class="keyword">if</span> (isAspectJAdvice(advisor)) &#123;</span><br><span class="line">				foundAspectJAdvice = <span class="keyword">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (foundAspectJAdvice &amp;&amp; !advisors.contains</span><br><span class="line">                          (ExposeInvocationInterceptor.ADVISOR)) &#123;</span><br><span class="line">               <span class="comment">//添加DefaultPointcutAdvisor增强器</span></span><br><span class="line">			advisors.add(<span class="number">0</span>, ExposeInvocationInterceptor.ADVISOR);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>至此，Aop的第一篇介绍就完了。主要介绍了注解配置Aop方式的重要类<code>AnnotationAwareAspectJAutoProxyCreator</code>的注册,待增强Bean在获取过程中被拦截代理：获取候选增强器和筛选合适的增强器，扩展增强器列表。剩余的步骤对增强Bean创建代理的过程在下一篇文章介绍。</p>
+<blockquote>
+<p>参考</p>
+</blockquote>
+<ul>
+<li>《Spring源码深度解析》</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/max.github.io/tags/spring/" rel="tag"># spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/max.github.io/2020/05/28/SpringIOC源码解析-bean属性填充解析/" rel="next" title="SpringIOC源码解析-bean属性填充解析">
+                <i class="fa fa-chevron-left"></i> SpringIOC源码解析-bean属性填充解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/max.github.io/2020/07/07/SpringAop源码解析——代理对象的创建和增强器的执行/" rel="prev" title="SpringAop源码解析——代理对象的创建和增强器的执行">
+                SpringAop源码解析——代理对象的创建和增强器的执行 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/max.github.io/images/avatar.jpg" alt="Max">
+            
+              <p class="site-author-name" itemprop="name">Max</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/max.github.io/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/max.github.io/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/max.github.io/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例子"><span class="nav-number">2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AnnotationAwareAspectJAutoProxyCreator注册"><span class="nav-number">3.</span> <span class="nav-text">AnnotationAwareAspectJAutoProxyCreator注册</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增强器的筛选"><span class="nav-number">4.</span> <span class="nav-text">增强器的筛选</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Max</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/max.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/max.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/max.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/max.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/max.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
